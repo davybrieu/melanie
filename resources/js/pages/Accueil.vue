@@ -63,7 +63,7 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
                     </h1>
                     <p class="mt-5 inline-flex items-center gap-2 text-taupe-600">
                         <Icone nom="localisation" class="size-5 text-or-500" />
-                        Dijon, Chenôve &amp; alentours
+                        Déplacements sur Dijon et alentours
                     </p>
                     <p class="mt-7">
                         <span class="manuscrit relative isolate inline-block px-6 pt-3 pb-1 text-[1.95rem] sm:text-[2.5rem]">

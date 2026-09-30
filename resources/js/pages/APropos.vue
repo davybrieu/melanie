@@ -87,7 +87,7 @@ const raisons = [
     { icone: 'bouclier', titre: 'La sécurité de bébé avant tout', texte: 'Des positions naturelles et une vigilance de chaque instant pendant les séances nouveau-né.' },
     { icone: 'brin', titre: 'Une expérience simple & agréable', texte: 'Des conseils pour se préparer, le prêt de tenues inclus, et un vrai moment à partager.' },
     { icone: 'coeurs', titre: 'Des souvenirs qui vous ressemblent', texte: 'Chaque séance est pensée avec vous, selon vos envies et votre histoire.' },
-    { icone: 'localisation', titre: 'Tout près de chez vous', texte: 'Installée à Chenôve, je me déplace à Dijon et dans ses alentours.' },
+    { icone: 'localisation', titre: 'Tout près de chez vous', texte: 'Déplacements sur Dijon et alentours.' },
 ];
 </script>
 

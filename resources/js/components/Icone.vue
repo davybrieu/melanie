@@ -67,7 +67,7 @@ const icones = {
     'chevron-droit': ['M9.5 5.5 16 12l-6.5 6.5'],
     'chevron-bas': ['M6 9.5l6 6 6-6'],
     plus: ['M12 5v14M5 12h14'],
-    menu: ['M3.5 8h17M3.5 16h17'],
+    menu: ['M3.5 6.5h17M3.5 12h17M3.5 17.5h17'],
     fermer: ['M6 6l12 12M18 6 6 18'],
     check: ['M5 12.5l4.5 4.5L19 7.5'],
 };

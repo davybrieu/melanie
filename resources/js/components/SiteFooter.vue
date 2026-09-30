@@ -58,7 +58,7 @@ const colonnes = [
                     <ul class="mt-5 space-y-3 text-[0.95rem]">
                         <li class="inline-flex items-start gap-2.5">
                             <Icone nom="localisation" class="mt-0.5 size-5 shrink-0 text-or-500" />
-                            <span>{{ site.commune }}, près de {{ site.ville }}<br /><span class="text-taupe-500">Déplacements sur Dijon et alentours</span></span>
+                            <span>Déplacements sur Dijon et alentours</span>
                         </li>
                         <li v-if="site.telephone">
                             <a :href="site.telephoneUrl" class="inline-flex items-center gap-2.5 transition-colors hover:text-brique">
