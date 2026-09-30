@@ -3,7 +3,9 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 use Inertia\Middleware;
+use Tighten\Ziggy\Ziggy;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -37,7 +39,12 @@ class HandleInertiaRequests extends Middleware
     {
         return [
             ...parent::share($request),
-            //
+            // Config Ziggy pour le rendu SSR ; « once » évite de la renvoyer
+            // à chaque navigation (le navigateur utilise @routes).
+            'ziggy' => Inertia::once(fn () => [
+                ...(new Ziggy)->toArray(),
+                'location' => $request->url(),
+            ]),
         ];
     }
 }

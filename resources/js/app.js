@@ -1,4 +1,5 @@
 import { createInertiaApp } from '@inertiajs/vue3';
+import { ZiggyVue } from 'ziggy-js';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -6,6 +7,14 @@ const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 // @inertiajs/vite résout les pages de ./pages et génère le serveur SSR.
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
+    withApp(app, { ssr, page }) {
+        // Dans le navigateur, Ziggy lit la config injectée par @routes ;
+        // en SSR, elle arrive par la prop partagée `ziggy`.
+        app.use(
+            ZiggyVue,
+            ssr ? { ...page.props.ziggy, location: new URL(page.props.ziggy.location) } : undefined,
+        );
+    },
     progress: {
         color: '#4B5563',
     },

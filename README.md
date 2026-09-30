@@ -1,6 +1,6 @@
 # Melanie
 
-Laravel 13 · Vue 3 · Inertia v3 (SSR) · Tailwind CSS 4 · interface en français.
+Laravel 13 · Vue 3 · Inertia v3 (SSR) · Ziggy · Tailwind CSS 4 · interface en français.
 
 ## Prérequis
 
@@ -35,9 +35,30 @@ Sans serveur SSR actif, Inertia revient automatiquement au rendu côté client. 
 
 ## Structure
 
+L'application est vide : aucune route, aucune page.
+
+- `routes/web.php` : routes (ex. `Route::inertia('/', 'Accueil')->name('accueil')`)
+- `resources/js/pages/` : pages Inertia (ex. `Accueil.vue`)
 - `resources/js/app.js` : point d'entrée client **et** SSR
-- `resources/js/pages/` : pages Inertia (ex. `Route::inertia('/', 'Welcome')`)
-- `resources/views/app.blade.php` : template racine
+- `resources/views/app.blade.php` : template racine Inertia
+
+## Routes côté Vue (Ziggy)
+
+Dans les templates, `route()` est disponible directement :
+
+```vue
+<Link :href="route('accueil')">Accueil</Link>
+```
+
+Dans `<script setup>`, passer par `inject` pour que le code fonctionne aussi en SSR :
+
+```vue
+<script setup>
+import { inject } from 'vue';
+
+const route = inject('route');
+</script>
+```
 
 ## Traductions
 
