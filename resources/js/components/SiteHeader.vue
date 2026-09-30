@@ -27,6 +27,10 @@ function basculerMenu(ouvert = !menuOuvert.value) {
 
 watch(() => page.url, () => menuOuvert.value && basculerMenu(false));
 
+// Un lien du menu mobile ferme le menu, même s'il mène à la page déjà affichée (l'adresse ne change pas).
+// L'écoute se fait sur le <nav> : un @click posé sur <Link> serait remplacé par celui d'Inertia.
+const fermerSiLien = (evenement) => evenement.target.closest('a') && basculerMenu(false);
+
 const surDefilement = () => (defile.value = window.scrollY > 12);
 const echap = (evenement) => evenement.key === 'Escape' && menuOuvert.value && basculerMenu(false);
 
@@ -110,8 +114,10 @@ onBeforeUnmount(() => {
             </button>
         </div>
 
-        <nav aria-label="Navigation mobile" class="relative flex flex-1 flex-col items-center justify-center gap-10 px-6 pb-16">
-            <img src="/images/marque/monogramme-mp.webp" width="480" height="252" alt="" class="h-12 w-auto" />
+        <nav aria-label="Navigation mobile" class="relative flex flex-1 flex-col items-center justify-center gap-10 px-6 pb-16" @click="fermerSiLien">
+            <Link :href="route('accueil')" class="block" aria-label="Mélanie Photographie, accueil">
+                <img src="/images/marque/monogramme-mp.webp" width="480" height="252" alt="" class="h-12 w-auto" />
+            </Link>
             <ul class="space-y-5 text-center">
                 <li v-for="lien in navigation" :key="lien.route">
                     <Link
