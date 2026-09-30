@@ -89,7 +89,7 @@ La commande `php artisan seo:generer` (`app/Console/Commands/GenererFichiersSeo.
 
 ## Production
 
-- `APP_URL` doit être l'URL https du site : les URL canoniques, le sitemap, `robots.txt` et `llms.txt` en dépendent.
+- `APP_URL` doit être l'URL https avec www (`https://www.melanie-photographie.fr`) : les URL canoniques, le sitemap, `robots.txt` et `llms.txt` en dépendent. En production, le middleware global `RedirigerVersWww` redirige en 301 le domaine sans www vers cet hôte (les fichiers statiques ne passent pas par Laravel).
 - À chaque déploiement : `npm run build` puis `php artisan seo:generer`. Garder `php artisan inertia:start-ssr` actif et installer la tâche cron `schedule:run` de Laravel.
 - Conserver `storage/app/private/seo/empreintes.json` d'un déploiement à l'autre, sinon toutes les dates `<lastmod>` repartent du jour de la génération.
 - Sans serveur SSR actif, le site reste fonctionnel en rendu côté client.

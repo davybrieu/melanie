@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\HandleInertiaRequests;
+use App\Http\Middleware\RedirigerVersWww;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -15,6 +16,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // En production : melanie-photographie.fr → www.melanie-photographie.fr (hôte de APP_URL).
+        $middleware->prepend(RedirigerVersWww::class);
+
         $middleware->web(append: [
             HandleInertiaRequests::class,
         ]);
