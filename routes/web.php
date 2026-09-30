@@ -4,7 +4,6 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PortfolioController;
-use App\Http\Controllers\SitemapController;
 use App\Support\Photos;
 use Illuminate\Support\Facades\Route;
 
@@ -31,8 +30,6 @@ Route::post('/contact', [ContactController::class, 'store'])->middleware('thrott
 Route::get('/mentions-legales', [PageController::class, 'mentionsLegales'])->name('mentions-legales');
 Route::get('/confidentialite', [PageController::class, 'confidentialite'])->name('confidentialite');
 Route::get('/cgv', [PageController::class, 'cgv'])->name('cgv');
-
-Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 
 // Variantes WebP des photos (générées à la première demande)
 Route::get('/photos/{largeur}/{dossier}/{fichier}', PhotoController::class)

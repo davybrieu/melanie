@@ -30,12 +30,27 @@ Lance le serveur Laravel, la file d'attente et Vite. En développement, le SSR p
 
 ```bash
 npm run build                 # bundle client (public/build) + bundle SSR (bootstrap/ssr)
+php artisan seo:generer       # sitemap.xml, robots.txt et llms.txt (à relancer à chaque déploiement)
 php artisan inertia:start-ssr # serveur SSR Node, à garder actif (Supervisor, etc.)
+```
+
+Tâche cron à ajouter sur le serveur (planificateur Laravel) :
+
+```
+* * * * * cd /chemin/du/site && php artisan schedule:run >> /dev/null 2>&1
 ```
 
 Dans le `.env` de production : `APP_URL=https://melanie-photographie.fr` (URL canoniques et sitemap), `APP_ENV=production`, `APP_DEBUG=false`, et la configuration SMTP (`MAIL_*`) pour recevoir les demandes de contact.
 
 Sans serveur SSR actif, le site reste fonctionnel (rendu côté client). Les dossiers `public/photos` (variantes d'images) et `storage` doivent être accessibles en écriture.
+
+## Sitemap, robots.txt et llms.txt
+
+`php artisan seo:generer` écrit `public/sitemap.xml`, `public/robots.txt` et `public/llms.txt`. Elle tourne automatiquement chaque nuit à 4 h (heure de Paris).
+
+Chaque page est rendue comme pour un visiteur, puis réduite à une empreinte de son contenu (titre, description, texte et photos). Le `<lastmod>` du sitemap ne change que si cette empreinte change : une page non modifiée garde sa date, même si la commande tourne tous les jours. Les changements de style ou d'en-tête/pied de page ne comptent pas. Les empreintes sont mémorisées dans `storage/app/private/seo/empreintes.json` : conservez ce fichier d'un déploiement à l'autre (comme le reste de `storage`), sinon toutes les dates repartent du jour de la génération.
+
+`llms.txt` reprend les titres et descriptions réels des pages (prix compris). La liste des pages publiées se règle dans `config/seo.php`.
 
 ## Photos
 
@@ -50,6 +65,7 @@ Déposez les photos dans `resources/photos/` : le site les redimensionne et les 
 | Questions / réponses de la FAQ | `resources/js/data/faq.js` |
 | E-mail de contact, téléphone, délai de réponse | `.env` (`SITE_EMAIL`, `SITE_TELEPHONE`, `SITE_DELAI_REPONSE`) et `config/site.php` |
 | Textes des pages | `resources/js/pages/*.vue` |
+| Pages du sitemap et de llms.txt | `config/seo.php` |
 
 ## Avant la mise en ligne
 
@@ -62,7 +78,7 @@ Déposez les photos dans `resources/photos/` : le site les redimensionne et les 
 ## Structure
 
 - `routes/web.php` : pages du site (silo `/photographe-{séance}-dijon`, `/portfolio/{catégorie}`…)
-- `app/Http/Controllers` : pages, portfolio, contact, sitemap, photos
+- `app/Http/Controllers` : pages, portfolio, contact, photos · `app/Console/Commands` : commande `seo:generer`
 - `resources/js/pages/` : pages Inertia · `resources/js/components/` : composants (DA) · `resources/js/layouts/` : en-tête et pied de page
 - `resources/js/app.js` : point d'entrée client **et** SSR
 - `resources/views/app.blade.php` : template racine · `resources/views/mail/` : e-mail de demande de contact
