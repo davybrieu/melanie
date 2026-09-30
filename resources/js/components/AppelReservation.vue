@@ -41,7 +41,7 @@ const route = inject('route');
 
             <p class="mt-8 inline-flex items-center gap-2.5 text-sm text-taupe-600">
                 <Icone nom="voiture" class="size-5 text-or-500" />
-                Je me déplace sur Dijon et alentours · Places limitées
+                Je me déplace sur Dijon et alentours
             </p>
         </div>
     </section>

@@ -1,7 +1,6 @@
 <script setup>
 import { Link, usePage } from '@inertiajs/vue3';
 import { inject, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { useSite } from '../composables/useSite';
 import { navigation } from '../data/navigation';
 import Bouton from './Bouton.vue';
 import Fleur from './Fleur.vue';
@@ -9,7 +8,6 @@ import Icone from './Icone.vue';
 
 const route = inject('route');
 const page = usePage();
-const site = useSite();
 
 const menuOuvert = ref(false);
 const defile = ref(false);
@@ -123,9 +121,6 @@ onBeforeUnmount(() => {
                 </li>
             </ul>
             <Bouton :href="route('contact')">Réserver ma séance</Bouton>
-            <a :href="site.instagramUrl" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-sm text-taupe-600 hover:text-cacao-800">
-                <Icone nom="instagram" class="size-5" /> @{{ site.instagram }}
-            </a>
         </nav>
     </div>
 </template>

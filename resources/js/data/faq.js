@@ -80,7 +80,7 @@ export const faqNouveauNe = [
     },
     {
         q: 'Pourquoi réserver sa séance nouveau-né pendant la grossesse ?',
-        r: `<p>Parce que la période idéale est courte et que les places sont limitées. En réservant pendant la grossesse, je bloque une période autour de votre terme ; vous me prévenez à la naissance et nous fixons la date ensemble.</p>`,
+        r: `<p>Parce que la période idéale est courte : en réservant pendant la grossesse, je bloque une période autour de votre terme ; vous me prévenez à la naissance et nous fixons la date ensemble.</p>`,
     },
     {
         q: 'Séance photo nouveau-né avec les frères et sœurs',
@@ -158,7 +158,7 @@ export const faqTarifs = [
     },
     {
         q: 'Combien de temps à l’avance faut-il réserver ?',
-        r: `<p>Le plus tôt possible, car les places sont limitées : dès le 5e mois pour une séance grossesse, pendant la grossesse pour une séance nouveau-né, et trois à quatre semaines à l’avance pour une séance famille.</p>`,
+        r: `<p>Le plus tôt possible : dès le 5e mois pour une séance grossesse, pendant la grossesse pour une séance nouveau-né, et trois à quatre semaines à l’avance pour une séance famille.</p>`,
     },
     {
         q: 'Faut-il verser un acompte pour réserver ?',

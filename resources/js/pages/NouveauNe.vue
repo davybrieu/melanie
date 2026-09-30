@@ -45,7 +45,7 @@ const engagements = [
 ];
 
 const etapes = [
-    { titre: 'Pendant la grossesse', texte: 'Vous réservez : je bloque une période autour de votre terme, les places étant limitées.' },
+    { titre: 'Pendant la grossesse', texte: 'Vous réservez : je bloque une période autour de votre terme.' },
     { titre: 'À la naissance', texte: 'Un petit message pour m’annoncer l’arrivée de bébé, et nous fixons la date, idéalement entre 5 et 15 jours.' },
     { titre: 'Le jour J', texte: `Je viens chez vous : ${seance.duree} tout en douceur, à son rythme, avec pauses tétées et câlins.` },
     { titre: 'Vos souvenirs', texte: `Vous choisissez vos ${photosIncluses} photos préférées, que je retouche et vous livre en haute définition.` },
@@ -160,6 +160,6 @@ const moments = ['Bébé paisiblement endormi', 'Blotti dans vos bras', 'Ses min
     <AppelReservation
         seance="nouveau-ne"
         titre="Réservez pendant la grossesse"
-        texte="La période idéale est courte et les places sont limitées : réservez dès maintenant, nous fixerons la date exacte après la naissance de bébé."
+        texte="La période idéale est courte : réservez dès maintenant, nous fixerons la date exacte après la naissance de bébé."
     />
 </template>
