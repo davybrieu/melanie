@@ -42,7 +42,7 @@ Tâche cron à ajouter sur le serveur (planificateur Laravel) :
 
 Dans le `.env` de production : `APP_URL=https://www.melanie-photographie.fr` (URL canoniques et sitemap), `APP_ENV=production`, `APP_DEBUG=false`, et la configuration SMTP (`MAIL_*`) pour recevoir les demandes de contact.
 
-En production, `melanie-photographie.fr` redirige (301) vers `www.melanie-photographie.fr`. Les deux domaines doivent pointer vers le serveur (DNS) et être couverts par le certificat SSL. Les fichiers statiques (images, `sitemap.xml`…) sont servis directement par le serveur web, sans passer par Laravel : pour les rediriger aussi, ajoutez la même règle dans la configuration du serveur.
+En production, `melanie-photographie.fr` redirige (301) vers `www.melanie-photographie.fr`. Les deux domaines doivent pointer vers le serveur (DNS) et être couverts par le certificat SSL. Côté Nginx, `www.melanie-photographie.fr` doit servir le site : aucune redirection de www vers le domaine sans www (réglage par défaut de certains panneaux d'hébergement), sinon les deux redirections tournent en boucle. Les fichiers statiques (images, `sitemap.xml`…) sont servis directement par le serveur web, sans passer par Laravel : pour les rediriger aussi, ajoutez la même règle dans la configuration du serveur.
 
 Sans serveur SSR actif, le site reste fonctionnel (rendu côté client). Les dossiers `public/photos` (variantes d'images) et `storage` doivent être accessibles en écriture.
 
