@@ -1,5 +1,9 @@
 // Données structurées schema.org (JSON-LD) réutilisées par plusieurs pages.
 
+import { euros, seances } from './seances';
+
+const prix = Object.values(seances).map((seance) => seance.prix);
+
 export const faqJsonLd = (questions) => ({
     '@type': 'FAQPage',
     mainEntity: questions.map(({ q, r }) => ({
@@ -19,7 +23,7 @@ export const entrepriseJsonLd = (site) => ({
     logo: `${site.url}/images/marque/logo-mb-photographie.png`,
     email: site.email,
     ...(site.telephone ? { telephone: site.telephone } : {}),
-    priceRange: '60 € – 200 €',
+    priceRange: `${euros(Math.min(...prix))} – ${euros(Math.max(...prix))}`,
     address: {
         '@type': 'PostalAddress',
         addressLocality: site.commune,

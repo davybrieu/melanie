@@ -59,7 +59,6 @@ const moments = [
         </p>
         <div class="mt-9 flex flex-wrap justify-center gap-4 lg:justify-start">
             <Bouton :href="route('contact', { seance: 'famille' })">Réserver ma séance</Bouton>
-            <Bouton href="#tarif" variante="contour">Voir le tarif</Bouton>
         </div>
     </EnTetePage>
 

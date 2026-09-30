@@ -12,7 +12,7 @@ import Seo from '../components/Seo.vue';
 import TitreSection from '../components/TitreSection.vue';
 import { useSite } from '../composables/useSite';
 import { faqTarifs } from '../data/faq';
-import { euros, pack, photoSupplementaire, seances } from '../data/seances';
+import { euros, photoSupplementaire, seances } from '../data/seances';
 import { faqJsonLd, serviceJsonLd } from '../data/seo';
 
 defineProps({
@@ -22,7 +22,7 @@ defineProps({
 const route = inject('route');
 const site = useSite();
 
-const offres = [seances.grossesse, seances['nouveau-ne'], seances.famille, pack];
+const offres = [seances.grossesse, seances['nouveau-ne'], seances.famille];
 
 // Questions tarifs les plus utiles ici ; la liste complète est sur la page FAQ.
 const questions = faqTarifs.filter((_, i) => [1, 2, 3, 4, 7, 8, 10, 14].includes(i));
@@ -50,7 +50,7 @@ const engagements = [
 <template>
     <Seo
         titre="Tarifs des séances photo grossesse, nouveau-né & famille"
-        :description="`Tarifs de lancement : séance grossesse ${euros(seances.grossesse.prix)}, nouveau-né ${euros(seances['nouveau-ne'].prix)}, famille ${euros(seances.famille.prix)}, pack grossesse + nouveau-né ${euros(pack.prix)}. Prêt de tenues et 10 photos retouchées inclus.`"
+        :description="`Tarifs de lancement : séance grossesse ${euros(seances.grossesse.prix)}, nouveau-né ${euros(seances['nouveau-ne'].prix)}, famille ${euros(seances.famille.prix)}. Prêt de tenues et 10 photos retouchées inclus.`"
         :json-ld="jsonLd"
     />
 

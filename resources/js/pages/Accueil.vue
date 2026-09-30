@@ -11,7 +11,7 @@ import Seo from '../components/Seo.vue';
 import Separateur from '../components/Separateur.vue';
 import TitreSection from '../components/TitreSection.vue';
 import { useSite } from '../composables/useSite';
-import { euros, pack, photoSupplementaire, photosIncluses, seances } from '../data/seances';
+import { euros, photoSupplementaire, photosIncluses, seances } from '../data/seances';
 import { entrepriseJsonLd } from '../data/seo';
 
 const props = defineProps({
@@ -34,7 +34,7 @@ const engagements = [
     { icone: 'coeurs', texte: 'Des souvenirs qui vous ressemblent' },
 ];
 
-const offres = [...Object.values(seances), pack];
+const offres = Object.values(seances);
 const prixMini = Math.min(...offres.map((offre) => offre.prix));
 
 const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mosaique : Array(6).fill(null)));
@@ -190,14 +190,14 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
     <section class="py-24 sm:py-32">
         <div class="conteneur">
             <TitreSection surtitre="Offre de lancement" coeurs titre="Tarifs" majuscules />
-            <ul class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                <li v-for="offre in offres" :key="offre.cle" class="rounded-2xl border border-creme-300 bg-creme-50 px-6 py-8 text-center">
+            <ul class="mt-12 grid gap-5 md:grid-cols-3">
+                <li v-for="offre in offres" :key="offre.cle" class="flex flex-col rounded-2xl border border-creme-300 bg-creme-50 px-6 py-8 text-center">
                     <span class="mx-auto grid size-16 place-items-center rounded-full bg-poudre-100 text-cacao-800">
                         <Icone :nom="offre.icone" class="size-8" />
                     </span>
                     <h3 class="mt-5 text-lg tracking-[0.1em] uppercase">{{ offre.nom }}</h3>
                     <p class="manuscrit mt-1 text-[1.75rem]">{{ offre.accroche }}</p>
-                    <p class="mt-4 font-serif text-4xl text-brique">{{ euros(offre.prix) }}</p>
+                    <p class="mt-auto pt-4 font-serif text-4xl text-brique">{{ euros(offre.prix) }}</p>
                 </li>
             </ul>
             <p class="mt-8 text-center text-[0.95rem] text-taupe-600">

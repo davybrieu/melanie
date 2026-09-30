@@ -14,7 +14,7 @@ import Seo from '../components/Seo.vue';
 import TitreSection from '../components/TitreSection.vue';
 import { useSite } from '../composables/useSite';
 import { faqNouveauNe } from '../data/faq';
-import { euros, pack, photosIncluses, seances } from '../data/seances';
+import { euros, photosIncluses, seances } from '../data/seances';
 import { faqJsonLd, serviceJsonLd } from '../data/seo';
 
 const props = defineProps({
@@ -73,7 +73,6 @@ const moments = ['Bébé paisiblement endormi', 'Blotti dans vos bras', 'Ses min
         </p>
         <div class="mt-9 flex flex-wrap justify-center gap-4 lg:justify-start">
             <Bouton :href="route('contact', { seance: 'nouveau-ne' })">Réserver pendant la grossesse</Bouton>
-            <Bouton href="#securite" variante="contour">Sécurité de bébé</Bouton>
         </div>
     </EnTetePage>
 
@@ -134,13 +133,11 @@ const moments = ['Bébé paisiblement endormi', 'Blotti dans vos bras', 'Ses min
     <section id="tarif" class="py-20 sm:py-28">
         <div class="conteneur max-w-4xl">
             <TitreSection surtitre="Offre de lancement" coeurs titre="Tarif de la séance nouveau-né" />
-            <div class="mt-12 space-y-5">
+            <div class="mt-12">
                 <CarteTarif :offre="seance" />
-                <CarteTarif :offre="pack" />
             </div>
-            <p class="mt-8 text-center text-[0.95rem] text-taupe-600">
-                Avec le pack, vous immortalisez aussi votre ventre rond.
-                <Bouton :href="route('tarifs')" variante="lien" class="ml-2">Tous les tarifs</Bouton>
+            <p class="mt-8 text-center">
+                <Bouton :href="route('tarifs')" variante="lien">Tous les tarifs</Bouton>
             </p>
         </div>
     </section>

@@ -13,7 +13,7 @@ import Seo from '../components/Seo.vue';
 import TitreSection from '../components/TitreSection.vue';
 import { useSite } from '../composables/useSite';
 import { faqGrossesse } from '../data/faq';
-import { euros, pack, photosIncluses, seances } from '../data/seances';
+import { euros, photosIncluses, seances } from '../data/seances';
 import { faqJsonLd, serviceJsonLd } from '../data/seo';
 
 const props = defineProps({
@@ -65,7 +65,6 @@ const infos = [
         </p>
         <div class="mt-9 flex flex-wrap justify-center gap-4 lg:justify-start">
             <Bouton :href="route('contact', { seance: 'grossesse' })">Réserver ma séance</Bouton>
-            <Bouton href="#tarif" variante="contour">Voir le tarif</Bouton>
         </div>
     </EnTetePage>
 
@@ -118,13 +117,11 @@ const infos = [
     <section id="tarif" class="py-20 sm:py-28">
         <div class="conteneur max-w-4xl">
             <TitreSection surtitre="Offre de lancement" coeurs titre="Tarif de la séance grossesse" />
-            <div class="mt-12 space-y-5">
+            <div class="mt-12">
                 <CarteTarif :offre="seance" />
-                <CarteTarif :offre="pack" />
             </div>
-            <p class="mt-8 text-center text-[0.95rem] text-taupe-600">
-                Le pack réunit la séance grossesse et la séance nouveau-né de bébé.
-                <Bouton :href="route('tarifs')" variante="lien" class="ml-2">Tous les tarifs</Bouton>
+            <p class="mt-8 text-center">
+                <Bouton :href="route('tarifs')" variante="lien">Tous les tarifs</Bouton>
             </p>
         </div>
     </section>

@@ -1,5 +1,5 @@
 import { conditions as c } from './conditions';
-import { euros, pack, photoSupplementaire, photosIncluses, seances } from './seances';
+import { euros, photoSupplementaire, photosIncluses, seances } from './seances';
 
 // Réponses en HTML (liens internes gérés par le composant Faq).
 const g = seances.grossesse;
@@ -80,7 +80,7 @@ export const faqNouveauNe = [
     },
     {
         q: 'Pourquoi réserver sa séance nouveau-né pendant la grossesse ?',
-        r: `<p>Parce que la période idéale est courte et que les places sont limitées. En réservant pendant la grossesse, je bloque une période autour de votre terme ; vous me prévenez à la naissance et nous fixons la date ensemble. Avec le <a href="/tarifs">pack grossesse + nouveau-né</a>, les deux séances sont réservées en une fois.</p>`,
+        r: `<p>Parce que la période idéale est courte et que les places sont limitées. En réservant pendant la grossesse, je bloque une période autour de votre terme ; vous me prévenez à la naissance et nous fixons la date ensemble.</p>`,
     },
     {
         q: 'Séance photo nouveau-né avec les frères et sœurs',
@@ -122,7 +122,7 @@ export const faqFamille = [
 export const faqTarifs = [
     {
         q: 'Quels sont les tarifs des séances photo ?',
-        r: `<p>Dans le cadre de mon offre de lancement :</p><ul><li>séance grossesse : ${euros(g.prix)} ;</li><li>séance nouveau-né : ${euros(n.prix)} ;</li><li>séance famille : ${euros(f.prix)} ;</li><li>pack grossesse + nouveau-né : ${euros(pack.prix)}.</li></ul><p>Tous les détails sont sur la page <a href="/tarifs">tarifs</a>.</p>`,
+        r: `<p>Dans le cadre de mon offre de lancement :</p><ul><li>séance grossesse : ${euros(g.prix)} ;</li><li>séance nouveau-né : ${euros(n.prix)} ;</li><li>séance famille : ${euros(f.prix)}.</li></ul><p>Tous les détails sont sur la page <a href="/tarifs">tarifs</a>.</p>`,
     },
     {
         q: 'Qu’est-ce qui est inclus dans le tarif de la séance ?',
@@ -146,7 +146,7 @@ export const faqTarifs = [
     },
     {
         q: 'Proposes-tu des collections ou des forfaits grossesse + nouveau-né ?',
-        r: `<p>Oui : le pack grossesse + nouveau-né à ${euros(pack.prix)} réunit les deux séances, pour suivre votre histoire du ventre rond aux premiers jours de bébé.</p>`,
+        r: `<p>Pas pour le moment : les séances grossesse (${euros(g.prix)}) et nouveau-né (${euros(n.prix)}) se réservent séparément. Vous pouvez tout à fait réserver les deux en même temps, pendant la grossesse : je bloque alors une période autour de votre terme pour la séance nouveau-né.</p>`,
     },
     {
         q: 'Les frais de déplacement sont-ils compris ?',

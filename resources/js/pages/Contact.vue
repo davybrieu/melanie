@@ -97,17 +97,17 @@ const etiquette = 'text-[0.72rem] font-normal tracking-[0.2em] text-cacao-700 up
             >
                 <div class="grid gap-6 sm:grid-cols-2">
                     <div>
-                        <label for="prenom" :class="etiquette">Prénom</label>
+                        <label for="prenom" :class="etiquette">Prénom <span class="text-rouge" aria-hidden="true">*</span></label>
                         <input id="prenom" v-model="form.prenom" type="text" autocomplete="given-name" placeholder="Ex. : Léa" required :class="champ" :aria-invalid="!!form.errors.prenom" aria-describedby="erreur-prenom" />
                         <p v-if="form.errors.prenom" id="erreur-prenom" class="mt-2 text-sm text-brique">{{ form.errors.prenom }}</p>
                     </div>
                     <div>
-                        <label for="nom" :class="etiquette">Nom</label>
+                        <label for="nom" :class="etiquette">Nom <span class="text-rouge" aria-hidden="true">*</span></label>
                         <input id="nom" v-model="form.nom" type="text" autocomplete="family-name" placeholder="Ex. : Martin" required :class="champ" :aria-invalid="!!form.errors.nom" aria-describedby="erreur-nom" />
                         <p v-if="form.errors.nom" id="erreur-nom" class="mt-2 text-sm text-brique">{{ form.errors.nom }}</p>
                     </div>
                     <div>
-                        <label for="email" :class="etiquette">E-mail</label>
+                        <label for="email" :class="etiquette">E-mail <span class="text-rouge" aria-hidden="true">*</span></label>
                         <input id="email" v-model="form.email" type="email" autocomplete="email" placeholder="Ex. : lea.martin@exemple.fr" required :class="champ" :aria-invalid="!!form.errors.email" aria-describedby="erreur-email" />
                         <p v-if="form.errors.email" id="erreur-email" class="mt-2 text-sm text-brique">{{ form.errors.email }}</p>
                     </div>
@@ -119,7 +119,7 @@ const etiquette = 'text-[0.72rem] font-normal tracking-[0.2em] text-cacao-700 up
                 </div>
 
                 <fieldset class="mt-8">
-                    <legend :class="etiquette">Quel type de séance ?</legend>
+                    <legend :class="etiquette">Quel type de séance ? <span class="text-rouge" aria-hidden="true">*</span><span class="sr-only">(obligatoire)</span></legend>
                     <div class="mt-3 grid grid-cols-3 gap-3">
                         <label v-for="type in types" :key="type.cle" class="relative cursor-pointer">
                             <input v-model="form.seances" type="checkbox" :value="type.cle" class="peer sr-only" />
@@ -138,7 +138,7 @@ const etiquette = 'text-[0.72rem] font-normal tracking-[0.2em] text-cacao-700 up
                 <div v-if="avecTerme" class="mt-8">
                     <label for="date_accouchement" :class="etiquette">Date prévue d’accouchement</label>
                     <input id="date_accouchement" v-model="form.date_accouchement" type="date" :class="champ" aria-describedby="aide-date erreur-date" />
-                    <p id="aide-date" class="mt-2 text-sm text-taupe-500">Facultatif : cette information sert uniquement à planifier votre séance.</p>
+                    <p id="aide-date" class="mt-2 text-sm text-taupe-500">Cette information sert uniquement à planifier votre séance.</p>
                     <p v-if="form.errors.date_accouchement" id="erreur-date" class="mt-1 text-sm text-brique">{{ form.errors.date_accouchement }}</p>
                 </div>
 

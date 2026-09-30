@@ -37,16 +37,6 @@ export const seances = {
     },
 };
 
-export const pack = {
-    cle: 'pack',
-    nom: 'Pack grossesse + nouveau-né',
-    titre: 'Pack grossesse + nouveau-né',
-    accroche: 'Des souvenirs pour la vie',
-    prix: 200,
-    inclus: ['2 séances (grossesse + nouveau-né)', 'Prêt de tenues', '10 photos retouchées incluses'],
-    icone: 'coeurs',
-};
-
 export const photoSupplementaire = 10;
 
 export const photosIncluses = 10;

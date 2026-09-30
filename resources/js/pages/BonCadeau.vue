@@ -8,7 +8,7 @@ import Icone from '../components/Icone.vue';
 import Seo from '../components/Seo.vue';
 import TitreSection from '../components/TitreSection.vue';
 import { conditions } from '../data/conditions';
-import { euros, pack, seances } from '../data/seances';
+import { euros, seances } from '../data/seances';
 
 defineProps({
     photo: { type: Object, default: null },
@@ -16,10 +16,10 @@ defineProps({
 
 const route = inject('route');
 
-const offres = [seances.grossesse, seances['nouveau-ne'], seances.famille, pack];
+const offres = [seances.grossesse, seances['nouveau-ne'], seances.famille];
 
 const etapes = [
-    { titre: 'Choisissez la séance', texte: 'Grossesse, nouveau-né, famille ou le pack grossesse + nouveau-né : dites-moi ce qui ferait plaisir.' },
+    { titre: 'Choisissez la séance', texte: 'Grossesse, nouveau-né ou famille : dites-moi ce qui ferait plaisir.' },
     { titre: 'Écrivez-moi', texte: 'Via le formulaire ou sur Instagram, en précisant le prénom de la personne gâtée.' },
     { titre: 'Recevez le bon', texte: 'Je vous prépare un joli bon cadeau personnalisé, prêt à être offert.' },
     { titre: 'Place à la séance', texte: `L’heureux bénéficiaire me contacte pour réserver sa date. Le bon est valable ${conditions.validiteBonCadeau}.` },
@@ -62,14 +62,14 @@ const occasions = ['Une future maman', 'Une naissance', 'La fête des mères', '
     <section class="py-20 sm:py-28">
         <div class="conteneur">
             <TitreSection surtitre="Offre de lancement" coeurs titre="Les séances à offrir" />
-            <ul class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                <li v-for="offre in offres" :key="offre.cle" class="rounded-2xl border border-creme-300 bg-creme-50 px-6 py-8 text-center">
+            <ul class="mt-12 grid gap-5 md:grid-cols-3">
+                <li v-for="offre in offres" :key="offre.cle" class="flex flex-col rounded-2xl border border-creme-300 bg-creme-50 px-6 py-8 text-center">
                     <span class="mx-auto grid size-16 place-items-center rounded-full bg-poudre-100 text-cacao-800">
                         <Icone :nom="offre.icone" class="size-8" />
                     </span>
                     <h3 class="mt-5 text-lg tracking-[0.1em] uppercase">{{ offre.nom }}</h3>
                     <p class="manuscrit mt-1 text-[1.75rem]">{{ offre.accroche }}</p>
-                    <p class="mt-4 font-serif text-4xl text-brique">{{ euros(offre.prix) }}</p>
+                    <p class="mt-auto pt-4 font-serif text-4xl text-brique">{{ euros(offre.prix) }}</p>
                 </li>
             </ul>
 

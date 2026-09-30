@@ -4,7 +4,7 @@ import { inject } from 'vue';
 import PageLegale from '../../components/PageLegale.vue';
 import { useSite } from '../../composables/useSite';
 import { conditions as c } from '../../data/conditions';
-import { euros, pack, photoSupplementaire, photosIncluses, seances } from '../../data/seances';
+import { euros, photoSupplementaire, photosIncluses, seances } from '../../data/seances';
 
 const route = inject('route');
 const site = useSite();
@@ -29,7 +29,6 @@ const site = useSite();
             <li>séance grossesse ({{ seances.grossesse.duree }}) : {{ euros(seances.grossesse.prix) }} ;</li>
             <li>séance nouveau-né ({{ seances['nouveau-ne'].duree }}) : {{ euros(seances['nouveau-ne'].prix) }} ;</li>
             <li>séance famille ({{ seances.famille.duree }}) : {{ euros(seances.famille.prix) }} ;</li>
-            <li>pack grossesse + nouveau-né : {{ euros(pack.prix) }} ;</li>
             <li>photo supplémentaire : {{ euros(photoSupplementaire) }}.</li>
         </ul>
         <p>

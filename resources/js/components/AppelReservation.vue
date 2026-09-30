@@ -1,6 +1,5 @@
 <script setup>
 import { inject } from 'vue';
-import { useSite } from '../composables/useSite';
 import Bouton from './Bouton.vue';
 import Fleur from './Fleur.vue';
 import Icone from './Icone.vue';
@@ -19,7 +18,6 @@ defineProps({
 });
 
 const route = inject('route');
-const site = useSite();
 </script>
 
 <template>
@@ -39,7 +37,6 @@ const site = useSite();
 
             <div class="mt-9 flex flex-wrap justify-center gap-4">
                 <Bouton :href="href ?? route('contact', seance ? { seance } : {})">{{ bouton }}</Bouton>
-                <Bouton :href="site.instagramUrl" externe variante="contour" icone="instagram">Écrire sur Instagram</Bouton>
             </div>
 
             <p class="mt-8 inline-flex items-center gap-2.5 text-sm text-taupe-600">
