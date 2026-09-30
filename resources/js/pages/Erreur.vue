@@ -31,9 +31,8 @@ const message = computed(() => messages[props.statut] ?? messages[500]);
             <p class="font-script text-[6rem] leading-none text-or-500">{{ statut }}</p>
             <h1 class="mt-4 text-4xl sm:text-5xl">{{ message.titre }}</h1>
             <p class="texte-courant mt-5">{{ message.texte }}</p>
-            <div class="mt-10 flex flex-wrap justify-center gap-4">
+            <div class="mt-10">
                 <Bouton :href="route('accueil')">Retour à l’accueil</Bouton>
-                <Bouton :href="route('contact')" variante="contour">Me contacter</Bouton>
             </div>
         </div>
     </section>

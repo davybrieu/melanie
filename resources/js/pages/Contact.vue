@@ -98,22 +98,22 @@ const etiquette = 'text-[0.72rem] font-normal tracking-[0.2em] text-cacao-700 up
                 <div class="grid gap-6 sm:grid-cols-2">
                     <div>
                         <label for="prenom" :class="etiquette">Prénom</label>
-                        <input id="prenom" v-model="form.prenom" type="text" autocomplete="given-name" required :class="champ" :aria-invalid="!!form.errors.prenom" aria-describedby="erreur-prenom" />
+                        <input id="prenom" v-model="form.prenom" type="text" autocomplete="given-name" placeholder="Ex. : Léa" required :class="champ" :aria-invalid="!!form.errors.prenom" aria-describedby="erreur-prenom" />
                         <p v-if="form.errors.prenom" id="erreur-prenom" class="mt-2 text-sm text-brique">{{ form.errors.prenom }}</p>
                     </div>
                     <div>
                         <label for="nom" :class="etiquette">Nom</label>
-                        <input id="nom" v-model="form.nom" type="text" autocomplete="family-name" required :class="champ" :aria-invalid="!!form.errors.nom" aria-describedby="erreur-nom" />
+                        <input id="nom" v-model="form.nom" type="text" autocomplete="family-name" placeholder="Ex. : Martin" required :class="champ" :aria-invalid="!!form.errors.nom" aria-describedby="erreur-nom" />
                         <p v-if="form.errors.nom" id="erreur-nom" class="mt-2 text-sm text-brique">{{ form.errors.nom }}</p>
                     </div>
                     <div>
                         <label for="email" :class="etiquette">E-mail</label>
-                        <input id="email" v-model="form.email" type="email" autocomplete="email" required :class="champ" :aria-invalid="!!form.errors.email" aria-describedby="erreur-email" />
+                        <input id="email" v-model="form.email" type="email" autocomplete="email" placeholder="Ex. : lea.martin@exemple.fr" required :class="champ" :aria-invalid="!!form.errors.email" aria-describedby="erreur-email" />
                         <p v-if="form.errors.email" id="erreur-email" class="mt-2 text-sm text-brique">{{ form.errors.email }}</p>
                     </div>
                     <div>
                         <label for="telephone" :class="etiquette">Téléphone</label>
-                        <input id="telephone" v-model="form.telephone" type="tel" autocomplete="tel" :class="champ" :aria-invalid="!!form.errors.telephone" aria-describedby="erreur-telephone" />
+                        <input id="telephone" v-model="form.telephone" type="tel" autocomplete="tel" placeholder="Ex. : 06 12 34 56 78" :class="champ" :aria-invalid="!!form.errors.telephone" aria-describedby="erreur-telephone" />
                         <p v-if="form.errors.telephone" id="erreur-telephone" class="mt-2 text-sm text-brique">{{ form.errors.telephone }}</p>
                     </div>
                 </div>
