@@ -42,7 +42,6 @@ const colonnes = [
                     <Link :href="route('accueil')" class="inline-block" aria-label="MB Photographie, accueil">
                         <img src="/images/marque/logo-mb-photographie.webp" width="624" height="405" alt="MB Photographie" loading="lazy" class="w-52" />
                     </Link>
-                    <p class="surtitre mx-auto mt-5 max-w-60 text-[0.62rem]! text-balance lg:mx-0">Capturer les plus beaux moments de vie</p>
                 </div>
 
                 <nav v-for="colonne in colonnes" :key="colonne.titre" :aria-label="colonne.titre" class="text-center lg:text-left">
