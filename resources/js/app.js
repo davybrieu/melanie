@@ -1,12 +1,12 @@
 import { createInertiaApp } from '@inertiajs/vue3';
 import { ZiggyVue } from 'ziggy-js';
-
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+import SiteLayout from './layouts/SiteLayout.vue';
 
 // Ce fichier sert à la fois d'entrée client et d'entrée SSR : le plugin
 // @inertiajs/vite résout les pages de ./pages et génère le serveur SSR.
 createInertiaApp({
-    title: (title) => (title ? `${title} - ${appName}` : appName),
+    title: (title) => (title ? `${title} | Mélanie Brieu` : 'Mélanie Brieu'),
+    layout: () => SiteLayout,
     withApp(app, { ssr, page }) {
         // Dans le navigateur, Ziggy lit la config injectée par @routes ;
         // en SSR, elle arrive par la prop partagée `ziggy`.
@@ -16,6 +16,6 @@ createInertiaApp({
         );
     },
     progress: {
-        color: '#4B5563',
+        color: '#ab8556',
     },
 });

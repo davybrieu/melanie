@@ -1,9 +1,132 @@
 @import 'tailwindcss';
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-
+/* Direction artistique MB Photographie : crème, poudre, cacao et touches dorées. */
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Jost', ui-sans-serif, system-ui, sans-serif;
+    --font-serif: 'Gilda Display', ui-serif, Georgia, serif;
+    --font-script: 'Allison', cursive;
+
+    --color-creme-50: #fdfaf6;
+    --color-creme-100: #f8f2ec;
+    --color-creme-200: #f2e8de;
+    --color-creme-300: #e9dbcd;
+    --color-poudre-100: #f6e8df;
+    --color-poudre-200: #eed9cc;
+    --color-poudre-300: #e2c3b2;
+    --color-poudre-400: #cfa593;
+    --color-taupe-400: #a38d80;
+    --color-taupe-500: #846c5d;
+    --color-taupe-600: #6d584b;
+    --color-cacao-700: #5b4337;
+    --color-cacao-800: #4b3428;
+    --color-cacao-900: #2e211a;
+    --color-brique: #673928;
+    --color-or-300: #dcc39c;
+    --color-or-400: #c4a171;
+    --color-or-500: #ab8556;
+    --color-or-600: #8b6638;
+}
+
+/* Surtitres en capitales espacées, comme « OFFRE DE LANCEMENT » sur le flyer. */
+@utility surtitre {
+    @apply font-sans text-xs font-normal tracking-[0.32em] text-taupe-500 uppercase;
+}
+
+/* Écriture manuscrite (Allison) : réservée aux phrases courtes. */
+@utility manuscrit {
+    @apply font-script leading-none font-normal text-taupe-600;
+}
+
+@utility conteneur {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+}
+
+@utility texte-courant {
+    @apply text-base leading-relaxed text-cacao-700 sm:text-[1.0625rem];
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 6rem;
+        -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+        @apply bg-creme-100 font-sans font-light text-cacao-700 antialiased;
+        text-rendering: optimizeLegibility;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        @apply font-serif font-normal text-cacao-800;
+    }
+
+    ::selection {
+        @apply bg-poudre-200 text-cacao-900;
+    }
+
+    :focus-visible {
+        @apply outline-2 outline-offset-2 outline-or-500;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+}
+
+@layer components {
+    /* Contenus longs (pages légales, réponses de FAQ). */
+    .prose-mb {
+        @apply texte-courant;
+    }
+
+    .prose-mb :where(p, ul, ol) + :where(p, ul, ol) {
+        @apply mt-4;
+    }
+
+    .prose-mb :where(h2) {
+        @apply mt-12 mb-4 text-2xl;
+    }
+
+    .prose-mb :where(h3) {
+        @apply mt-8 mb-3 text-xl;
+    }
+
+    .prose-mb :where(ul) {
+        @apply list-none space-y-2 pl-0;
+    }
+
+    .prose-mb :where(ul > li) {
+        @apply relative pl-6;
+    }
+
+    .prose-mb :where(ul > li)::before {
+        content: '♡';
+        @apply absolute top-0 left-0 text-sm text-or-500;
+    }
+
+    .prose-mb :where(a) {
+        @apply text-cacao-800 underline decoration-or-400 decoration-1 underline-offset-4 transition-colors hover:text-brique;
+    }
+
+    .prose-mb :where(strong) {
+        @apply font-normal text-cacao-900;
+    }
+
+    /* Informations à compléter avant la mise en ligne (pages légales). */
+    .a-completer {
+        @apply rounded bg-poudre-200 px-1.5 py-0.5 font-normal text-brique;
+    }
 }

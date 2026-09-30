@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Inertia\Inertia;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
@@ -45,6 +47,13 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ]),
+            'site' => Inertia::once(fn () => [
+                ...Arr::except(config('site'), 'naissance'),
+                'age' => Carbon::parse(config('site.naissance'))->age,
+                'url' => rtrim(config('app.url'), '/'),
+            ]),
+            // URL canonique : toujours le domaine configuré, sans paramètres.
+            'canonical' => rtrim(config('app.url'), '/').'/'.ltrim($request->path(), '/'),
         ];
     }
 }

@@ -16,6 +16,7 @@
 /public/build
 /public/fonts-manifest.dev.json
 /public/hot
+/public/photos
 /public/storage
 /storage/*.key
 /vendor

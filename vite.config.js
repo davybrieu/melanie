@@ -10,9 +10,21 @@ export default defineConfig({
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.js'],
             refresh: true,
+            // Polices téléchargées au build et servies par le site (aucun appel externe, RGPD).
             fonts: [
-                bunny('Instrument Sans', {
-                    weights: [400, 500, 600],
+                bunny('Gilda Display', {
+                    weights: [400],
+                    optimizedFallbacks: false,
+                }),
+                bunny('Jost', {
+                    weights: [300, 400, 500],
+                    preload: [{ weight: 300 }, { weight: 400 }],
+                    optimizedFallbacks: false,
+                }),
+                bunny('Allison', {
+                    weights: [400],
+                    preload: false,
+                    optimizedFallbacks: false,
                 }),
             ],
         }),
