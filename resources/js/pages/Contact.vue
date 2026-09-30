@@ -1,5 +1,5 @@
 <script setup>
-import { Link, useForm, usePage } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
 import { computed, inject } from 'vue';
 import Bouton from '../components/Bouton.vue';
 import FilAriane from '../components/FilAriane.vue';
@@ -177,19 +177,8 @@ const etiquette = 'text-[0.72rem] font-normal tracking-[0.2em] text-cacao-700 up
                         {{ form.processing ? 'Envoi en cours…' : 'Envoyer ma demande' }}
                     </button>
                     <p class="mt-6 text-[0.95rem] text-cacao-700">Je vous réponds généralement sous {{ site.delai_reponse }} heures.</p>
-                    <p class="mx-auto mt-4 max-w-md text-xs leading-relaxed text-taupe-500">
-                        Vos informations servent uniquement à répondre à votre demande.
-                        <Link :href="route('confidentialite')" class="underline decoration-or-400 underline-offset-2 hover:text-cacao-800">Confidentialité</Link>
-                    </p>
                 </div>
             </form>
-
-            <p class="mt-10 text-center text-[0.95rem] text-taupe-600">
-                Vous préférez Instagram ?
-                <a :href="site.instagramUrl" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-cacao-800 underline decoration-or-400 underline-offset-4 hover:text-brique">
-                    <Icone nom="instagram" class="size-4" />@{{ site.instagram }}
-                </a>
-            </p>
         </div>
     </section>
 </template>
