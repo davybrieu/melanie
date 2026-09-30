@@ -20,8 +20,8 @@ return [
     |--------------------------------------------------------------------------
     |
     | L'adresse e-mail reçoit les demandes du formulaire de contact et figure
-    | dans les mentions légales. Le téléphone n'est affiché que s'il est
-    | renseigné.
+    | dans les mentions légales. Le téléphone (et WhatsApp, sur le même numéro)
+    | et Facebook ne sont affichés que s'ils sont renseignés.
     |
     */
 
@@ -30,6 +30,9 @@ return [
     'telephone' => env('SITE_TELEPHONE'),
 
     'instagram' => 'mb_photographiiie',
+
+    // Adresse complète de la page Facebook.
+    'facebook' => env('SITE_FACEBOOK'),
 
     // Délai de réponse annoncé sous le formulaire de contact (en heures).
     'delai_reponse' => (int) env('SITE_DELAI_REPONSE', 48),

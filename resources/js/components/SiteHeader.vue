@@ -92,14 +92,17 @@ onBeforeUnmount(() => {
     <!-- Menu mobile plein écran -->
     <div
         id="menu-mobile"
-        class="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-creme-100 transition-[opacity,visibility] duration-300 xl:hidden"
+        class="fixed inset-0 z-50 flex flex-col overflow-x-hidden overflow-y-auto bg-creme-100 transition-[opacity,visibility] duration-300 xl:hidden"
         :class="menuOuvert ? 'visible opacity-100' : 'invisible opacity-0'"
         role="dialog"
         aria-modal="true"
         aria-label="Menu"
     >
-        <Fleur variante="gypsophile" class="absolute -top-4 -left-8 w-44 opacity-70" />
-        <Fleur variante="pampa" class="absolute -right-8 -bottom-6 w-40 opacity-60" />
+        <!-- Cadre qui coupe les fleurs au bord de l'écran : sinon le menu défile vers la droite -->
+        <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+            <Fleur variante="gypsophile" class="absolute -top-4 -left-8 w-44 opacity-70" />
+            <Fleur variante="pampa" class="absolute -right-8 -bottom-6 w-40 opacity-60" />
+        </div>
 
         <div class="conteneur flex h-20 items-center justify-end">
             <button type="button" class="grid size-11 place-items-center rounded-full text-cacao-800 hover:bg-creme-200" aria-label="Fermer le menu" @click="basculerMenu(false)">

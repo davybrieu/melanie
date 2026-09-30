@@ -32,7 +32,7 @@ export const entrepriseJsonLd = (site) => ({
         addressCountry: 'FR',
     },
     areaServed: [site.ville, site.commune, site.departement].map((name) => ({ '@type': 'Place', name })),
-    sameAs: [site.instagramUrl],
+    sameAs: [site.instagramUrl, site.facebook].filter(Boolean),
 });
 
 export const serviceJsonLd = (site, { nom, description, prix, url }) => ({

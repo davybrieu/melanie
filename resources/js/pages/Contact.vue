@@ -43,6 +43,15 @@ const avecTerme = computed(() => form.seances.some((seance) => seance !== 'famil
 
 const envoyee = computed(() => page.flash?.demandeEnvoyee);
 
+// Facebook et WhatsApp n'apparaissent que s'ils sont renseignés (config/site.php).
+const reseaux = computed(() =>
+    [
+        site.value.facebook && { nom: 'Facebook', url: site.value.facebook, icone: 'facebook' },
+        { nom: 'Instagram', url: site.value.instagramUrl, icone: 'instagram' },
+        site.value.whatsappUrl && { nom: 'WhatsApp', url: site.value.whatsappUrl, icone: 'whatsapp' },
+    ].filter(Boolean),
+);
+
 function envoyer() {
     form.transform((donnees) => ({ ...donnees, date_accouchement: avecTerme.value ? donnees.date_accouchement : '' })).post(route('contact.envoyer'), {
         preserveScroll: true,
@@ -84,7 +93,6 @@ const etiquette = 'text-[0.72rem] font-normal tracking-[0.2em] text-cacao-700 up
                 <p class="texte-courant mt-4">Je vous réponds généralement sous {{ site.delai_reponse }} heures. À très vite !</p>
                 <div class="mt-8 flex flex-wrap justify-center gap-4">
                     <Bouton :href="route('portfolio')" variante="contour">Voir le portfolio</Bouton>
-                    <Bouton :href="site.instagramUrl" externe variante="contour" icone="instagram">Instagram</Bouton>
                 </div>
             </div>
 
@@ -179,6 +187,28 @@ const etiquette = 'text-[0.72rem] font-normal tracking-[0.2em] text-cacao-700 up
                     <p class="mt-6 text-[0.95rem] text-cacao-700">Je vous réponds généralement sous {{ site.delai_reponse }} heures.</p>
                 </div>
             </form>
+
+            <!-- Autres moyens de contact -->
+            <div class="mt-8 rounded-2xl border border-creme-300 bg-creme-50 px-6 py-10 text-center sm:px-10">
+                <h2 class="text-[1.7rem] leading-tight sm:text-3xl">Me contacter autrement</h2>
+                <ul class="mt-6 flex flex-col items-center gap-3 text-[1.02rem] text-cacao-800">
+                    <li v-if="site.telephone">
+                        <a :href="site.telephoneUrl" class="inline-flex items-center gap-3 transition-colors hover:text-brique">
+                            <Icone nom="telephone" class="size-5 shrink-0 text-or-500" /> {{ site.telephone }}
+                        </a>
+                    </li>
+                    <li>
+                        <a :href="`mailto:${site.email}`" class="inline-flex items-center gap-3 break-all transition-colors hover:text-brique">
+                            <Icone nom="email" class="size-5 shrink-0 text-or-500" /> {{ site.email }}
+                        </a>
+                    </li>
+                </ul>
+                <ul class="mt-8 flex flex-wrap justify-center gap-3" aria-label="Réseaux sociaux">
+                    <li v-for="reseau in reseaux" :key="reseau.nom">
+                        <Bouton :href="reseau.url" externe variante="contour" :icone="reseau.icone">{{ reseau.nom }}</Bouton>
+                    </li>
+                </ul>
+            </div>
         </div>
     </section>
 </template>
