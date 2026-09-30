@@ -52,7 +52,7 @@ onBeforeUnmount(() => {
                 <img src="/images/marque/monogramme-mp.webp" width="480" height="252" alt="" class="h-8 w-auto sm:h-9" />
                 <span class="leading-none">
                     <span class="block font-serif text-[1.02rem] tracking-[0.26em] text-cacao-800 uppercase sm:text-lg">Mélanie</span>
-                    <span class="mt-1.5 block text-[0.58rem] tracking-[0.36em] text-taupe-500 uppercase">Photographie · Dijon</span>
+                    <span class="mt-1.5 block text-[0.58rem] tracking-[0.36em] text-taupe-500 uppercase">Photographie</span>
                 </span>
             </Link>
 

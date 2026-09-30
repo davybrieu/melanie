@@ -26,7 +26,6 @@ Dans `site/`, le nom du fichier compte :
 |---|---|---|
 | `accueil.jpg` | Grande photo en haut de l'accueil (format paysage) | 1re photo grossesse |
 | `portrait.jpg` | Votre portrait : accueil et page « Mon univers » | emplacement vide |
-| `a-propos.jpg` | 2e photo de la page « Mon univers » | 1re photo nouveau-né |
 | `bon-cadeau.jpg` | Page « Bon cadeau » | 2e photo famille |
 
 ## Texte alternatif (référencement)

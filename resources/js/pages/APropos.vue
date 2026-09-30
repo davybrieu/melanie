@@ -129,16 +129,11 @@ const raisons = [
 
     <!-- Histoire -->
     <section class="bg-creme-50 py-20 sm:py-28">
-        <div class="conteneur grid gap-14 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-20">
-            <div class="space-y-12">
-                <article v-for="chapitre in chapitres" :key="chapitre.titre">
-                    <h2 class="text-[1.9rem] leading-tight sm:text-4xl">{{ chapitre.titre }}</h2>
-                    <p v-for="(paragraphe, i) in chapitre.paragraphes.filter(Boolean)" :key="i" class="texte-courant mt-4">{{ paragraphe }}</p>
-                </article>
-            </div>
-            <div class="relative">
-                <Photo :photo="photos.ambiance" libelle="Photo d’ambiance" sizes="(min-width: 1024px) 40vw, 100vw" class="aspect-[4/5] rounded-2xl lg:sticky lg:top-28" />
-            </div>
+        <div class="conteneur max-w-3xl space-y-12">
+            <article v-for="chapitre in chapitres" :key="chapitre.titre">
+                <h2 class="text-[1.9rem] leading-tight sm:text-4xl">{{ chapitre.titre }}</h2>
+                <p v-for="(paragraphe, i) in chapitre.paragraphes.filter(Boolean)" :key="i" class="texte-courant mt-4">{{ paragraphe }}</p>
+            </article>
         </div>
     </section>
 

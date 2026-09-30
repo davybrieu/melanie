@@ -57,7 +57,7 @@ Les clés `grossesse`, `nouveau-ne` et `famille` relient toutes les couches :
 
 Ajouter un type de séance, c'est modifier tous ces endroits.
 
-**Photos** (`app/Support/Photos.php`). Les photos sources sont dans `resources/photos/{grossesse,nouveau-ne,famille,site}/`, triées par nom de fichier. Leur rôle dépend de leur rang (la 1re est la photo principale de la page séance, etc.) ou, dans `site/`, de leur nom (`accueil`, `portrait`, `a-propos`, `bon-cadeau`) : voir `resources/photos/README.md`.
+**Photos** (`app/Support/Photos.php`). Les photos sources sont dans `resources/photos/{grossesse,nouveau-ne,famille,site}/`, triées par nom de fichier. Leur rôle dépend de leur rang (la 1re est la photo principale de la page séance, etc.) ou, dans `site/`, de leur nom (`accueil`, `portrait`, `bon-cadeau`) : voir `resources/photos/README.md`.
 
 Les contrôleurs passent aux pages des objets `{src, srcset, largeur, hauteur, alt}` ; le texte `alt` est tiré du nom de fichier. Les variantes WebP (`/photos/{largeur}/{dossier}/{nom}-{empreinte}.webp`) sont créées à la première demande par `PhotoController`, puis servies comme fichiers statiques depuis `public/photos` (non versionné). S'il n'y a pas de photo, `components/Photo.vue` affiche un emplacement aux couleurs du site.
 
