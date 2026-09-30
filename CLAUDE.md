@@ -34,7 +34,7 @@ Pas de tests automatisés ni de linter, par choix du projet : n'en ajoutez pas e
 **Chaîne de rendu.** Route nommée (`routes/web.php`) → contrôleur → `Inertia::render('Page', props)` → `resources/views/app.blade.php` → page Vue de `resources/js/pages/`. `resources/js/app.js` est l'unique point d'entrée, client et SSR (plugin `@inertiajs/vite`) : il ajoute « | Mélanie Photographie » aux titres et applique `layouts/SiteLayout.vue` (en-tête et pied de page) à toutes les pages.
 
 **Props partagées** (`app/Http/Middleware/HandleInertiaRequests.php`) :
-- `site` : `config/site.php` (identité, contact, localisation), envoyée une fois par visite (`Inertia::once`). Côté Vue, passer par le composable `useSite()`, qui ajoute `instagramUrl`.
+- `site` : `config/site.php` (identité, contact, localisation), envoyée une fois par visite (`Inertia::once`). Côté Vue, passer par le composable `useSite()`, qui ajoute `instagramUrl`, `telephoneUrl` et `whatsappUrl` (même numéro, message pré-rempli).
 - `ziggy` : configuration des routes, utile seulement au rendu SSR (le navigateur utilise `@routes`).
 - `canonical` : toujours construite à partir de `APP_URL`, jamais de l'hôte de la requête.
 

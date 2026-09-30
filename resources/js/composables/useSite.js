@@ -1,6 +1,9 @@
 import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
+// Message pré-rempli quand un visiteur ouvre WhatsApp depuis le site.
+const messageWhatsapp = 'Bonjour Mélanie, je vous écris depuis votre site : j’aimerais en savoir plus sur vos séances photo.';
+
 // Numéro au format international, sans « + » (06 12 34 56 78 → 33612345678).
 function international(telephone) {
     const chiffres = telephone.replace(/[^\d+]/g, '');
@@ -24,7 +27,7 @@ export function useSite() {
             ...site,
             instagramUrl: `https://www.instagram.com/${site.instagram}/`,
             telephoneUrl: numero ? `tel:+${numero}` : null,
-            whatsappUrl: numero ? `https://wa.me/${numero}` : null,
+            whatsappUrl: numero ? `https://wa.me/${numero}?text=${encodeURIComponent(messageWhatsapp)}` : null,
         };
     });
 }
