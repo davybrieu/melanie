@@ -188,6 +188,11 @@ class Photos
      */
     private function alt(string $dossier, string $nomFichier): string
     {
+        // « portrait.jpg » : le nom de l'emplacement ne décrit pas la photo.
+        if ($dossier === 'site' && Str::slug($nomFichier) === 'portrait') {
+            return self::ALT_PAR_DEFAUT['site'];
+        }
+
         $texte = trim(preg_replace('/^\d+\s*[-_.)]*\s*/', '', str_replace(['_', '-'], ' ', $nomFichier)));
 
         if ($texte === '' || preg_match('/^(img|dsc|dscf|dji|pxl|photo|_?mg|p)\s*\d+/i', $texte) || ! preg_match('/\p{L}{3,}/u', $texte)) {

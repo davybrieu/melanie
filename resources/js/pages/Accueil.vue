@@ -169,9 +169,10 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
     <!-- Mon univers -->
     <section class="relative isolate overflow-hidden bg-creme-200 py-24 sm:py-32">
         <div class="conteneur grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
-            <div class="relative mx-auto w-full max-w-md">
+            <div class="relative isolate mx-auto w-full max-w-md">
                 <Photo :photo="photos.portrait" libelle="Votre portrait" sizes="(min-width: 1024px) 40vw, 90vw" class="aspect-[4/5] rounded-t-full" />
-                <Fleur variante="gypsophile-coeur" class="absolute -right-8 -bottom-12 w-36 sm:w-44" />
+                <!-- Derrière la photo : son voile aquarelle ne doit pas passer sur l'image -->
+                <Fleur variante="gypsophile-coeur" class="absolute -right-12 -bottom-20 -z-10 w-36 sm:w-44" />
             </div>
             <div class="text-center lg:text-left">
                 <p class="surtitre">Mon univers</p>
