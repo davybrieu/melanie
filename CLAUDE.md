@@ -10,6 +10,8 @@ Tout est en français : noms de classes, méthodes, variables et composants, con
 
 Pas de base de données métier : SQLite ne sert qu'aux sessions, au cache et à la file d'attente. Les contenus sont dans le code.
 
+**Git : tous les commits se font directement sur `main`.** Ne créez ni branche ni pull request.
+
 ## Commandes
 
 ```bash
