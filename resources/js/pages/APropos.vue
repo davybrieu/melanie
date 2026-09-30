@@ -170,7 +170,6 @@ const raisons = [
             </ul>
             <!-- À compléter si besoin : expérience, formations suivies, matériel, studio. N'y mettre que du vérifiable. -->
             <div class="mt-14 flex flex-wrap justify-center gap-4">
-                <Bouton :href="route('nouveau-ne') + '#securite'" variante="contour">La sécurité de bébé</Bouton>
                 <Bouton :href="route('portfolio')" variante="contour">Voir le portfolio</Bouton>
             </div>
         </div>
