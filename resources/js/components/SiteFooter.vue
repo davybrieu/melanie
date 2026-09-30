@@ -60,14 +60,28 @@ const colonnes = [
                             <Icone nom="localisation" class="mt-0.5 size-5 shrink-0 text-or-500" />
                             <span>{{ site.commune }}, près de {{ site.ville }}<br /><span class="text-taupe-500">Déplacements sur Dijon et alentours</span></span>
                         </li>
-                        <li>
-                            <a :href="site.instagramUrl" target="_blank" rel="noopener" class="inline-flex items-center gap-2.5 transition-colors hover:text-brique">
-                                <Icone nom="instagram" class="size-5 text-or-500" /> @{{ site.instagram }}
+                        <li v-if="site.telephone">
+                            <a :href="site.telephoneUrl" class="inline-flex items-center gap-2.5 transition-colors hover:text-brique">
+                                <Icone nom="telephone" class="size-5 shrink-0 text-or-500" /> {{ site.telephone }}
                             </a>
                         </li>
                         <li>
                             <a :href="`mailto:${site.email}`" class="inline-flex items-center gap-2.5 break-all transition-colors hover:text-brique">
                                 <Icone nom="email" class="size-5 shrink-0 text-or-500" /> {{ site.email }}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="mt-6 flex justify-center gap-3 lg:justify-start" aria-label="Réseaux sociaux">
+                        <li v-for="reseau in site.reseaux" :key="reseau.nom">
+                            <a
+                                :href="reseau.url"
+                                target="_blank"
+                                rel="noopener"
+                                :aria-label="reseau.nom"
+                                :title="reseau.nom"
+                                class="grid size-11 place-items-center rounded-full border border-cacao-800/30 text-cacao-800 transition-colors hover:border-cacao-800 hover:bg-cacao-800 hover:text-creme-50"
+                            >
+                                <Icone :nom="reseau.icone" class="size-5" />
                             </a>
                         </li>
                     </ul>

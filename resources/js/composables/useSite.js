@@ -22,12 +22,20 @@ export function useSite() {
     return computed(() => {
         const site = page.props.site;
         const numero = site.telephone ? international(site.telephone) : null;
+        const instagramUrl = `https://www.instagram.com/${site.instagram}/`;
+        const whatsappUrl = numero ? `https://wa.me/${numero}?text=${encodeURIComponent(messageWhatsapp)}` : null;
 
         return {
             ...site,
-            instagramUrl: `https://www.instagram.com/${site.instagram}/`,
+            instagramUrl,
             telephoneUrl: numero ? `tel:+${numero}` : null,
-            whatsappUrl: numero ? `https://wa.me/${numero}?text=${encodeURIComponent(messageWhatsapp)}` : null,
+            whatsappUrl,
+            // Facebook et WhatsApp n'apparaissent que s'ils sont renseignés (config/site.php).
+            reseaux: [
+                site.facebook && { nom: 'Facebook', url: site.facebook, icone: 'facebook' },
+                { nom: 'Instagram', url: instagramUrl, icone: 'instagram' },
+                whatsappUrl && { nom: 'WhatsApp', url: whatsappUrl, icone: 'whatsapp' },
+            ].filter(Boolean),
         };
     });
 }

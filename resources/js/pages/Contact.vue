@@ -43,15 +43,6 @@ const avecTerme = computed(() => form.seances.some((seance) => seance !== 'famil
 
 const envoyee = computed(() => page.flash?.demandeEnvoyee);
 
-// Facebook et WhatsApp n'apparaissent que s'ils sont renseignés (config/site.php).
-const reseaux = computed(() =>
-    [
-        site.value.facebook && { nom: 'Facebook', url: site.value.facebook, icone: 'facebook' },
-        { nom: 'Instagram', url: site.value.instagramUrl, icone: 'instagram' },
-        site.value.whatsappUrl && { nom: 'WhatsApp', url: site.value.whatsappUrl, icone: 'whatsapp' },
-    ].filter(Boolean),
-);
-
 function envoyer() {
     form.transform((donnees) => ({ ...donnees, date_accouchement: avecTerme.value ? donnees.date_accouchement : '' })).post(route('contact.envoyer'), {
         preserveScroll: true,
@@ -204,7 +195,7 @@ const etiquette = 'text-[0.72rem] font-normal tracking-[0.2em] text-cacao-700 up
                     </li>
                 </ul>
                 <ul class="mt-8 flex flex-wrap justify-center gap-3" aria-label="Réseaux sociaux">
-                    <li v-for="reseau in reseaux" :key="reseau.nom">
+                    <li v-for="reseau in site.reseaux" :key="reseau.nom">
                         <Bouton :href="reseau.url" externe variante="contour" :icone="reseau.icone">{{ reseau.nom }}</Bouton>
                     </li>
                 </ul>
