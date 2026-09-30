@@ -20,7 +20,7 @@ export const entrepriseJsonLd = (site) => ({
     description: `${site.metier} à ${site.ville} et alentours.`,
     url: `${site.url}/`,
     image: `${site.url}/images/marque/og-image.jpg`,
-    logo: `${site.url}/images/marque/logo-mp-photographie.png`,
+    logo: `${site.url}/images/marque/logo-mp.png`,
     email: site.email,
     ...(site.telephone ? { telephone: site.telephone } : {}),
     priceRange: `${euros(Math.min(...prix))} – ${euros(Math.max(...prix))}`,
