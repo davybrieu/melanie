@@ -62,5 +62,9 @@
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "require-dev": {
+        "laravel-lang/attributes": "^2.16",
+        "laravel-lang/lang": "^15.37"
+    }
 }
