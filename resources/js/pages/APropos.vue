@@ -30,7 +30,7 @@ const chapitres = [
     {
         titre: 'Mon histoire',
         paragraphes: [
-            'J’ai créé MB Photographie avec une envie toute simple : garder une trace des moments qui passent trop vite. Ces instants où tout change, où une famille s’agrandit, où l’on devient parent, où les enfants grandissent sans prévenir.',
+            'J’ai créé Mélanie Photographie avec une envie toute simple : garder une trace des moments qui passent trop vite. Ces instants où tout change, où une famille s’agrandit, où l’on devient parent, où les enfants grandissent sans prévenir.',
             // À personnaliser : comment la photographie est entrée dans ta vie, ce qui t'a décidée à te lancer.
         ],
     },

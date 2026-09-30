@@ -1,4 +1,4 @@
-# Mélanie Brieu – Photographie
+# Mélanie Photographie
 
 Site de **melanie-photographie.fr** : photographe grossesse, nouveau-né & famille à Dijon.
 

@@ -244,7 +244,7 @@ class GenererFichiersSeo extends Command
         return implode("\n\n", [
             "# {$site['nom']} – ".Str::before($accueil['titre'], $suffixe),
             "> {$accueil['description']}",
-            "{$site['nom']} ({$site['marque']}) est installée à {$site['commune']} et se déplace à {$site['ville']} et dans ses alentours. "
+            "{$site['nom']} est installée à {$site['commune']} et se déplace à {$site['ville']} et dans ses alentours. "
                 ."Réservations par le formulaire de contact du site ou sur Instagram (@{$site['instagram']}). Contact : {$site['email']}.",
             $sections,
         ])."\n";

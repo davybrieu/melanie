@@ -18,7 +18,7 @@ defineProps({
             <FilAriane :liens="[{ libelle: titre }]" />
             <TitreSection class="mt-12" balise="h1" surtitre="Informations légales" :titre="titre" />
             <p class="mt-4 text-center text-sm text-taupe-500">Dernière mise à jour : {{ miseAJour }}</p>
-            <div class="prose-mb mt-12 rounded-2xl border border-creme-300 bg-creme-50 p-6 sm:p-10">
+            <div class="prose-mp mt-12 rounded-2xl border border-creme-300 bg-creme-50 p-6 sm:p-10">
                 <slot />
             </div>
         </div>

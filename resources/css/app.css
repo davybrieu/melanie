@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-/* Direction artistique MB Photographie : crème, poudre, cacao et touches dorées. */
+/* Direction artistique Mélanie Photographie : crème, poudre, cacao et touches dorées. */
 @theme {
     --font-sans: 'Jost', ui-sans-serif, system-ui, sans-serif;
     --font-serif: 'Gilda Display', ui-serif, Georgia, serif;
@@ -89,40 +89,40 @@
 
 @layer components {
     /* Contenus longs (pages légales, réponses de FAQ). */
-    .prose-mb {
+    .prose-mp {
         @apply texte-courant;
     }
 
-    .prose-mb :where(p, ul, ol) + :where(p, ul, ol) {
+    .prose-mp :where(p, ul, ol) + :where(p, ul, ol) {
         @apply mt-4;
     }
 
-    .prose-mb :where(h2) {
+    .prose-mp :where(h2) {
         @apply mt-12 mb-4 text-2xl;
     }
 
-    .prose-mb :where(h3) {
+    .prose-mp :where(h3) {
         @apply mt-8 mb-3 text-xl;
     }
 
-    .prose-mb :where(ul) {
+    .prose-mp :where(ul) {
         @apply list-none space-y-2 pl-0;
     }
 
-    .prose-mb :where(ul > li) {
+    .prose-mp :where(ul > li) {
         @apply relative pl-6;
     }
 
-    .prose-mb :where(ul > li)::before {
+    .prose-mp :where(ul > li)::before {
         content: '♡';
         @apply absolute top-0 left-0 text-sm text-or-500;
     }
 
-    .prose-mb :where(a) {
+    .prose-mp :where(a) {
         @apply text-cacao-800 underline decoration-or-400 decoration-1 underline-offset-4 transition-colors hover:text-brique;
     }
 
-    .prose-mb :where(strong) {
+    .prose-mp :where(strong) {
         @apply font-normal text-cacao-900;
     }
 

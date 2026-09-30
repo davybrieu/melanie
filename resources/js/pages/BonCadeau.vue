@@ -31,7 +31,7 @@ const occasions = ['Une future maman', 'Une naissance', 'La fête des mères', '
 <template>
     <Seo
         titre="Bon cadeau séance photo à Dijon"
-        :description="`Offrez une séance photo grossesse, nouveau-né ou famille à Dijon avec un bon cadeau Mélanie Brieu, valable ${conditions.validiteBonCadeau}. Un souvenir pour la vie, dès ${euros(seances.famille.prix)}.`"
+        :description="`Offrez une séance photo grossesse, nouveau-né ou famille à Dijon avec un bon cadeau Mélanie Photographie, valable ${conditions.validiteBonCadeau}. Un souvenir pour la vie, dès ${euros(seances.famille.prix)}.`"
     />
 
     <EnTetePage

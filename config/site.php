@@ -8,9 +8,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'nom' => 'Mélanie Brieu',
-
-    'marque' => 'MB Photographie',
+    'nom' => 'Mélanie Photographie',
 
     'metier' => 'Photographe grossesse, nouveau-né & famille',
 

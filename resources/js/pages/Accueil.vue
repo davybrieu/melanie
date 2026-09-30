@@ -43,7 +43,7 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
 <template>
     <Seo
         titre="Photographe grossesse, nouveau-né & famille à Dijon"
-        :description="`Mélanie Brieu, photographe grossesse, nouveau-né et famille à Dijon et Chenôve. Des images douces et naturelles pour garder vos plus beaux moments de vie. Offre de lancement dès ${euros(prixMini)}.`"
+        :description="`Mélanie Photographie : photographe grossesse, nouveau-né et famille à Dijon et Chenôve. Des images douces et naturelles pour garder vos plus beaux moments de vie. Offre de lancement dès ${euros(prixMini)}.`"
         :json-ld="entrepriseJsonLd(site)"
     />
 
@@ -53,9 +53,10 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
             <div class="relative order-2 flex items-center px-5 py-16 sm:px-12 lg:order-1 lg:py-20">
                 <Fleur variante="gypsophile" class="absolute -top-8 -left-12 -z-10 w-44 opacity-80 sm:w-60" />
                 <div class="mx-auto max-w-lg text-center lg:text-left">
-                    <img src="/images/marque/monogramme-mb.webp" width="480" height="253" alt="" class="mx-auto h-14 w-auto lg:mx-0" />
+                    <img src="/images/marque/monogramme-mp.webp" width="480" height="252" alt="" class="mx-auto h-14 w-auto lg:mx-0" />
                     <h1 class="mt-8">
-                        <span class="block font-serif text-[2.9rem] leading-[1.05] tracking-[0.16em] text-cacao-800 uppercase sm:text-6xl"><span class="block">Mélanie</span><span class="block">Brieu</span></span>
+                        <span class="block font-serif text-[2.9rem] leading-[1.05] tracking-[0.16em] text-cacao-800 uppercase sm:text-6xl">Mélanie</span>
+                        <span class="manuscrit mt-1 block text-[3.4rem] text-cacao-700 sm:text-[4.4rem]">Photographie</span>
                         <span class="mt-5 block font-sans text-[0.8rem] leading-relaxed font-normal tracking-[0.3em] text-balance text-taupe-600 uppercase sm:text-sm">
                             Photographe grossesse, nouveau-né &amp; famille
                         </span>

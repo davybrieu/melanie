@@ -27,7 +27,7 @@ function suivreLien(evenement) {
                     <Icone nom="plus" class="size-3.5" />
                 </span>
             </summary>
-            <div class="prose-mb pr-2 pb-7 sm:pr-14" v-html="item.r"></div>
+            <div class="prose-mp pr-2 pb-7 sm:pr-14" v-html="item.r"></div>
         </details>
     </div>
 </template>

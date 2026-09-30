@@ -58,7 +58,7 @@ const etiquette = 'text-[0.72rem] font-normal tracking-[0.2em] text-cacao-700 up
 <template>
     <Seo
         titre="Contact – réserver une séance photo à Dijon"
-        description="Parlons de votre projet de séance photo grossesse, nouveau-né ou famille à Dijon et alentours. Écrivez à Mélanie Brieu via le formulaire ou sur Instagram."
+        description="Parlons de votre projet de séance photo grossesse, nouveau-né ou famille à Dijon et alentours. Écrivez à Mélanie via le formulaire ou sur Instagram."
         :json-ld="entrepriseJsonLd(site)"
     />
 

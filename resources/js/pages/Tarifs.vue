@@ -62,7 +62,7 @@ const engagements = [
             <FilAriane :liens="[{ libelle: 'Tarifs' }]" />
 
             <div class="mt-10 text-center">
-                <img src="/images/marque/monogramme-mb.webp" width="480" height="253" alt="" class="mx-auto h-12 w-auto" />
+                <img src="/images/marque/monogramme-mp.webp" width="480" height="252" alt="" class="mx-auto h-12 w-auto" />
                 <TitreSection class="mt-4" balise="h1" surtitre="Offre de lancement" coeurs titre="Tarifs" majuscules manuscrit="Des souvenirs vrais, remplis d’émotions" />
                 <p class="surtitre mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
                     <span>Grossesse</span><span class="text-or-500">·</span><span>Nouveau-né</span><span class="text-or-500">·</span><span>Famille</span>

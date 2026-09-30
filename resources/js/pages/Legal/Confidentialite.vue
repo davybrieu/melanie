@@ -8,7 +8,7 @@ const site = useSite();
 <template>
     <PageLegale
         titre="Politique de confidentialité"
-        description="Comment Mélanie Brieu, photographe à Dijon, collecte, utilise et protège vos données personnelles, et comment exercer vos droits."
+        description="Comment Mélanie Photographie, à Dijon, collecte, utilise et protège vos données personnelles, et comment exercer vos droits."
         mise-a-jour="septembre 2026"
     >
         <p>
@@ -18,7 +18,7 @@ const site = useSite();
 
         <h2>Responsable du traitement</h2>
         <p>
-            {{ site.nom }} ({{ site.marque }}), <span class="a-completer">[À compléter : adresse professionnelle]</span>, {{ site.code_postal }} {{ site.commune }} —
+            {{ site.nom }} (<span class="a-completer">[À compléter : prénom et nom]</span>), <span class="a-completer">[À compléter : adresse professionnelle]</span>, {{ site.code_postal }} {{ site.commune }} —
             <a :href="`mailto:${site.email}`">{{ site.email }}</a>.
         </p>
 

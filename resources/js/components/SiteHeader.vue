@@ -48,11 +48,11 @@ onBeforeUnmount(() => {
         :class="defile ? 'border-creme-300 bg-creme-100/92 shadow-[0_10px_30px_-24px_rgba(75,52,40,0.5)] backdrop-blur-md' : 'border-transparent bg-creme-100'"
     >
         <div class="conteneur flex h-20 max-w-7xl items-center justify-between gap-6">
-            <Link :href="route('accueil')" class="flex shrink-0 items-center gap-3" aria-label="Mélanie Brieu, accueil">
-                <img src="/images/marque/monogramme-mb.webp" width="480" height="253" alt="" class="h-8 w-auto sm:h-9" />
+            <Link :href="route('accueil')" class="flex shrink-0 items-center gap-3" aria-label="Mélanie Photographie, accueil">
+                <img src="/images/marque/monogramme-mp.webp" width="480" height="252" alt="" class="h-8 w-auto sm:h-9" />
                 <span class="leading-none">
-                    <span class="block font-serif text-[1.02rem] tracking-[0.26em] text-cacao-800 uppercase sm:text-lg">Mélanie Brieu</span>
-                    <span class="mt-1.5 block text-[0.58rem] tracking-[0.36em] text-taupe-500 uppercase">Photographe · Dijon</span>
+                    <span class="block font-serif text-[1.02rem] tracking-[0.26em] text-cacao-800 uppercase sm:text-lg">Mélanie</span>
+                    <span class="mt-1.5 block text-[0.58rem] tracking-[0.36em] text-taupe-500 uppercase">Photographie · Dijon</span>
                 </span>
             </Link>
 
@@ -108,7 +108,7 @@ onBeforeUnmount(() => {
         </div>
 
         <nav aria-label="Navigation mobile" class="relative flex flex-1 flex-col items-center justify-center gap-10 px-6 pb-16">
-            <img src="/images/marque/monogramme-mb.webp" width="480" height="253" alt="" class="h-12 w-auto" />
+            <img src="/images/marque/monogramme-mp.webp" width="480" height="252" alt="" class="h-12 w-auto" />
             <ul class="space-y-5 text-center">
                 <li v-for="lien in navigation" :key="lien.route">
                     <Link

@@ -27,10 +27,10 @@ class Photos
     private const QUALITE_WEBP = 82;
 
     private const ALT_PAR_DEFAUT = [
-        'grossesse' => 'Séance photo grossesse à Dijon par Mélanie Brieu',
-        'nouveau-ne' => 'Séance photo nouveau-né à Dijon par Mélanie Brieu',
-        'famille' => 'Séance photo famille à Dijon par Mélanie Brieu',
-        'site' => 'Mélanie Brieu, photographe à Dijon',
+        'grossesse' => 'Séance photo grossesse à Dijon par Mélanie Photographie',
+        'nouveau-ne' => 'Séance photo nouveau-né à Dijon par Mélanie Photographie',
+        'famille' => 'Séance photo famille à Dijon par Mélanie Photographie',
+        'site' => 'Mélanie, photographe à Dijon',
     ];
 
     /** @var array<string, list<array<string, mixed>>> */

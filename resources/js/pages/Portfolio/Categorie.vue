@@ -22,7 +22,7 @@ const autres = computed(() => Object.entries(categoriesPortfolio).filter(([cle])
 <template>
     <Seo
         :titre="`${infos.titre} – séances photo à Dijon`"
-        :description="`${infos.intro} Mélanie Brieu, photographe à Dijon et Chenôve.`"
+        :description="`${infos.intro} Mélanie Photographie, à Dijon et Chenôve.`"
         :image="photos[0]?.src ?? undefined"
     />
 

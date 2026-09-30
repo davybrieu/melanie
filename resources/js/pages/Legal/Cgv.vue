@@ -13,13 +13,13 @@ const site = useSite();
 <template>
     <PageLegale
         titre="Conditions générales de vente"
-        description="Conditions générales de vente des séances photo grossesse, nouveau-né et famille de Mélanie Brieu, photographe à Dijon : réservation, paiement, report, livraison, droits."
+        description="Conditions générales de vente des séances photo grossesse, nouveau-né et famille de Mélanie Photographie, à Dijon : réservation, paiement, report, livraison, droits."
         mise-a-jour="septembre 2026"
     >
         <h2>1. Objet</h2>
         <p>
-            Les présentes conditions générales de vente (CGV) s’appliquent aux prestations de photographie proposées par {{ site.nom }}, {{ site.marque }},
-            <span class="a-completer">[À compléter : statut, SIRET, adresse]</span>, ci-après « la photographe », à tout client particulier. Toute réservation vaut
+            Les présentes conditions générales de vente (CGV) s’appliquent aux prestations de photographie proposées par {{ site.nom }},
+            <span class="a-completer">[À compléter : prénom et nom, statut, SIRET, adresse]</span>, ci-après « la photographe », à tout client particulier. Toute réservation vaut
             acceptation des présentes CGV.
         </p>
 

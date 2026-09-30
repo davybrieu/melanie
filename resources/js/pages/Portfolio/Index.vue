@@ -19,7 +19,7 @@ const route = inject('route');
 <template>
     <Seo
         titre="Portfolio – photographe grossesse, nouveau-né & famille"
-        description="Découvrez le portfolio de Mélanie Brieu, photographe à Dijon : séances grossesse, nouveau-né et famille, des images douces, naturelles et lumineuses."
+        description="Découvrez le portfolio de Mélanie Photographie à Dijon : séances grossesse, nouveau-né et famille, des images douces, naturelles et lumineuses."
     />
 
     <section class="pt-8 pb-20 sm:pb-28">

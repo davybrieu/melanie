@@ -11,13 +11,13 @@ const site = useSite();
 <template>
     <PageLegale
         titre="Mentions légales"
-        description="Mentions légales du site melanie-photographie.fr : éditeur, hébergeur, propriété intellectuelle des photographies de Mélanie Brieu."
+        description="Mentions légales du site melanie-photographie.fr : éditeur, hébergeur, propriété intellectuelle des photographies de Mélanie Photographie."
         mise-a-jour="septembre 2026"
     >
         <h2>Éditeur du site</h2>
         <p>
-            Le site <strong>melanie-photographie.fr</strong> est édité par <strong>{{ site.nom }}</strong>, entrepreneuse individuelle exerçant sous le nom commercial
-            « {{ site.marque }} ».
+            Le site <strong>melanie-photographie.fr</strong> est édité par <span class="a-completer">[À compléter : prénom et nom]</span>, entrepreneuse individuelle exerçant sous le nom commercial
+            « {{ site.nom }} ».
         </p>
         <ul>
             <li>Statut : <span class="a-completer">[À compléter : statut, ex. micro-entreprise]</span></li>
@@ -33,7 +33,7 @@ const site = useSite();
                 <span v-else class="a-completer">[À compléter : numéro de téléphone]</span>
             </li>
         </ul>
-        <p>Directrice de la publication : {{ site.nom }}.</p>
+        <p>Directrice de la publication : <span class="a-completer">[À compléter : prénom et nom]</span>.</p>
 
         <h2>Hébergement</h2>
         <p><span class="a-completer">[À compléter : nom, adresse et téléphone de l’hébergeur]</span></p>

@@ -16,7 +16,7 @@ const toutes = categoriesFaq.flatMap((categorie) => categorie.questions);
 <template>
     <Seo
         titre="Questions fréquentes – séances photo grossesse, nouveau-né & famille"
-        description="Déroulement des séances, tenues, préparation de bébé et des enfants, tarifs, réservation, livraison des photos : toutes les réponses de Mélanie Brieu, photographe à Dijon."
+        description="Déroulement des séances, tenues, préparation de bébé et des enfants, tarifs, réservation, livraison des photos : toutes les réponses de Mélanie Photographie, à Dijon."
         :json-ld="faqJsonLd(toutes)"
     />
 

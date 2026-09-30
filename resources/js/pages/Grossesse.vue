@@ -24,7 +24,7 @@ const route = inject('route');
 const site = useSite();
 const seance = seances.grossesse;
 
-const description = `Séance photo grossesse à Dijon et alentours avec Mélanie Brieu : une séance douce et naturelle, en extérieur ou à domicile, prêt de tenues inclus. ${euros(seance.prix)} (offre de lancement).`;
+const description = `Séance photo grossesse à Dijon et alentours avec Mélanie Photographie : une séance douce et naturelle, en extérieur ou à domicile, prêt de tenues inclus. ${euros(seance.prix)} (offre de lancement).`;
 
 const jsonLd = computed(() => [
     serviceJsonLd(site.value, { nom: 'Séance photo grossesse', description, prix: seance.prix, url: route('grossesse') }),

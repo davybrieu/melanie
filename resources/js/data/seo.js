@@ -16,11 +16,11 @@ export const faqJsonLd = (questions) => ({
 export const entrepriseJsonLd = (site) => ({
     '@type': 'LocalBusiness',
     '@id': `${site.url}/#entreprise`,
-    name: `${site.nom} – ${site.marque}`,
+    name: site.nom,
     description: `${site.metier} à ${site.ville} et alentours.`,
     url: `${site.url}/`,
     image: `${site.url}/images/marque/og-image.jpg`,
-    logo: `${site.url}/images/marque/logo-mb-photographie.png`,
+    logo: `${site.url}/images/marque/logo-mp-photographie.png`,
     email: site.email,
     ...(site.telephone ? { telephone: site.telephone } : {}),
     priceRange: `${euros(Math.min(...prix))} – ${euros(Math.max(...prix))}`,
@@ -32,7 +32,6 @@ export const entrepriseJsonLd = (site) => ({
         addressCountry: 'FR',
     },
     areaServed: [site.ville, site.commune, site.departement].map((name) => ({ '@type': 'Place', name })),
-    founder: { '@type': 'Person', name: site.nom, jobTitle: 'Photographe' },
     sameAs: [site.instagramUrl],
 });
 

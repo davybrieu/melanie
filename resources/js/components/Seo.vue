@@ -3,7 +3,7 @@ import { Head, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
 const props = defineProps({
-    // Titre sans suffixe : « | Mélanie Brieu » est ajouté par app.js.
+    // Titre sans suffixe : « | Mélanie Photographie » est ajouté par app.js.
     titre: { type: String, required: true },
     description: { type: String, required: true },
     image: { type: String, default: '/images/marque/og-image.jpg' },
@@ -32,7 +32,7 @@ const scripts = computed(() =>
         <link head-key="canonical" rel="canonical" :href="page.props.canonical" />
         <meta head-key="og:type" property="og:type" content="website" />
         <meta head-key="og:locale" property="og:locale" content="fr_FR" />
-        <meta head-key="og:site_name" property="og:site_name" :content="`${site.nom} Photographie`" />
+        <meta head-key="og:site_name" property="og:site_name" :content="site.nom" />
         <meta head-key="og:title" property="og:title" :content="`${titre} | ${site.nom}`" />
         <meta head-key="og:description" property="og:description" :content="description" />
         <meta head-key="og:url" property="og:url" :content="page.props.canonical" />

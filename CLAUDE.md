@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Projet
 
-Site de **Mélanie Brieu**, photographe grossesse, nouveau-né et famille à Dijon (melanie-photographie.fr) : Laravel 13, Inertia v3 avec SSR, Vue 3, Ziggy, Tailwind CSS 4.
+Site de **Mélanie Photographie**, photographe grossesse, nouveau-né et famille à Dijon (melanie-photographie.fr) : Laravel 13, Inertia v3 avec SSR, Vue 3, Ziggy, Tailwind CSS 4.
 
 Tout est en français : noms de classes, méthodes, variables et composants, contenus, messages de commit. Les textes du site sont écrits par Mélanie à la première personne et vouvoient le visiteur ; les textes affichés utilisent l'apostrophe typographique `’`.
 
@@ -31,7 +31,7 @@ Pas de tests automatisés ni de linter, par choix du projet : n'en ajoutez pas e
 
 ## Architecture
 
-**Chaîne de rendu.** Route nommée (`routes/web.php`) → contrôleur → `Inertia::render('Page', props)` → `resources/views/app.blade.php` → page Vue de `resources/js/pages/`. `resources/js/app.js` est l'unique point d'entrée, client et SSR (plugin `@inertiajs/vite`) : il ajoute « | Mélanie Brieu » aux titres et applique `layouts/SiteLayout.vue` (en-tête et pied de page) à toutes les pages.
+**Chaîne de rendu.** Route nommée (`routes/web.php`) → contrôleur → `Inertia::render('Page', props)` → `resources/views/app.blade.php` → page Vue de `resources/js/pages/`. `resources/js/app.js` est l'unique point d'entrée, client et SSR (plugin `@inertiajs/vite`) : il ajoute « | Mélanie Photographie » aux titres et applique `layouts/SiteLayout.vue` (en-tête et pied de page) à toutes les pages.
 
 **Props partagées** (`app/Http/Middleware/HandleInertiaRequests.php`) :
 - `site` : `config/site.php` (identité, contact, localisation), envoyée une fois par visite (`Inertia::once`). Côté Vue, passer par le composable `useSite()`, qui ajoute `instagramUrl`.
@@ -77,7 +77,7 @@ La commande `php artisan seo:generer` (`app/Console/Commands/GenererFichiersSeo.
 ## Style (Tailwind CSS 4)
 
 - Couleurs et polices sont définies dans le bloc `@theme` de `resources/css/app.css` : `creme`, `poudre`, `taupe`, `cacao`, `brique`, `or`, `rouge`.
-- Utilitaires maison (en `@utility`) : `surtitre`, `manuscrit`, `conteneur`, `texte-courant`. La classe `.prose-mb` met en forme le HTML de la FAQ et des pages légales ; `.a-completer` signale les champs à remplir.
+- Utilitaires maison (en `@utility`) : `surtitre`, `manuscrit`, `conteneur`, `texte-courant`. La classe `.prose-mp` met en forme le HTML de la FAQ et des pages légales ; `.a-completer` signale les champs à remplir.
 - Pièges de Tailwind 4 : une classe maison doit être déclarée en `@utility` pour marcher avec `@apply` et les variantes ; le modificateur important s'écrit en suffixe (`px-6!`).
 - Polices : Gilda Display pour les titres, Jost pour le texte, Allison (manuscrite) pour les phrases courtes seulement. Elles sont auto-hébergées via `bunny()` dans `vite.config.js`, sans appel externe (RGPD).
 - Boutons : `components/Bouton.vue`, variantes `plein`, `contour` et `lien`. Une ancre `#…` ou un lien `externe` donne une balise `<a>` classique, sans navigation Inertia.

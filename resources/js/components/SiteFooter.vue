@@ -39,8 +39,8 @@ const colonnes = [
         <div class="conteneur py-16 sm:py-20">
             <div class="grid gap-12 lg:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
                 <div class="text-center lg:text-left">
-                    <Link :href="route('accueil')" class="inline-block" aria-label="MB Photographie, accueil">
-                        <img src="/images/marque/logo-mb-photographie.webp" width="624" height="405" alt="MB Photographie" loading="lazy" class="w-52" />
+                    <Link :href="route('accueil')" class="inline-block" aria-label="Mélanie Photographie, accueil">
+                        <img src="/images/marque/logo-mp-photographie.webp" width="624" height="405" alt="Mélanie Photographie" loading="lazy" class="w-52" />
                     </Link>
                 </div>
 
@@ -77,7 +77,7 @@ const colonnes = [
 
         <div class="border-t border-creme-300">
             <div class="conteneur flex flex-col items-center justify-between gap-3 py-6 text-xs tracking-wide text-taupe-500 sm:flex-row">
-                <p>© {{ annee }} {{ site.nom }} · {{ site.marque }}</p>
+                <p>© {{ annee }} {{ site.nom }}</p>
                 <ul class="flex flex-wrap justify-center gap-x-5 gap-y-1">
                     <li><Link :href="route('mentions-legales')" class="hover:text-cacao-800">Mentions légales</Link></li>
                     <li><Link :href="route('confidentialite')" class="hover:text-cacao-800">Confidentialité</Link></li>
