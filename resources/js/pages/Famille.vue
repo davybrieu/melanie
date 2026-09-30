@@ -23,7 +23,7 @@ const route = inject('route');
 const site = useSite();
 const seance = seances.famille;
 
-const description = `Photographe famille à Dijon : une séance naturelle où les enfants ont le droit d’être des enfants. Jeux, câlins, fous rires, en extérieur ou à la maison. ${euros(seance.prix)} (offre de lancement).`;
+const description = `Photographe famille à Dijon : une séance naturelle où les enfants ont le droit d’être des enfants. Jeux, câlins, fous rires, en extérieur ou à la maison. Séance à ${euros(seance.prix)}.`;
 
 const jsonLd = computed(() => [
     serviceJsonLd(site.value, { nom: 'Séance photo famille', description, prix: seance.prix, url: route('famille') }),
@@ -127,7 +127,7 @@ const moments = [
     <!-- Tarif -->
     <section id="tarif" class="py-20 sm:py-28">
         <div class="conteneur max-w-4xl">
-            <TitreSection surtitre="Offre de lancement" coeurs titre="Tarif de la séance famille" />
+            <TitreSection surtitre="Mes offres" coeurs titre="Tarif de la séance famille" />
             <div class="mt-12">
                 <CarteTarif :offre="seance" />
             </div>

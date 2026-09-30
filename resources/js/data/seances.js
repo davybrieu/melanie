@@ -1,4 +1,4 @@
-// Offres et tarifs (offre de lancement, reprise du flyer).
+// Offres et tarifs (repris du flyer).
 // Modifier un prix ici le met à jour partout : tarifs, pages séances, FAQ, bon cadeau.
 
 export const seances = {

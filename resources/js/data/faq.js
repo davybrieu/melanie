@@ -122,7 +122,7 @@ export const faqFamille = [
 export const faqTarifs = [
     {
         q: 'Quels sont les tarifs des séances photo ?',
-        r: `<p>Dans le cadre de mon offre de lancement :</p><ul><li>séance grossesse : ${euros(g.prix)} ;</li><li>séance nouveau-né : ${euros(n.prix)} ;</li><li>séance famille : ${euros(f.prix)}.</li></ul><p>Tous les détails sont sur la page <a href="/tarifs">tarifs</a>.</p>`,
+        r: `<p>Voici mes tarifs :</p><ul><li>séance grossesse : ${euros(g.prix)} ;</li><li>séance nouveau-né : ${euros(n.prix)} ;</li><li>séance famille : ${euros(f.prix)}.</li></ul><p>Tous les détails sont sur la page <a href="/tarifs">tarifs</a>.</p>`,
     },
     {
         q: 'Qu’est-ce qui est inclus dans le tarif de la séance ?',

@@ -24,7 +24,7 @@ const site = useSite();
         </p>
 
         <h2>2. Prestations et tarifs</h2>
-        <p>Les tarifs en vigueur (offre de lancement) sont indiqués sur la page <Link :href="route('tarifs')">Tarifs</Link> :</p>
+        <p>Les tarifs en vigueur sont indiqués sur la page <Link :href="route('tarifs')">Tarifs</Link> :</p>
         <ul>
             <li>séance grossesse ({{ seances.grossesse.duree }}) : {{ euros(seances.grossesse.prix) }} ;</li>
             <li>séance nouveau-né ({{ seances['nouveau-ne'].duree }}) : {{ euros(seances['nouveau-ne'].prix) }} ;</li>

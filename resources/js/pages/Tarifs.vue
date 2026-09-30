@@ -50,7 +50,7 @@ const engagements = [
 <template>
     <Seo
         titre="Tarifs des séances photo grossesse, nouveau-né & famille"
-        :description="`Tarifs de lancement : séance grossesse ${euros(seances.grossesse.prix)}, nouveau-né ${euros(seances['nouveau-ne'].prix)}, famille ${euros(seances.famille.prix)}. Prêt de tenues et 10 photos retouchées inclus.`"
+        :description="`Mes tarifs : séance grossesse ${euros(seances.grossesse.prix)}, nouveau-né ${euros(seances['nouveau-ne'].prix)}, famille ${euros(seances.famille.prix)}. Prêt de tenues et 10 photos retouchées inclus.`"
         :json-ld="jsonLd"
     />
 
@@ -63,7 +63,7 @@ const engagements = [
 
             <div class="mt-10 text-center">
                 <img src="/images/marque/monogramme-mp.webp" width="480" height="252" alt="" class="mx-auto h-12 w-auto" />
-                <TitreSection class="mt-4" balise="h1" surtitre="Offre de lancement" coeurs titre="Tarifs" majuscules manuscrit="Des souvenirs vrais, remplis d’émotions" />
+                <TitreSection class="mt-4" balise="h1" surtitre="Mes offres" coeurs titre="Tarifs" majuscules manuscrit="Des souvenirs vrais, remplis d’émotions" />
                 <p class="surtitre mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
                     <span>Grossesse</span><span class="text-or-500">·</span><span>Nouveau-né</span><span class="text-or-500">·</span><span>Famille</span>
                 </p>

@@ -28,7 +28,7 @@
     --color-or-600: #8b6638;
 }
 
-/* Surtitres en capitales espacées, comme « OFFRE DE LANCEMENT » sur le flyer. */
+/* Surtitres en capitales espacées, comme sur le flyer. */
 @utility surtitre {
     @apply font-sans text-xs font-normal tracking-[0.32em] text-taupe-500 uppercase;
 }

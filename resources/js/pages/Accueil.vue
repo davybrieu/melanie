@@ -43,7 +43,7 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
 <template>
     <Seo
         titre="Photographe grossesse, nouveau-né & famille à Dijon"
-        :description="`Mélanie Photographie : photographe grossesse, nouveau-né et famille à Dijon et Chenôve. Des images douces et naturelles pour garder vos plus beaux moments de vie. Offre de lancement dès ${euros(prixMini)}.`"
+        :description="`Mélanie Photographie : photographe grossesse, nouveau-né et famille à Dijon et Chenôve. Des images douces et naturelles pour garder vos plus beaux moments de vie. Séances dès ${euros(prixMini)}.`"
         :json-ld="entrepriseJsonLd(site)"
     />
 
@@ -191,7 +191,7 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
     <!-- Tarifs -->
     <section class="py-24 sm:py-32">
         <div class="conteneur">
-            <TitreSection surtitre="Offre de lancement" coeurs titre="Tarifs" majuscules />
+            <TitreSection surtitre="Mes offres" coeurs titre="Tarifs" majuscules />
             <ul class="mt-12 grid gap-5 md:grid-cols-3">
                 <li v-for="offre in offres" :key="offre.cle" class="flex flex-col rounded-2xl border border-creme-300 bg-creme-50 px-6 py-8 text-center">
                     <span class="mx-auto grid size-16 place-items-center rounded-full bg-poudre-100 text-cacao-800">

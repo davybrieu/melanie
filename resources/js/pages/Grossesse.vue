@@ -24,7 +24,7 @@ const route = inject('route');
 const site = useSite();
 const seance = seances.grossesse;
 
-const description = `Séance photo grossesse à Dijon et alentours avec Mélanie Photographie : une séance douce et naturelle, en extérieur ou à domicile, prêt de tenues inclus. ${euros(seance.prix)} (offre de lancement).`;
+const description = `Séance photo grossesse à Dijon et alentours avec Mélanie Photographie : une séance douce et naturelle, en extérieur ou à domicile, prêt de tenues inclus. Séance à ${euros(seance.prix)}.`;
 
 const jsonLd = computed(() => [
     serviceJsonLd(site.value, { nom: 'Séance photo grossesse', description, prix: seance.prix, url: route('grossesse') }),
@@ -116,7 +116,7 @@ const infos = [
     <!-- Tarif -->
     <section id="tarif" class="py-20 sm:py-28">
         <div class="conteneur max-w-4xl">
-            <TitreSection surtitre="Offre de lancement" coeurs titre="Tarif de la séance grossesse" />
+            <TitreSection surtitre="Mes offres" coeurs titre="Tarif de la séance grossesse" />
             <div class="mt-12">
                 <CarteTarif :offre="seance" />
             </div>
