@@ -3,11 +3,17 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "vite build",
+        "build": "vite build && vite build --ssr",
         "dev": "vite"
     },
+    "dependencies": {
+        "@inertiajs/vue3": "^3.7.1",
+        "vue": "^3.5.43"
+    },
     "devDependencies": {
+        "@inertiajs/vite": "^3.7.1",
         "@tailwindcss/vite": "^4.0.0",
+        "@vitejs/plugin-vue": "^6.0.9",
         "concurrently": "^10.0.3",
         "laravel-vite-plugin": "^3.1",
         "tailwindcss": "^4.0.0",

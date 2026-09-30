@@ -1,7 +1,9 @@
-import { defineConfig } from 'vite';
+import inertia from '@inertiajs/vite';
+import tailwindcss from '@tailwindcss/vite';
+import vue from '@vitejs/plugin-vue';
 import laravel from 'laravel-vite-plugin';
 import { bunny } from 'laravel-vite-plugin/fonts';
-import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
     plugins: [
@@ -14,7 +16,16 @@ export default defineConfig({
                 }),
             ],
         }),
+        inertia(),
         tailwindcss(),
+        vue({
+            template: {
+                transformAssetUrls: {
+                    base: null,
+                    includeAbsolute: false,
+                },
+            },
+        }),
     ],
     server: {
         watch: {
