@@ -37,7 +37,6 @@ const jsonLd = computed(() =>
     <Seo
         :titre="`${infos.titre} – séances photo à Dijon`"
         :description="`${infos.intro} Mélanie Photographie, à Dijon et Chenôve.`"
-        :image="photos[0]?.src ?? undefined"
         :json-ld="jsonLd"
     />
 

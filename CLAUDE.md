@@ -20,6 +20,7 @@ composer dev                    # serveur Laravel + file d'attente + Vite (en de
 npm run build                   # bundle client (public/build) + bundle SSR (bootstrap/ssr)
 php artisan inertia:start-ssr   # serveur SSR Node de production (127.0.0.1:13728)
 php artisan seo:generer         # génère public/sitemap.xml, robots.txt et llms.txt
+php artisan images:convertir …  # convertit des images PNG/JPEG en WebP optimisé (voir Images)
 php artisan lang:update         # met à jour les traductions lang/fr (Laravel Lang)
 ```
 
@@ -82,6 +83,19 @@ La commande `php artisan seo:generer` (`app/Console/Commands/GenererFichiersSeo.
 **Erreurs** (`bootstrap/app.php`). Les codes 403, 404, 429, 500 et 503 affichent la page Inertia `Erreur` (en mode debug, les erreurs 500 gardent la page détaillée de Laravel). Une 419 (session expirée) ramène l'utilisateur sur la page précédente avec le flash `sessionExpiree`.
 
 **Contact.** `ContactController` et `DemandeContactRequest` (champ piège `site_web`, 5 envois par minute au maximum) envoient `App\Mail\DemandeContact` à `config('site.email')`. Les paramètres `/contact?seance=…` et `?objet=bon-cadeau` pré-remplissent le formulaire. Les champs obligatoires ont un astérisque rouge ; les champs facultatifs n'ont aucune mention.
+
+## Images : toujours en WebP optimisé
+
+Toute image affichée sur le site est en WebP optimisé, avec un `alt` descriptif (voir Règles de contenu). À chaque ajout ou remplacement d'image :
+
+1. **Photo** (séance, accueil, portrait, bon cadeau…) : déposer le fichier d'origine, en grand, dans `resources/photos/{dossier}/` (JPEG, PNG ou WebP). Rien à convertir : le site crée lui-même les variantes WebP redimensionnées (480 à 2000 px de large, qualité 82). Ne jamais mettre une photo dans `public/`.
+2. **Autre image** (logo, décor, illustration) : la convertir avec `php artisan images:convertir public/images/…/image.png --largeur=…` (`app/Console/Commands/ConvertirImages.php`). Choisir une largeur de 2 à 3 fois la largeur d'affichage maximale ; la qualité est de 80 par défaut. Utiliser ensuite le `.webp` dans le code, avec ses vraies dimensions dans `width` et `height`, puis supprimer l'original de `public/`. Si la commande signale un WebP plus lourd que l'original, baisser `--qualite`.
+3. **Vérifier** : `grep -rnE "\.(png|jpe?g)" resources/js resources/views public/site.webmanifest` ne doit lister que les exceptions ci-dessous.
+
+Exceptions, à garder dans leur format, car le WebP n'y est pas lu partout :
+- `favicon.ico`, `apple-touch-icon.png` et les icônes PNG de `public/site.webmanifest` : formats exigés par les navigateurs et iOS ;
+- l'image de partage `og-image.jpg` (balise `og:image` et `image` des données structurées) : LinkedIn et d'anciennes versions de WhatsApp n'affichent pas le WebP ;
+- les images d'e-mails : Outlook (Windows et macOS) affiche une image cassée à la place d'un WebP.
 
 ## Style (Tailwind CSS 4)
 

@@ -53,7 +53,7 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
             <div class="relative order-2 flex items-center px-5 py-16 sm:px-12 lg:order-1 lg:py-20">
                 <Fleur variante="gypsophile" class="absolute -top-8 -left-12 -z-10 w-44 opacity-80 sm:w-60" />
                 <div class="mx-auto max-w-lg text-center lg:text-left">
-                    <img src="/images/marque/monogramme-mp.webp" width="480" height="252" alt="Mélanie Photographie" aria-hidden="true" class="mx-auto h-14 w-auto lg:mx-0" />
+                    <img src="/images/marque/monogramme-mp.webp" width="320" height="168" alt="Mélanie Photographie" aria-hidden="true" class="mx-auto h-14 w-auto lg:mx-0" />
                     <h1 class="mt-8">
                         <span class="block font-serif text-[2.9rem] leading-[1.05] tracking-[0.16em] text-cacao-800 uppercase sm:text-6xl">Mélanie</span>
                         <span class="manuscrit mt-1 block text-[3.4rem] text-cacao-700 sm:text-[4.4rem]">Photographie</span>

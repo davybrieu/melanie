@@ -6,6 +6,7 @@ const props = defineProps({
     // Titre sans suffixe : « | Mélanie Photographie » est ajouté par app.js.
     titre: { type: String, required: true },
     description: { type: String, required: true },
+    // Image de partage en JPEG, jamais en WebP : LinkedIn et d'anciennes versions de WhatsApp ne l'affichent pas.
     image: { type: String, default: '/images/marque/og-image.jpg' },
     jsonLd: { type: [Object, Array], default: null },
     indexer: { type: Boolean, default: true },

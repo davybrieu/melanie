@@ -37,7 +37,7 @@ export const entrepriseJsonLd = (site) => ({
     description: `${site.metier} à ${site.ville} et alentours.`,
     url: `${site.url}/`,
     image: `${site.url}/images/marque/og-image.jpg`,
-    logo: `${site.url}/images/marque/logo-mp.png`,
+    logo: `${site.url}/images/marque/logo-mp.webp`,
     email: site.email,
     // Format international (+33…), comme le recommande Google.
     ...(site.telephoneUrl ? { telephone: site.telephoneUrl.replace('tel:', '') } : {}),
