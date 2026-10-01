@@ -24,7 +24,7 @@ const route = inject('route');
 const site = useSite();
 const seance = seances.grossesse;
 
-const description = `Séance photo grossesse à Dijon et alentours avec Mélanie Photographie : une séance douce et naturelle, en extérieur ou à domicile, prêt de tenues inclus. Séance à ${euros(seance.prix)}.`;
+const description = `Photographe grossesse à Dijon et alentours : une séance photo douce et naturelle, en extérieur ou à domicile, prêt de tenues inclus. Séance à ${euros(seance.prix)}.`;
 
 // Pas de FAQPage ici : les questions sont balisées une seule fois, sur la page FAQ.
 const jsonLd = computed(() => serviceJsonLd(site.value, route, seance));
@@ -52,14 +52,14 @@ const infos = [
 
     <EnTetePage
         :fil="[{ libelle: 'Grossesse' }]"
-        surtitre="Photographe grossesse à Dijon"
-        titre="Séance photo grossesse à Dijon"
+        surtitre="Séance photo grossesse à Dijon"
+        titre="Photographe grossesse à Dijon"
         :manuscrit="seance.accroche"
         :photo="photos.hero"
         libelle-photo="Photo grossesse principale"
     >
         <p class="texte-courant mx-auto mt-7 max-w-xl lg:mx-0">
-            Votre ventre s’arrondit, bébé bouge, vous vous préparez à rencontrer quelqu’un que vous aimez déjà. La grossesse est une parenthèse unique, et si courte. Je vous propose une séance douce et naturelle pour garder la trace de ces mois si particuliers : seule, en couple ou avec vos aînés.
+            Votre ventre s’arrondit, bébé bouge, vous vous préparez à rencontrer quelqu’un que vous aimez déjà. La grossesse est une parenthèse unique, et si courte. Je vous propose une séance douce et naturelle, à Dijon ou dans ses alentours, pour garder la trace de ces mois si particuliers : seule, en couple ou avec vos aînés.
         </p>
         <div class="mt-9 flex flex-wrap justify-center gap-4 lg:justify-start">
             <Bouton :href="route('contact', { seance: 'grossesse' })">Réserver ma séance</Bouton>

@@ -25,7 +25,7 @@ const route = inject('route');
 const site = useSite();
 const seance = seances['nouveau-ne'];
 
-const description = `Photographe nouveau-né à Dijon : une séance douce, à domicile et au rythme de bébé, où sa sécurité et son bien-être passent avant tout. Séance à ${euros(seance.prix)}.`;
+const description = `Photographe nouveau-né à Dijon et alentours : une séance douce à domicile, au rythme de bébé, sa sécurité et son bien-être avant tout. Séance à ${euros(seance.prix)}.`;
 
 // Pas de FAQPage ici : les questions sont balisées une seule fois, sur la page FAQ.
 const jsonLd = computed(() => serviceJsonLd(site.value, route, seance));
@@ -67,7 +67,7 @@ const moments = ['Bébé paisiblement endormi', 'Blotti dans vos bras', 'Ses min
             Les premiers jours ne durent pas.<br />Les photographies, oui.
         </p>
         <p class="texte-courant mx-auto mt-5 max-w-xl lg:mx-0">
-            Ses petits doigts qui s’enroulent autour des vôtres, son odeur, ses mimiques pendant son sommeil… Tout change si vite. Je viens chez vous pour une séance tout en douceur, pensée d’abord pour le confort et la sécurité de bébé.
+            Ses petits doigts qui s’enroulent autour des vôtres, son odeur, ses mimiques pendant son sommeil… Tout change si vite. Je viens chez vous, à Dijon ou dans ses alentours, pour une séance tout en douceur, pensée d’abord pour le confort et la sécurité de bébé.
         </p>
         <div class="mt-9 flex flex-wrap justify-center gap-4 lg:justify-start">
             <Bouton :href="route('contact', { seance: 'nouveau-ne' })">Réserver pendant la grossesse</Bouton>

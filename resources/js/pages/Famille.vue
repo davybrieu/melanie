@@ -23,7 +23,7 @@ const route = inject('route');
 const site = useSite();
 const seance = seances.famille;
 
-const description = `Photographe famille à Dijon : une séance naturelle où les enfants ont le droit d’être des enfants. Jeux, câlins, fous rires, en extérieur ou à la maison. Séance à ${euros(seance.prix)}.`;
+const description = `Photographe famille à Dijon et alentours : une séance naturelle où les enfants restent des enfants, en extérieur ou à la maison. Séance à ${euros(seance.prix)}.`;
 
 // Pas de FAQPage ici : les questions sont balisées une seule fois, sur la page FAQ.
 const jsonLd = computed(() => serviceJsonLd(site.value, route, seance));
@@ -53,7 +53,7 @@ const moments = [
         libelle-photo="Photo famille principale"
     >
         <p class="texte-courant mx-auto mt-7 max-w-xl lg:mx-0">
-            Les enfants grandissent à toute vitesse, et les photos de famille sont souvent celles où il manque quelqu’un : vous, derrière l’appareil. Offrez-vous un vrai moment ensemble, et laissez-moi garder la trace de votre famille telle qu’elle est aujourd’hui.
+            Les enfants grandissent à toute vitesse, et les photos de famille sont souvent celles où il manque quelqu’un : vous, derrière l’appareil. Offrez-vous un vrai moment ensemble, à Dijon ou dans ses alentours, et laissez-moi garder la trace de votre famille telle qu’elle est aujourd’hui.
         </p>
         <div class="mt-9 flex flex-wrap justify-center gap-4 lg:justify-start">
             <Bouton :href="route('contact', { seance: 'famille' })">Réserver ma séance</Bouton>

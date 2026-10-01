@@ -42,8 +42,8 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
 
 <template>
     <Seo
-        titre="Photographe grossesse, nouveau-né & famille à Dijon"
-        :description="`Mélanie Photographie : photographe grossesse, nouveau-né et famille à Dijon et Chenôve. Des images douces et naturelles pour garder vos plus beaux moments de vie. Séances dès ${euros(prixMini)}.`"
+        titre="Photographe à Dijon : grossesse, nouveau-né et famille"
+        :description="`Photographe grossesse, nouveau-né et famille à Dijon et alentours : des photos douces et naturelles, en extérieur ou à domicile. Séances dès ${euros(prixMini)}.`"
         :json-ld="[siteWebJsonLd(site), entrepriseJsonLd(site)]"
     />
 
@@ -57,7 +57,7 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
                         <Icone nom="localisation" class="size-4 text-or-500" />
                         Déplacements sur Dijon et alentours
                     </p>
-                    <h1 class="mt-6 text-[2.35rem] leading-[1.1] text-balance sm:text-[3.2rem]">Photographe grossesse, <span class="whitespace-nowrap">nouveau-né</span> et famille</h1>
+                    <h1 class="mt-6 text-[2.35rem] leading-[1.1] text-balance sm:text-[3.2rem]">Photographe grossesse, <span class="whitespace-nowrap">nouveau-né</span> et famille à Dijon</h1>
                     <p class="texte-courant mt-6 text-balance">
                         Des photos douces et naturelles, prises à votre rythme, pour garder une trace des moments qui passent trop vite.
                     </p>
@@ -174,7 +174,7 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
                 <p class="surtitre">Mon univers</p>
                 <h2 class="mt-3 text-[2.2rem] leading-tight sm:text-5xl">Bonjour, moi c’est Mélanie</h2>
                 <p class="texte-courant mt-6">
-                    J’ai {{ site.age }} ans et je vis à Chenôve, tout près de Dijon. Je photographie la grossesse, les premiers jours de bébé et les familles, avec une envie simple : créer des images douces et naturelles, dans lesquelles vous vous reconnaissez vraiment.
+                    J’ai {{ site.age }} ans, je vis à Chenôve et je suis photographe à Dijon et dans ses alentours. Je photographie la grossesse, les premiers jours de bébé et les familles, avec une envie simple : créer des images douces et naturelles, dans lesquelles vous vous reconnaissez vraiment.
                 </p>
                 <p class="texte-courant mt-4">Vous vivez le moment, je m’occupe de le garder pour toujours.</p>
                 <div class="mt-9">
