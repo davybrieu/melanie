@@ -14,7 +14,7 @@ import TitreSection from '../components/TitreSection.vue';
 import { useSite } from '../composables/useSite';
 import { faqGrossesse } from '../data/faq';
 import { euros, photosIncluses, seances } from '../data/seances';
-import { faqJsonLd, serviceJsonLd } from '../data/seo';
+import { serviceJsonLd } from '../data/seo';
 
 const props = defineProps({
     photos: { type: Object, required: true },
@@ -26,10 +26,8 @@ const seance = seances.grossesse;
 
 const description = `Séance photo grossesse à Dijon et alentours avec Mélanie Photographie : une séance douce et naturelle, en extérieur ou à domicile, prêt de tenues inclus. Séance à ${euros(seance.prix)}.`;
 
-const jsonLd = computed(() => [
-    serviceJsonLd(site.value, { nom: 'Séance photo grossesse', description, prix: seance.prix, url: route('grossesse') }),
-    faqJsonLd(faqGrossesse),
-]);
+// Pas de FAQPage ici : les questions sont balisées une seule fois, sur la page FAQ.
+const jsonLd = computed(() => serviceJsonLd(site.value, route, seance));
 
 const grandes = computed(() => [props.photos.grandes[0] ?? null, props.photos.grandes[1] ?? null]);
 

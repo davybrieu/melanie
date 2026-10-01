@@ -7,7 +7,10 @@ import FilAriane from '../../components/FilAriane.vue';
 import Galerie from '../../components/Galerie.vue';
 import Seo from '../../components/Seo.vue';
 import TitreSection from '../../components/TitreSection.vue';
+import { useSite } from '../../composables/useSite';
 import { categoriesPortfolio } from '../../data/portfolio';
+import { seances } from '../../data/seances';
+import { adresse, idSeance, pageJsonLd, photoJsonLd } from '../../data/seo';
 
 const props = defineProps({
     categorie: { type: String, required: true },
@@ -17,6 +20,17 @@ const props = defineProps({
 const route = inject('route');
 const infos = computed(() => categoriesPortfolio[props.categorie]);
 const autres = computed(() => Object.entries(categoriesPortfolio).filter(([cle]) => cle !== props.categorie));
+const site = useSite();
+
+const jsonLd = computed(() =>
+    pageJsonLd(site.value, 'ImageGallery', {
+        nom: infos.value.titre,
+        url: adresse(site.value, route, 'portfolio.categorie', { categorie: props.categorie }),
+        description: infos.value.intro,
+        about: { '@id': idSeance(site.value, seances[props.categorie]) },
+        ...(props.photos.length ? { image: props.photos.map((photo) => photoJsonLd(site.value, photo)) } : {}),
+    }),
+);
 </script>
 
 <template>
@@ -24,6 +38,7 @@ const autres = computed(() => Object.entries(categoriesPortfolio).filter(([cle])
         :titre="`${infos.titre} – séances photo à Dijon`"
         :description="`${infos.intro} Mélanie Photographie, à Dijon et Chenôve.`"
         :image="photos[0]?.src ?? undefined"
+        :json-ld="jsonLd"
     />
 
     <section class="pt-8 pb-20 sm:pb-28">

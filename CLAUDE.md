@@ -45,8 +45,8 @@ Les messages ponctuels passent par `Inertia::flash()` / `page.flash` (`demandeEn
 **Données de contenu** (`resources/js/data/`). Les textes vivent dans les pages Vue ; ce qui est repris à plusieurs endroits est centralisé ici :
 - `seances.js` : prix, durées et contenu des séances. C'est la source unique : pages, FAQ, CGV, meta descriptions et JSON-LD en dépendent. Ne jamais écrire un prix en dur dans une page.
 - `conditions.js` : acompte, paiement, livraison, report, validité du bon cadeau. Ce sont des valeurs provisoires, que Mélanie doit valider.
-- `faq.js` : questions et réponses (HTML), reprises par la page FAQ, les pages séances, la page tarifs et le JSON-LD `FAQPage`. Les questions ont été fournies par Mélanie : ne pas les reformuler ni les supprimer sans son accord.
-- `seo.js` : générateurs JSON-LD (`LocalBusiness`, `Service`, `FAQPage`).
+- `faq.js` : questions et réponses (HTML), reprises par la page FAQ, les pages séances et la page tarifs. Seule la page FAQ les balise en JSON-LD `FAQPage` : Google demande de ne baliser chaque question qu'une fois sur tout le site. Les questions ont été fournies par Mélanie : ne pas les reformuler ni les supprimer sans son accord.
+- `seo.js` : générateurs JSON-LD (voir SEO).
 
 Les clés `grossesse`, `nouveau-ne` et `famille` relient toutes les couches :
 - les URL silo `/photographe-{clé}-dijon` et `/portfolio/{clé}` ;
@@ -62,6 +62,15 @@ Ajouter un type de séance, c'est modifier tous ces endroits.
 Les contrôleurs passent aux pages des objets `{src, srcset, largeur, hauteur, alt}` ; le texte `alt` est tiré du nom de fichier. Les variantes WebP (`/photos/{largeur}/{dossier}/{nom}-{empreinte}.webp`) sont créées à la première demande par `PhotoController`, puis servies comme fichiers statiques depuis `public/photos` (non versionné). S'il n'y a pas de photo, `components/Photo.vue` affiche un emplacement aux couleurs du site.
 
 **SEO.** Chaque page inclut `<Seo titre="…" description="…" :json-ld="…" />`, avec un titre sans suffixe.
+
+Données structurées (JSON-LD, `data/seo.js`), validées sans erreur ni avertissement sur validator.schema.org :
+- accueil : `WebSite` + `LocalBusiness` (l'entreprise, avec le catalogue des séances) ; à propos et contact : `AboutPage` / `ContactPage` + `LocalBusiness` ;
+- pages séances et tarifs : un `Service` par séance, avec le même `@id` partout (`/#seance-{clé}`) ; bon cadeau : `Service` avec une `AggregateOffer` ;
+- FAQ : `FAQPage`, seule page qui balise les questions ;
+- portfolio : `CollectionPage`, puis une `ImageGallery` par catégorie dont chaque photo est un `ImageObject` (créateur, crédit, droits d'auteur) ;
+- fil d'Ariane : `BreadcrumbList` (`FilAriane.vue`) ;
+- toutes les URL sont construites sur `APP_URL` (`adresse()` de `seo.js`), comme l'URL canonique ;
+- ne rien inventer : pas de rue, de coordonnées GPS, d'horaires ni d'avis tant que Mélanie ne les a pas fournis.
 
 La commande `php artisan seo:generer` (`app/Console/Commands/GenererFichiersSeo.php`) rend en SSR chaque page listée dans `config/seo.php`. Elle garde une empreinte du contenu de chaque page (titre, description, texte et photos de `<main>`) dans `storage/app/private/seo/empreintes.json`. Le `<lastmod>` du sitemap ne change que si ce contenu change.
 
@@ -86,6 +95,10 @@ La commande `php artisan seo:generer` (`app/Console/Commands/GenererFichiersSeo.
 
 - Ne jamais attribuer à Mélanie une formation, une certification ou un label qu'elle n'a pas (notamment sur la sécurité des nouveau-nés).
 - Ne pas inventer d'informations légales : les mentions `[À compléter]` des pages Mentions légales et CGV restent à remplir par Mélanie.
+- **Toute image a un texte alternatif (`alt`) descriptif, jamais vide** :
+  - photos : texte tiré du nom de fichier (voir Photos) ;
+  - logo et monogramme : « Mélanie Photographie » ;
+  - ornements (`Fleur.vue`, monogramme au-dessus d'un titre) : courte description, et `aria-hidden="true"` pour que les lecteurs d'écran les ignorent.
 
 ## Production
 

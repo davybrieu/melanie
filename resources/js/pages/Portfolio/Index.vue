@@ -1,25 +1,44 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
-import { inject } from 'vue';
+import { computed, inject } from 'vue';
 import AppelReservation from '../../components/AppelReservation.vue';
 import FilAriane from '../../components/FilAriane.vue';
 import Icone from '../../components/Icone.vue';
 import Photo from '../../components/Photo.vue';
 import Seo from '../../components/Seo.vue';
 import TitreSection from '../../components/TitreSection.vue';
+import { useSite } from '../../composables/useSite';
 import { categoriesPortfolio } from '../../data/portfolio';
+import { adresse, pageJsonLd } from '../../data/seo';
 
 defineProps({
     couvertures: { type: Object, required: true },
 });
 
 const route = inject('route');
+const site = useSite();
+
+const description = 'Découvrez le portfolio de Mélanie Photographie à Dijon : séances grossesse, nouveau-né et famille, des images douces, naturelles et lumineuses.';
+
+const jsonLd = computed(() =>
+    pageJsonLd(site.value, 'CollectionPage', {
+        nom: 'Portfolio',
+        url: adresse(site.value, route, 'portfolio'),
+        description,
+        hasPart: Object.entries(categoriesPortfolio).map(([cle, categorie]) => ({
+            '@type': 'ImageGallery',
+            name: categorie.titre,
+            url: adresse(site.value, route, 'portfolio.categorie', { categorie: cle }),
+        })),
+    }),
+);
 </script>
 
 <template>
     <Seo
         titre="Portfolio – photographe grossesse, nouveau-né & famille"
-        description="Découvrez le portfolio de Mélanie Photographie à Dijon : séances grossesse, nouveau-né et famille, des images douces, naturelles et lumineuses."
+        :description="description"
+        :json-ld="jsonLd"
     />
 
     <section class="pt-8 pb-20 sm:pb-28">

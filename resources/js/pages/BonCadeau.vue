@@ -7,14 +7,19 @@ import Etapes from '../components/Etapes.vue';
 import Icone from '../components/Icone.vue';
 import Seo from '../components/Seo.vue';
 import TitreSection from '../components/TitreSection.vue';
+import { useSite } from '../composables/useSite';
 import { conditions } from '../data/conditions';
 import { euros, seances } from '../data/seances';
+import { bonCadeauJsonLd } from '../data/seo';
 
 defineProps({
     photo: { type: Object, default: null },
 });
 
 const route = inject('route');
+const site = useSite();
+
+const description = `Offrez une séance photo grossesse, nouveau-né ou famille à Dijon avec un bon cadeau Mélanie Photographie, valable ${conditions.validiteBonCadeau}. Un souvenir pour la vie, dès ${euros(seances.famille.prix)}.`;
 
 const offres = [seances.grossesse, seances['nouveau-ne'], seances.famille];
 
@@ -31,7 +36,8 @@ const occasions = ['Une future maman', 'Une naissance', 'La fête des mères', '
 <template>
     <Seo
         titre="Bon cadeau séance photo à Dijon"
-        :description="`Offrez une séance photo grossesse, nouveau-né ou famille à Dijon avec un bon cadeau Mélanie Photographie, valable ${conditions.validiteBonCadeau}. Un souvenir pour la vie, dès ${euros(seances.famille.prix)}.`"
+        :description="description"
+        :json-ld="bonCadeauJsonLd(site, route, description)"
     />
 
     <EnTetePage

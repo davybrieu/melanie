@@ -13,7 +13,7 @@ import TitreSection from '../components/TitreSection.vue';
 import { useSite } from '../composables/useSite';
 import { faqTarifs } from '../data/faq';
 import { euros, photoSupplementaire, seances } from '../data/seances';
-import { faqJsonLd, serviceJsonLd } from '../data/seo';
+import { serviceJsonLd } from '../data/seo';
 
 defineProps({
     photos: { type: Object, required: true },
@@ -27,17 +27,8 @@ const offres = [seances.grossesse, seances['nouveau-ne'], seances.famille];
 // Questions tarifs les plus utiles ici ; la liste complète est sur la page FAQ.
 const questions = faqTarifs.filter((_, i) => [1, 2, 3, 4, 7, 8, 10, 14].includes(i));
 
-const jsonLd = computed(() => [
-    ...offres.map((offre) =>
-        serviceJsonLd(site.value, {
-            nom: offre.titre,
-            description: `${offre.titre} à Dijon : ${offre.inclus.join(', ').toLowerCase()}.`,
-            prix: offre.prix,
-            url: route('tarifs'),
-        }),
-    ),
-    faqJsonLd(questions),
-]);
+// Pas de FAQPage ici : les questions sont balisées une seule fois, sur la page FAQ.
+const jsonLd = computed(() => offres.map((offre) => serviceJsonLd(site.value, route, offre)));
 
 const engagements = [
     { icone: 'coeur', texte: 'Des images naturelles & authentiques' },
@@ -62,7 +53,7 @@ const engagements = [
             <FilAriane :liens="[{ libelle: 'Tarifs' }]" />
 
             <div class="mt-10 text-center">
-                <img src="/images/marque/monogramme-mp.webp" width="480" height="252" alt="" class="mx-auto h-12 w-auto" />
+                <img src="/images/marque/monogramme-mp.webp" width="480" height="252" alt="Mélanie Photographie" aria-hidden="true" class="mx-auto h-12 w-auto" />
                 <TitreSection class="mt-4" balise="h1" surtitre="Mes offres" coeurs titre="Tarifs" majuscules manuscrit="Des souvenirs vrais, remplis d’émotions" />
                 <p class="surtitre mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
                     <span>Grossesse</span><span class="text-or-500">·</span><span>Nouveau-né</span><span class="text-or-500">·</span><span>Famille</span>

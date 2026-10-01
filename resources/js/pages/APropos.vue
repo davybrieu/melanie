@@ -10,7 +10,7 @@ import Pinceau from '../components/Pinceau.vue';
 import Seo from '../components/Seo.vue';
 import TitreSection from '../components/TitreSection.vue';
 import { useSite } from '../composables/useSite';
-import { entrepriseJsonLd } from '../data/seo';
+import { adresse, entrepriseJsonLd, idEntreprise, pageJsonLd } from '../data/seo';
 
 defineProps({
     photos: { type: Object, required: true },
@@ -21,7 +21,7 @@ const site = useSite();
 
 const jsonLd = computed(() => [
     entrepriseJsonLd(site.value),
-    { '@type': 'AboutPage', name: 'Mon univers', url: route('a-propos'), about: { '@id': `${site.value.url}/#entreprise` } },
+    pageJsonLd(site.value, 'AboutPage', { nom: 'Mon univers', url: adresse(site.value, route, 'a-propos'), about: { '@id': idEntreprise(site.value) } }),
 ]);
 
 // Textes à la première personne. À relire et personnaliser par Mélanie :

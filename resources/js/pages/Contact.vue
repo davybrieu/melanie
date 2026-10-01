@@ -8,7 +8,7 @@ import Icone from '../components/Icone.vue';
 import Seo from '../components/Seo.vue';
 import TitreSection from '../components/TitreSection.vue';
 import { useSite } from '../composables/useSite';
-import { entrepriseJsonLd } from '../data/seo';
+import { adresse, entrepriseJsonLd, idEntreprise, pageJsonLd } from '../data/seo';
 
 const props = defineProps({
     seance: { type: String, default: null },
@@ -18,6 +18,11 @@ const props = defineProps({
 const route = inject('route');
 const page = usePage();
 const site = useSite();
+
+const jsonLd = computed(() => [
+    entrepriseJsonLd(site.value),
+    pageJsonLd(site.value, 'ContactPage', { nom: 'Contact', url: adresse(site.value, route, 'contact'), about: { '@id': idEntreprise(site.value) } }),
+]);
 
 const types = [
     { cle: 'grossesse', nom: 'Grossesse', icone: 'grossesse' },
@@ -60,7 +65,7 @@ const etiquette = 'text-[0.72rem] font-normal tracking-[0.2em] text-cacao-700 up
     <Seo
         titre="Contact – réserver une séance photo à Dijon"
         description="Parlons de votre projet de séance photo grossesse, nouveau-né ou famille à Dijon et alentours. Écrivez à Mélanie via le formulaire ou sur Instagram."
-        :json-ld="entrepriseJsonLd(site)"
+        :json-ld="jsonLd"
     />
 
     <section class="relative isolate overflow-hidden pt-8 pb-24 sm:pb-32">

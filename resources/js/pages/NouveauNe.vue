@@ -15,7 +15,7 @@ import TitreSection from '../components/TitreSection.vue';
 import { useSite } from '../composables/useSite';
 import { faqNouveauNe } from '../data/faq';
 import { euros, photosIncluses, seances } from '../data/seances';
-import { faqJsonLd, serviceJsonLd } from '../data/seo';
+import { serviceJsonLd } from '../data/seo';
 
 const props = defineProps({
     photos: { type: Object, required: true },
@@ -27,10 +27,8 @@ const seance = seances['nouveau-ne'];
 
 const description = `Photographe nouveau-né à Dijon : une séance douce, à domicile et au rythme de bébé, où sa sécurité et son bien-être passent avant tout. Séance à ${euros(seance.prix)}.`;
 
-const jsonLd = computed(() => [
-    serviceJsonLd(site.value, { nom: 'Séance photo nouveau-né', description, prix: seance.prix, url: route('nouveau-ne') }),
-    faqJsonLd(faqNouveauNe),
-]);
+// Pas de FAQPage ici : les questions sont balisées une seule fois, sur la page FAQ.
+const jsonLd = computed(() => serviceJsonLd(site.value, route, seance));
 
 const grandes = computed(() => [props.photos.grandes[0] ?? null, props.photos.grandes[1] ?? null]);
 

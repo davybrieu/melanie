@@ -1,5 +1,5 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, usePage } from '@inertiajs/vue3';
 import { computed, inject } from 'vue';
 import Icone from './Icone.vue';
 
@@ -9,6 +9,7 @@ const props = defineProps({
 });
 
 const route = inject('route');
+const page = usePage();
 
 const elements = computed(() => [{ libelle: 'Accueil', href: route('accueil') }, ...props.liens]);
 
@@ -20,7 +21,8 @@ const jsonLd = computed(() =>
             '@type': 'ListItem',
             position: i + 1,
             name: lien.libelle,
-            ...(lien.href ? { item: lien.href } : {}),
+            // Adresse sur APP_URL, comme l'URL canonique, quel que soit l'hôte de la requête.
+            ...(lien.href ? { item: page.props.site.url + new URL(lien.href, page.props.site.url).pathname } : {}),
         })),
     }).replace(/</g, '\\u003c'),
 );
