@@ -9,17 +9,11 @@ const site = useSite();
     <PageLegale
         titre="Politique de confidentialité"
         description="Comment Mélanie Photographie, à Dijon, collecte, utilise et protège vos données personnelles, et comment exercer vos droits."
-        mise-a-jour="septembre 2026"
+        mise-a-jour="octobre 2026"
     >
         <p>
             Vos photos et vos informations sont précieuses : je les traite avec le même soin que vos souvenirs. Cette page explique quelles données je collecte, pourquoi, et
             comment exercer vos droits, conformément au Règlement général sur la protection des données (RGPD).
-        </p>
-
-        <h2>Responsable du traitement</h2>
-        <p>
-            {{ site.nom }} (<span class="a-completer">[À compléter : prénom et nom]</span>), <span class="a-completer">[À compléter : adresse professionnelle]</span>, {{ site.code_postal }} {{ site.commune }} —
-            <a :href="`mailto:${site.email}`">{{ site.email }}</a>.
         </p>
 
         <h2>Données collectées</h2>
@@ -51,7 +45,7 @@ const site = useSite();
             <li>demande restée sans suite : 3 ans après notre dernier échange ;</li>
             <li>clients : pendant la durée de la prestation, puis 3 ans ;</li>
             <li>factures : 10 ans (obligation légale) ;</li>
-            <li>photos de la séance : <span class="a-completer">[À compléter : durée de conservation des fichiers]</span>, pour vous permettre de les récupérer en cas de perte.</li>
+            <li>photos de la séance : aussi longtemps que les données clients, pour vous permettre de les récupérer en cas de perte.</li>
         </ul>
 
         <h2>Vos photos</h2>

@@ -85,7 +85,7 @@ La commande `php artisan seo:generer` (`app/Console/Commands/GenererFichiersSeo.
 ## Règles de contenu
 
 - Ne jamais attribuer à Mélanie une formation, une certification ou un label qu'elle n'a pas (notamment sur la sécurité des nouveau-nés).
-- Ne pas inventer d'informations légales : les mentions `[À compléter]` des pages Mentions légales, Confidentialité et CGV restent à remplir par Mélanie.
+- Ne pas inventer d'informations légales : les mentions `[À compléter]` des pages Mentions légales et CGV restent à remplir par Mélanie.
 
 ## Production
 
