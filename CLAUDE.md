@@ -50,7 +50,7 @@ Les messages ponctuels passent par `Inertia::flash()` / `page.flash` (`demandeEn
 
 Les clés `grossesse`, `nouveau-ne` et `famille` relient toutes les couches :
 - les URL silo `/photographe-{clé}-dijon` et `/portfolio/{clé}` ;
-- `DemandeContactRequest::SEANCES` ;
+- `DemandeContactRequest::SEANCES`, qui y ajoute `autres`, un choix propre au formulaire de contact ;
 - `Photos::DOSSIERS` et les dossiers de `resources/photos/` ;
 - `data/seances.js` et `data/portfolio.js` ;
 - `config/seo.php`.

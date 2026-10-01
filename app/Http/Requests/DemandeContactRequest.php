@@ -7,10 +7,12 @@ use Illuminate\Validation\Rule;
 
 class DemandeContactRequest extends FormRequest
 {
+    /** Choix du formulaire : les trois séances du site, plus « Autres » (projet décrit dans le message). */
     public const SEANCES = [
         'grossesse' => 'Grossesse',
         'nouveau-ne' => 'Nouveau-né',
         'famille' => 'Famille',
+        'autres' => 'Autres',
     ];
 
     /**

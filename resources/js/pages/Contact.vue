@@ -23,6 +23,7 @@ const types = [
     { cle: 'grossesse', nom: 'Grossesse', icone: 'grossesse' },
     { cle: 'nouveau-ne', nom: 'Nouveau-né', icone: 'bebe' },
     { cle: 'famille', nom: 'Famille', icone: 'famille' },
+    { cle: 'autres', nom: 'Autres', icone: 'appareil' },
 ];
 
 const form = useForm({
@@ -39,7 +40,7 @@ const form = useForm({
 });
 
 // La date d'accouchement ne concerne que les séances grossesse et nouveau-né.
-const avecTerme = computed(() => form.seances.some((seance) => seance !== 'famille'));
+const avecTerme = computed(() => form.seances.some((seance) => ['grossesse', 'nouveau-ne'].includes(seance)));
 
 const envoyee = computed(() => page.flash?.demandeEnvoyee);
 
@@ -119,7 +120,7 @@ const etiquette = 'text-[0.72rem] font-normal tracking-[0.2em] text-cacao-700 up
 
                 <fieldset class="mt-8">
                     <legend :class="etiquette">Quel type de séance ? <span class="text-rouge" aria-hidden="true">*</span><span class="sr-only">(obligatoire)</span></legend>
-                    <div class="mt-3 grid grid-cols-3 gap-3">
+                    <div class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
                         <label v-for="type in types" :key="type.cle" class="relative cursor-pointer">
                             <input v-model="form.seances" type="checkbox" :value="type.cle" class="peer sr-only" />
                             <span
