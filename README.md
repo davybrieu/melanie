@@ -30,14 +30,8 @@ Lance le serveur Laravel, la file d'attente et Vite. En développement, le SSR p
 
 ```bash
 npm run build                 # bundle client (public/build) + bundle SSR (bootstrap/ssr)
-php artisan seo:generer       # sitemap.xml, robots.txt et llms.txt (à relancer à chaque déploiement)
+php artisan seo:generer       # sitemap.xml et robots.txt (à relancer à chaque déploiement)
 php artisan inertia:start-ssr # serveur SSR Node sur 127.0.0.1:13728, à garder actif (Supervisor, etc.)
-```
-
-Tâche cron à ajouter sur le serveur (planificateur Laravel) :
-
-```
-* * * * * cd /chemin/du/site && php artisan schedule:run >> /dev/null 2>&1
 ```
 
 Dans le `.env` de production : `APP_URL=https://www.melanie-photographie.fr` (URL canoniques et sitemap), `APP_ENV=production`, `APP_DEBUG=false`, et la configuration SMTP (`MAIL_*`) pour recevoir les demandes de contact.
@@ -46,12 +40,11 @@ En production, `melanie-photographie.fr` redirige (301) vers `www.melanie-photog
 
 Le serveur SSR utilise le port 13728 et non 13714, le port par défaut d'Inertia, déjà pris par d'autres sites du serveur. Ce port est défini dans `vite.config.js` (il est compilé dans le bundle SSR) et dans `config/inertia.php` : modifiez les deux ensemble, puis relancez `npm run build`, `php artisan config:cache` (si la configuration est mise en cache) et le serveur SSR.
 
-Sur **Laravel Forge**, activez « Inertia SSR » (daemon du serveur SSR) et « Laravel Scheduler » (tâche cron) dans l'onglet Overview du site. Dans le script de déploiement, après `npm run build`, terminez par :
+Sur **Laravel Forge**, activez « Inertia SSR » (daemon du serveur SSR) dans l'onglet Overview du site. Aucune tâche planifiée n'est nécessaire. Dans le script de déploiement, après `npm run build`, terminez par :
 
 ```bash
-$FORGE_PHP artisan inertia:stop-ssr --graceful   # Forge relance aussitôt le daemon, avec le nouveau bundle
-sleep 3                                          # le temps qu'il redémarre
 $FORGE_PHP artisan seo:generer
+$FORGE_PHP artisan inertia:stop-ssr --graceful   # Forge relance aussitôt le daemon, avec le nouveau bundle
 ```
 
 Sans `--graceful`, la commande échoue (« Unable to connect to Inertia SSR server. ») dès que le serveur SSR est arrêté, et fait échouer tout le déploiement. Après un changement de port, redémarrez une fois le daemon depuis Forge : l'ancien processus écoute encore sur l'ancien port.
@@ -60,11 +53,14 @@ Sans serveur SSR actif, le site reste fonctionnel (rendu côté client). Les dos
 
 ## Sitemap, robots.txt et llms.txt
 
-`php artisan seo:generer` écrit `public/sitemap.xml`, `public/robots.txt` et `public/llms.txt`. Elle tourne automatiquement chaque nuit à 4 h (heure de Paris).
+`php artisan seo:generer` écrit `public/sitemap.xml` et `public/robots.txt`, sans charger aucune page :
 
-Chaque page est rendue comme pour un visiteur, puis réduite à une empreinte de son contenu (titre, description, texte et photos). Le `<lastmod>` du sitemap ne change que si cette empreinte change : une page non modifiée garde sa date, même si la commande tourne tous les jours. Les changements de style ou d'en-tête/pied de page ne comptent pas. Les empreintes sont mémorisées dans `storage/app/private/seo/empreintes.json` : conservez ce fichier d'un déploiement à l'autre (comme le reste de `storage`), sinon toutes les dates repartent du jour de la génération.
+- `sitemap.xml` liste l'adresse de chaque page indexable déclarée dans `config/seo.php` ;
+- `robots.txt` autorise tous les robots partout et indique l'adresse du sitemap.
 
-`llms.txt` reprend les titres et descriptions réels des pages (prix compris). La liste des pages publiées se règle dans `config/seo.php`.
+Relancez-la à chaque déploiement. Toute nouvelle page publique doit être ajoutée à `config/seo.php`.
+
+`public/llms.txt`, le résumé du site pour les assistants IA, est rédigé à la main et versionné. Il doit être mis à jour à chaque changement de pages, de séances, de prix, de conditions ou de coordonnées.
 
 ## Photos
 
@@ -81,7 +77,8 @@ Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter u
 | Questions / réponses de la FAQ | `resources/js/data/faq.js` |
 | E-mail de contact, téléphone, délai de réponse | `.env` (`SITE_EMAIL`, `SITE_TELEPHONE`, `SITE_DELAI_REPONSE`) et `config/site.php` |
 | Textes des pages | `resources/js/pages/*.vue` |
-| Pages du sitemap et de llms.txt | `config/seo.php` |
+| Pages du sitemap | `config/seo.php` |
+| Résumé du site pour les IA | `public/llms.txt` (à tenir à jour à la main) |
 
 ## Avant la mise en ligne
 

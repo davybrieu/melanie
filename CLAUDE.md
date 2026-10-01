@@ -19,7 +19,7 @@ composer setup                  # installation : .env, clé, migrations (SQLite)
 composer dev                    # serveur Laravel + file d'attente + Vite (en dev, le SSR passe par Vite)
 npm run build                   # bundle client (public/build) + bundle SSR (bootstrap/ssr)
 php artisan inertia:start-ssr   # serveur SSR Node de production (127.0.0.1:13728)
-php artisan seo:generer         # génère public/sitemap.xml, robots.txt et llms.txt
+php artisan seo:generer         # génère public/sitemap.xml et robots.txt (llms.txt est écrit à la main)
 php artisan lang:update         # met à jour les traductions lang/fr (Laravel Lang)
 ```
 
@@ -72,12 +72,13 @@ Données structurées (JSON-LD, `data/seo.js`), validées sans erreur ni avertis
 - toutes les URL sont construites sur `APP_URL` (`adresse()` de `seo.js`), comme l'URL canonique ;
 - ne rien inventer : pas de rue, de coordonnées GPS, d'horaires ni d'avis tant que Mélanie ne les a pas fournis.
 
-La commande `php artisan seo:generer` (`app/Console/Commands/GenererFichiersSeo.php`) rend en SSR chaque page listée dans `config/seo.php`. Elle garde une empreinte du contenu de chaque page (titre, description, texte et photos de `<main>`) dans `storage/app/private/seo/empreintes.json`. Le `<lastmod>` du sitemap ne change que si ce contenu change.
+La commande `php artisan seo:generer` (`app/Console/Commands/GenererFichiersSeo.php`) écrit, sans charger aucune page :
+- `public/sitemap.xml` : l'adresse de chaque page indexable listée dans `config/seo.php`, rien d'autre ;
+- `public/robots.txt` : tous les robots autorisés partout (`Allow: /`, `Disallow:` vide) et l'adresse du sitemap.
 
-- La commande a besoin du bundle SSR compilé (ou de Vite lancé). En cas d'échec, elle garde les anciens fichiers.
-- Elle tourne chaque nuit à 4 h, heure de Paris (`routes/console.php`).
-- **Toute nouvelle page publique doit être ajoutée à `config/seo.php`.**
-- `sitemap.xml`, `robots.txt` et `llms.txt` sont générés et ne sont pas versionnés.
+Elle se lance à chaque déploiement ; ces deux fichiers ne sont pas versionnés. **Toute nouvelle page publique doit être ajoutée à `config/seo.php`.**
+
+**`public/llms.txt` est rédigé à la main par Claude et versionné.** Il résume le site pour les assistants IA (séances, prix, conditions, zone, contact) et liste ses pages, avec les URL de production. Le mettre à jour dans le même commit que tout changement qui le concerne : page ajoutée, supprimée ou renommée, prix, durée ou contenu d'une séance (`seances.js`), conditions (`conditions.js`), zone de déplacement, coordonnées, réseaux sociaux (par exemple quand la vraie page Facebook existera). N'y mettre que des informations publiées sur le site.
 
 **Erreurs** (`bootstrap/app.php`). Les codes 403, 404, 429, 500 et 503 affichent la page Inertia `Erreur` (en mode debug, les erreurs 500 gardent la page détaillée de Laravel). Une 419 (session expirée) ramène l'utilisateur sur la page précédente avec le flash `sessionExpiree`.
 
@@ -122,9 +123,8 @@ Exceptions, à garder dans leur format, car le WebP n'y est pas lu partout :
 
 ## Production
 
-- `APP_URL` doit être l'URL https avec www (`https://www.melanie-photographie.fr`) : les URL canoniques, le sitemap, `robots.txt` et `llms.txt` en dépendent. En production, le middleware global `RedirigerVersWww` redirige en 301 le domaine sans www vers cet hôte (les fichiers statiques ne passent pas par Laravel). Nginx ne doit jamais rediriger www vers le domaine sans www : boucle de redirections.
-- Hébergement sur Laravel Forge : le serveur SSR tourne dans le daemon de l'option « Inertia SSR », la tâche cron `schedule:run` vient de l'option « Laravel Scheduler ». À chaque déploiement : `npm run build`, puis `php artisan inertia:stop-ssr --graceful` (Forge relance le daemon avec le nouveau bundle ; sans `--graceful`, un serveur SSR arrêté fait échouer le déploiement), puis, quelques secondes plus tard, `php artisan seo:generer` (voir le README).
-- Conserver `storage/app/private/seo/empreintes.json` d'un déploiement à l'autre, sinon toutes les dates `<lastmod>` repartent du jour de la génération.
+- `APP_URL` doit être l'URL https avec www (`https://www.melanie-photographie.fr`) : les URL canoniques, le sitemap et `robots.txt` en dépendent. En production, le middleware global `RedirigerVersWww` redirige en 301 le domaine sans www vers cet hôte (les fichiers statiques ne passent pas par Laravel). Nginx ne doit jamais rediriger www vers le domaine sans www : boucle de redirections.
+- Hébergement sur Laravel Forge : le serveur SSR tourne dans le daemon de l'option « Inertia SSR » ; aucune tâche planifiée. À chaque déploiement : `npm run build`, `php artisan seo:generer`, puis `php artisan inertia:stop-ssr --graceful` (Forge relance le daemon avec le nouveau bundle ; sans `--graceful`, un serveur SSR arrêté fait échouer le déploiement).
 - Le serveur SSR écoute sur `127.0.0.1:13728`, pas sur 13714, le port par défaut d'Inertia, déjà pris par d'autres sites du serveur. Les sites s'y arrêteraient les uns les autres, car `inertia:start-ssr` commence par envoyer `/shutdown` au port configuré. Le port est écrit dans `vite.config.js` (compilé dans le bundle SSR) et dans `config/inertia.php` : les changer ensemble.
 - Sans serveur SSR actif, le site reste fonctionnel en rendu côté client.
 - PHP doit avoir les extensions `gd` (WebP) et `exif`.
