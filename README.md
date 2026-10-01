@@ -40,12 +40,25 @@ En production, `melanie-photographie.fr` redirige (301) vers `www.melanie-photog
 
 Le serveur SSR utilise le port 13728 et non 13714, le port par défaut d'Inertia, déjà pris par d'autres sites du serveur. Ce port est défini dans `vite.config.js` (il est compilé dans le bundle SSR) et dans `config/inertia.php` : modifiez les deux ensemble, puis relancez `npm run build`, `php artisan config:cache` (si la configuration est mise en cache) et le serveur SSR.
 
-Sur **Laravel Forge**, activez « Inertia SSR » (daemon du serveur SSR) dans l'onglet Overview du site. Aucune tâche planifiée n'est nécessaire. Dans le script de déploiement, après `npm run build`, terminez par :
+Sur **Laravel Forge**, activez « Inertia SSR » (daemon du serveur SSR) dans l'onglet Overview du site. Aucune tâche planifiée n'est nécessaire. Le script de déploiement doit contenir ces deux commandes, à ces places :
 
 ```bash
-$FORGE_PHP artisan seo:generer
+$CREATE_RELEASE()
+
+cd $FORGE_RELEASE_DIRECTORY
+
+# … composer install, migrations, npm run build …
+
+$FORGE_PHP artisan seo:generer                   # dans la nouvelle release, avant sa mise en ligne
+
+$ACTIVATE_RELEASE()
+
+$RESTART_QUEUES()
+
 $FORGE_PHP artisan inertia:stop-ssr --graceful   # Forge relance aussitôt le daemon, avec le nouveau bundle
 ```
+
+Chaque déploiement crée un nouveau dossier (`releases/…`) : `sitemap.xml` et `robots.txt`, non versionnés, n'y existent que si `seo:generer` tourne dans le script. Générés à la main (SSH), ils disparaissent au déploiement suivant.
 
 Sans `--graceful`, la commande échoue (« Unable to connect to Inertia SSR server. ») dès que le serveur SSR est arrêté, et fait échouer tout le déploiement. Après un changement de port, redémarrez une fois le daemon depuis Forge : l'ancien processus écoute encore sur l'ancien port.
 
