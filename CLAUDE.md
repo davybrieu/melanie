@@ -100,6 +100,10 @@ Exceptions, à garder dans leur format, car le WebP n'y est pas lu partout :
 ## Style (Tailwind CSS 4)
 
 - Couleurs et polices sont définies dans le bloc `@theme` de `resources/css/app.css` : `creme`, `poudre`, `taupe`, `cacao`, `brique`, `or`, `rouge`.
+- **Contraste (WCAG AA, contrôlé par PageSpeed)** : tout texte doit atteindre 4,5:1 (3:1 à partir de 24 px, ou 18,66 px en gras).
+  - Sur les fonds crème et poudre, `taupe-500` est la couleur de texte la plus claire autorisée.
+  - `taupe-400`, `or-300` à `or-500` et `poudre-*` servent aux décors, bordures et icônes, jamais au texte ; `or-600` passe pour du texte sur `creme-50` et `creme-100` seulement.
+  - Un petit texte posé sur un décor (fleur, pinceau) doit avoir un fond uni derrière lui, comme le fil d'Ariane (`FilAriane.vue`).
 - Utilitaires maison (en `@utility`) : `surtitre`, `manuscrit`, `conteneur`, `texte-courant`. La classe `.prose-mp` met en forme le HTML de la FAQ et des pages légales ; `.a-completer` signale les champs à remplir.
 - Pièges de Tailwind 4 : une classe maison doit être déclarée en `@utility` pour marcher avec `@apply` et les variantes ; le modificateur important s'écrit en suffixe (`px-6!`).
 - Polices : Gilda Display pour les titres, Jost pour le texte, Allison (manuscrite) pour les phrases courtes seulement. Elles sont auto-hébergées via `bunny()` dans `vite.config.js`, sans appel externe (RGPD).

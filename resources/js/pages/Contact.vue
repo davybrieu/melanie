@@ -57,7 +57,7 @@ function envoyer() {
 }
 
 const champ =
-    'mt-2 block w-full rounded-xl border border-creme-300 bg-creme-100/70 px-4 py-3 text-[1rem] font-normal text-cacao-800 transition-colors placeholder:font-light placeholder:text-taupe-400 focus:border-or-500 focus:bg-creme-50 focus:ring-2 focus:ring-or-300/40 focus:outline-none';
+    'mt-2 block w-full rounded-xl border border-creme-300 bg-creme-100/70 px-4 py-3 text-[1rem] font-normal text-cacao-800 transition-colors placeholder:font-light placeholder:text-taupe-500 focus:border-or-500 focus:bg-creme-50 focus:ring-2 focus:ring-or-300/40 focus:outline-none';
 const etiquette = 'text-[0.72rem] font-normal tracking-[0.2em] text-cacao-700 uppercase';
 </script>
 

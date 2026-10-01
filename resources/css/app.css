@@ -15,7 +15,7 @@
     --color-poudre-300: #e2c3b2;
     --color-poudre-400: #cfa593;
     --color-taupe-400: #a38d80;
-    --color-taupe-500: #846c5d;
+    --color-taupe-500: #7b6355; /* texte le plus clair autorisé : ≥ 4,5:1 sur creme-50 à 200 et poudre-100 */
     --color-taupe-600: #6d584b;
     --color-cacao-700: #5b4337;
     --color-cacao-800: #4b3428;

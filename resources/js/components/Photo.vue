@@ -36,7 +36,7 @@ defineProps({
         >
             <span class="absolute inset-3 rounded-[inherit] border border-or-300/70" aria-hidden="true"></span>
             <Icone nom="appareil" class="size-8 text-or-500" />
-            <span class="surtitre text-[0.62rem] leading-relaxed">{{ libelle }}</span>
+            <span class="surtitre text-[0.62rem] leading-relaxed text-taupe-600!">{{ libelle }}</span>
         </div>
     </div>
 </template>

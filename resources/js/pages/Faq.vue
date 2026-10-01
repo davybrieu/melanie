@@ -40,7 +40,7 @@ const toutes = categoriesFaq.flatMap((categorie) => categorie.questions);
                                 class="block rounded-full border border-creme-300 bg-creme-50 px-4 py-2 text-[0.72rem] tracking-[0.18em] text-cacao-700 uppercase transition-colors hover:border-or-400 hover:text-cacao-900 lg:rounded-none lg:border-0 lg:border-l lg:border-creme-300 lg:bg-transparent lg:px-4 lg:py-2.5 lg:hover:border-or-500"
                             >
                                 {{ categorie.titre }}
-                                <span class="text-taupe-400">({{ categorie.questions.length }})</span>
+                                <span class="text-taupe-500">({{ categorie.questions.length }})</span>
                             </a>
                         </li>
                     </ul>

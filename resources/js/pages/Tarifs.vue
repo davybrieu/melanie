@@ -56,7 +56,7 @@ const engagements = [
                 <img src="/images/marque/monogramme-mp.webp" width="320" height="168" alt="Mélanie Photographie" aria-hidden="true" class="mx-auto h-12 w-auto" />
                 <TitreSection class="mt-4" balise="h1" surtitre="Mes offres" coeurs titre="Tarifs" majuscules manuscrit="Des souvenirs vrais, remplis d’émotions" />
                 <p class="surtitre mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
-                    <span>Grossesse</span><span class="text-or-500">·</span><span>Nouveau-né</span><span class="text-or-500">·</span><span>Famille</span>
+                    <span>Grossesse</span><span class="text-or-600">·</span><span>Nouveau-né</span><span class="text-or-600">·</span><span>Famille</span>
                 </p>
                 <p class="mt-4 inline-flex items-center gap-2 text-taupe-600">
                     <Icone nom="localisation" class="size-5 text-or-500" /> Déplacements sur Dijon et alentours

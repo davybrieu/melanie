@@ -29,7 +29,8 @@ const jsonLd = computed(() =>
 </script>
 
 <template>
-    <nav aria-label="Fil d’Ariane" class="text-[0.7rem] tracking-[0.18em] text-taupe-500 uppercase">
+    <!-- Fond crème aux bords adoucis : le texte reste lisible quand une fleur décorative passe derrière. -->
+    <nav aria-label="Fil d’Ariane" class="relative w-fit bg-creme-100 text-[0.7rem] tracking-[0.18em] text-taupe-500 uppercase shadow-[0_0_12px_8px_var(--color-creme-100)]">
         <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
             <li v-for="(lien, i) in elements" :key="i" class="inline-flex items-center gap-2">
                 <Icone v-if="i > 0" nom="chevron-droit" class="size-3 text-or-400" />
