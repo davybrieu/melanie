@@ -61,7 +61,7 @@ Ajouter un type de séance, c'est modifier tous ces endroits.
 
 Les contrôleurs passent aux pages des objets `{src, srcset, largeur, hauteur, alt}` ; le texte `alt` est tiré du nom de fichier. Les variantes WebP (`/photos/{largeur}/{dossier}/{nom}-{empreinte}.webp`) sont créées à la première demande par `PhotoController`, puis servies comme fichiers statiques depuis `public/photos` (non versionné). S'il n'y a pas de photo, `components/Photo.vue` affiche un emplacement aux couleurs du site.
 
-**SEO.** Chaque page inclut `<Seo titre="…" description="…" :json-ld="…" />`, avec un titre sans suffixe.
+**SEO.** Chaque page inclut `<Seo titre="…" description="…" :json-ld="…" />`, avec un titre sans suffixe. Le composant ajoute l'URL canonique et les balises Open Graph et Twitter ; l'image de partage est toujours `og-image.jpg` (1200 × 630, avec type, dimensions et texte alternatif). Le favicon (16, 32 et 48 px), l'icône Apple, le manifeste et la couleur de thème sont déclarés dans `app.blade.php`.
 
 Données structurées (JSON-LD, `data/seo.js`), validées sans erreur ni avertissement sur validator.schema.org :
 - accueil : `WebSite` + `LocalBusiness` (l'entreprise, avec le catalogue des séances) ; à propos et contact : `AboutPage` / `ContactPage` + `LocalBusiness` ;

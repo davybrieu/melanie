@@ -6,8 +6,6 @@ const props = defineProps({
     // Titre sans suffixe : « | Mélanie Photographie » est ajouté par app.js.
     titre: { type: String, required: true },
     description: { type: String, required: true },
-    // Image de partage en JPEG, jamais en WebP : LinkedIn et d'anciennes versions de WhatsApp ne l'affichent pas.
-    image: { type: String, default: '/images/marque/og-image.jpg' },
     jsonLd: { type: [Object, Array], default: null },
     indexer: { type: Boolean, default: true },
 });
@@ -15,7 +13,15 @@ const props = defineProps({
 const page = usePage();
 const site = computed(() => page.props.site);
 
-const image = computed(() => (props.image.startsWith('http') ? props.image : site.value.url + props.image));
+// Image de partage : JPEG, jamais WebP (LinkedIn et d'anciennes versions de WhatsApp ne l'affichent pas).
+// Ses dimensions permettent aux réseaux d'afficher l'aperçu dès le premier partage.
+const imagePartage = {
+    chemin: '/images/marque/og-image.jpg',
+    largeur: '1200',
+    hauteur: '630',
+    alt: 'Logo de Mélanie Photographie : monogramme MP dans un cercle doré, sur fond crème fleuri',
+};
+const image = computed(() => site.value.url + imagePartage.chemin);
 
 // « < » échappé pour que le contenu ne puisse jamais fermer la balise <script>.
 const scripts = computed(() =>
@@ -38,7 +44,12 @@ const scripts = computed(() =>
         <meta head-key="og:description" property="og:description" :content="description" />
         <meta head-key="og:url" property="og:url" :content="page.props.canonical" />
         <meta head-key="og:image" property="og:image" :content="image" />
+        <meta head-key="og:image:type" property="og:image:type" content="image/jpeg" />
+        <meta head-key="og:image:width" property="og:image:width" :content="imagePartage.largeur" />
+        <meta head-key="og:image:height" property="og:image:height" :content="imagePartage.hauteur" />
+        <meta head-key="og:image:alt" property="og:image:alt" :content="imagePartage.alt" />
         <meta head-key="twitter:card" name="twitter:card" content="summary_large_image" />
+        <meta head-key="twitter:image:alt" name="twitter:image:alt" :content="imagePartage.alt" />
         <component :is="'script'" v-for="(json, i) in scripts" :key="i" :head-key="`ld-${i}`" type="application/ld+json">{{ json }}</component>
     </Head>
 </template>

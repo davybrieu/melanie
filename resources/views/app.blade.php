@@ -8,6 +8,7 @@
         <link rel="icon" href="/favicon.ico" sizes="48x48">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
         <link rel="manifest" href="/site.webmanifest">
+        <meta name="apple-mobile-web-app-title" content="Mélanie Photo">
 
         @fonts
 
