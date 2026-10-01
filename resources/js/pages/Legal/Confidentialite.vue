@@ -1,7 +1,10 @@
 <script setup>
+import { Link } from '@inertiajs/vue3';
+import { inject } from 'vue';
 import PageLegale from '../../components/PageLegale.vue';
 import { useSite } from '../../composables/useSite';
 
+const route = inject('route');
 const site = useSite();
 </script>
 
@@ -13,7 +16,8 @@ const site = useSite();
     >
         <p>
             Vos photos et vos informations sont précieuses : je les traite avec le même soin que vos souvenirs. Cette page explique quelles données je collecte, pourquoi, et
-            comment exercer vos droits, conformément au Règlement général sur la protection des données (RGPD).
+            comment exercer vos droits, conformément au Règlement général sur la protection des données (RGPD). Mes coordonnées complètes figurent dans les
+            <Link :href="route('mentions-legales')">mentions légales</Link>.
         </p>
 
         <h2>Données collectées</h2>
