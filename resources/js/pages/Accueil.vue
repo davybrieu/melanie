@@ -53,17 +53,13 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
             <div class="relative order-2 flex items-center px-5 py-16 sm:px-12 lg:order-1 lg:py-20">
                 <Fleur variante="gypsophile" class="absolute -top-8 -left-12 -z-10 w-44 opacity-80 sm:w-60" />
                 <div class="mx-auto max-w-lg text-center lg:text-left">
-                    <img src="/images/marque/monogramme-mp.webp" width="320" height="168" alt="Mélanie Photographie" aria-hidden="true" class="mx-auto h-14 w-auto lg:mx-0" />
-                    <h1 class="mt-8">
-                        <span class="block font-serif text-[2.9rem] leading-[1.05] tracking-[0.16em] text-cacao-800 uppercase sm:text-6xl">Mélanie</span>
-                        <span class="manuscrit mt-1 block text-[3.4rem] text-cacao-700 sm:text-[4.4rem]">Photographie</span>
-                        <span class="mt-5 block font-sans text-[0.8rem] leading-relaxed font-normal tracking-[0.3em] text-balance text-taupe-600 uppercase sm:text-sm">
-                            Photographe grossesse, nouveau-né &amp; famille
-                        </span>
-                    </h1>
-                    <p class="mt-5 inline-flex items-center gap-2 text-taupe-600">
-                        <Icone nom="localisation" class="size-5 text-or-500" />
+                    <p class="inline-flex items-center gap-2 rounded-full border border-or-300 bg-creme-50 px-4 py-1.5 text-sm text-cacao-700">
+                        <Icone nom="localisation" class="size-4 text-or-500" />
                         Déplacements sur Dijon et alentours
+                    </p>
+                    <h1 class="mt-6 text-[2.35rem] leading-[1.1] text-balance sm:text-[3.2rem]">Photographe grossesse, <span class="whitespace-nowrap">nouveau-né</span> et famille</h1>
+                    <p class="texte-courant mt-6 text-balance">
+                        Des photos douces et naturelles, prises à votre rythme, pour garder une trace des moments qui passent trop vite.
                     </p>
                     <p class="mt-7">
                         <span class="manuscrit relative isolate inline-block px-6 pt-3 pb-1 text-[1.95rem] sm:text-[2.5rem]">
