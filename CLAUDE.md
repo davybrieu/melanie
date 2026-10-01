@@ -90,7 +90,7 @@ La commande `php artisan seo:generer` (`app/Console/Commands/GenererFichiersSeo.
 ## Production
 
 - `APP_URL` doit être l'URL https avec www (`https://www.melanie-photographie.fr`) : les URL canoniques, le sitemap, `robots.txt` et `llms.txt` en dépendent. En production, le middleware global `RedirigerVersWww` redirige en 301 le domaine sans www vers cet hôte (les fichiers statiques ne passent pas par Laravel). Nginx ne doit jamais rediriger www vers le domaine sans www : boucle de redirections.
-- À chaque déploiement : `npm run build` puis `php artisan seo:generer`. Garder `php artisan inertia:start-ssr` actif et installer la tâche cron `schedule:run` de Laravel.
+- Hébergement sur Laravel Forge : le serveur SSR tourne dans le daemon de l'option « Inertia SSR », la tâche cron `schedule:run` vient de l'option « Laravel Scheduler ». À chaque déploiement : `npm run build`, puis `php artisan inertia:stop-ssr --graceful` (Forge relance le daemon avec le nouveau bundle ; sans `--graceful`, un serveur SSR arrêté fait échouer le déploiement), puis, quelques secondes plus tard, `php artisan seo:generer` (voir le README).
 - Conserver `storage/app/private/seo/empreintes.json` d'un déploiement à l'autre, sinon toutes les dates `<lastmod>` repartent du jour de la génération.
 - Le serveur SSR écoute sur `127.0.0.1:13728`, pas sur 13714, le port par défaut d'Inertia, déjà pris par d'autres sites du serveur. Les sites s'y arrêteraient les uns les autres, car `inertia:start-ssr` commence par envoyer `/shutdown` au port configuré. Le port est écrit dans `vite.config.js` (compilé dans le bundle SSR) et dans `config/inertia.php` : les changer ensemble.
 - Sans serveur SSR actif, le site reste fonctionnel en rendu côté client.

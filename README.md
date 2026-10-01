@@ -46,6 +46,16 @@ En production, `melanie-photographie.fr` redirige (301) vers `www.melanie-photog
 
 Le serveur SSR utilise le port 13728 et non 13714, le port par défaut d'Inertia, déjà pris par d'autres sites du serveur. Ce port est défini dans `vite.config.js` (il est compilé dans le bundle SSR) et dans `config/inertia.php` : modifiez les deux ensemble, puis relancez `npm run build`, `php artisan config:cache` (si la configuration est mise en cache) et le serveur SSR.
 
+Sur **Laravel Forge**, activez « Inertia SSR » (daemon du serveur SSR) et « Laravel Scheduler » (tâche cron) dans l'onglet Overview du site. Dans le script de déploiement, après `npm run build`, terminez par :
+
+```bash
+$FORGE_PHP artisan inertia:stop-ssr --graceful   # Forge relance aussitôt le daemon, avec le nouveau bundle
+sleep 3                                          # le temps qu'il redémarre
+$FORGE_PHP artisan seo:generer
+```
+
+Sans `--graceful`, la commande échoue (« Unable to connect to Inertia SSR server. ») dès que le serveur SSR est arrêté, et fait échouer tout le déploiement. Après un changement de port, redémarrez une fois le daemon depuis Forge : l'ancien processus écoute encore sur l'ancien port.
+
 Sans serveur SSR actif, le site reste fonctionnel (rendu côté client). Les dossiers `public/photos` (variantes d'images) et `storage` doivent être accessibles en écriture.
 
 ## Sitemap, robots.txt et llms.txt
