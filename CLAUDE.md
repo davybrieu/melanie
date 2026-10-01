@@ -20,7 +20,6 @@ composer dev                    # serveur Laravel + file d'attente + Vite (en de
 npm run build                   # bundle client (public/build) + bundle SSR (bootstrap/ssr)
 php artisan inertia:start-ssr   # serveur SSR Node de production (127.0.0.1:13728)
 php artisan seo:generer         # génère public/sitemap.xml, robots.txt et llms.txt
-php artisan images:convertir …  # convertit des images PNG/JPEG en WebP optimisé (voir Images)
 php artisan lang:update         # met à jour les traductions lang/fr (Laravel Lang)
 ```
 
@@ -89,7 +88,10 @@ La commande `php artisan seo:generer` (`app/Console/Commands/GenererFichiersSeo.
 Toute image affichée sur le site est en WebP optimisé, avec un `alt` descriptif (voir Règles de contenu). À chaque ajout ou remplacement d'image :
 
 1. **Photo** (séance, accueil, portrait, bon cadeau…) : déposer le fichier d'origine, en grand, dans `resources/photos/{dossier}/` (JPEG, PNG ou WebP). Rien à convertir : le site crée lui-même les variantes WebP redimensionnées (480 à 2000 px de large, qualité 82). Ne jamais mettre une photo dans `public/`.
-2. **Autre image** (logo, décor, illustration) : la convertir avec `php artisan images:convertir public/images/…/image.png --largeur=…` (`app/Console/Commands/ConvertirImages.php`). Choisir une largeur de 2 à 3 fois la largeur d'affichage maximale ; la qualité est de 80 par défaut. Utiliser ensuite le `.webp` dans le code, avec ses vraies dimensions dans `width` et `height`, puis supprimer l'original de `public/`. Si la commande signale un WebP plus lourd que l'original, baisser `--qualite`.
+2. **Autre image** (logo, décor, illustration) : la convertir en WebP avant de l'ajouter à `public/images/`, par exemple avec Pillow (`Image.open('image.png').save('image.webp', 'WEBP', quality=80, method=6)`) ou `cwebp -q 80 -m 6`.
+   - Largeur : 2 à 3 fois la largeur d'affichage maximale.
+   - Qualité : 80, ou 85 pour un logo aux bords nets.
+   - Ensuite : utiliser le `.webp` dans le code, avec ses vraies dimensions dans `width` et `height`, et ne pas garder l'original dans `public/`.
 3. **Vérifier** : `grep -rnE "\.(png|jpe?g)" resources/js resources/views public/site.webmanifest` ne doit lister que les exceptions ci-dessous.
 
 Exceptions, à garder dans leur format, car le WebP n'y est pas lu partout :

@@ -70,7 +70,7 @@ Chaque page est rendue comme pour un visiteur, puis réduite à une empreinte de
 
 Déposez les photos dans `resources/photos/` : le site les redimensionne et les convertit en WebP tout seul. Mode d'emploi : [`resources/photos/README.md`](resources/photos/README.md).
 
-Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter une, convertissez-la avec `php artisan images:convertir public/images/…/image.png --largeur=…`, puis utilisez le `.webp`. Les exceptions (favicon, icônes, image de partage `og-image.jpg`) sont détaillées dans `CLAUDE.md`.
+Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter une, convertissez-la d'abord en WebP (qualité 80), puis utilisez le `.webp`. Les exceptions (favicon, icônes, image de partage `og-image.jpg`) sont détaillées dans `CLAUDE.md`.
 
 ## Modifier les contenus
 
