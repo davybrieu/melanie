@@ -18,7 +18,7 @@ Pas de base de données métier : SQLite ne sert qu'aux sessions, au cache et à
 composer setup                  # installation : .env, clé, migrations (SQLite), npm, build, seo:generer
 composer dev                    # serveur Laravel + file d'attente + Vite (en dev, le SSR passe par Vite)
 npm run build                   # bundle client (public/build) + bundle SSR (bootstrap/ssr)
-php artisan inertia:start-ssr   # serveur SSR Node de production (127.0.0.1:13714)
+php artisan inertia:start-ssr   # serveur SSR Node de production (127.0.0.1:13728)
 php artisan seo:generer         # génère public/sitemap.xml, robots.txt et llms.txt
 php artisan lang:update         # met à jour les traductions lang/fr (Laravel Lang)
 ```
@@ -92,5 +92,6 @@ La commande `php artisan seo:generer` (`app/Console/Commands/GenererFichiersSeo.
 - `APP_URL` doit être l'URL https avec www (`https://www.melanie-photographie.fr`) : les URL canoniques, le sitemap, `robots.txt` et `llms.txt` en dépendent. En production, le middleware global `RedirigerVersWww` redirige en 301 le domaine sans www vers cet hôte (les fichiers statiques ne passent pas par Laravel). Nginx ne doit jamais rediriger www vers le domaine sans www : boucle de redirections.
 - À chaque déploiement : `npm run build` puis `php artisan seo:generer`. Garder `php artisan inertia:start-ssr` actif et installer la tâche cron `schedule:run` de Laravel.
 - Conserver `storage/app/private/seo/empreintes.json` d'un déploiement à l'autre, sinon toutes les dates `<lastmod>` repartent du jour de la génération.
+- Le serveur SSR écoute sur `127.0.0.1:13728`, pas sur 13714, le port par défaut d'Inertia, déjà pris par d'autres sites du serveur. Les sites s'y arrêteraient les uns les autres, car `inertia:start-ssr` commence par envoyer `/shutdown` au port configuré. Le port est écrit dans `vite.config.js` (compilé dans le bundle SSR) et dans `config/inertia.php` : les changer ensemble.
 - Sans serveur SSR actif, le site reste fonctionnel en rendu côté client.
 - PHP doit avoir les extensions `gd` (WebP) et `exif`.

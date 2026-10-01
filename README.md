@@ -31,7 +31,7 @@ Lance le serveur Laravel, la file d'attente et Vite. En développement, le SSR p
 ```bash
 npm run build                 # bundle client (public/build) + bundle SSR (bootstrap/ssr)
 php artisan seo:generer       # sitemap.xml, robots.txt et llms.txt (à relancer à chaque déploiement)
-php artisan inertia:start-ssr # serveur SSR Node, à garder actif (Supervisor, etc.)
+php artisan inertia:start-ssr # serveur SSR Node sur 127.0.0.1:13728, à garder actif (Supervisor, etc.)
 ```
 
 Tâche cron à ajouter sur le serveur (planificateur Laravel) :
@@ -43,6 +43,8 @@ Tâche cron à ajouter sur le serveur (planificateur Laravel) :
 Dans le `.env` de production : `APP_URL=https://www.melanie-photographie.fr` (URL canoniques et sitemap), `APP_ENV=production`, `APP_DEBUG=false`, et la configuration SMTP (`MAIL_*`) pour recevoir les demandes de contact.
 
 En production, `melanie-photographie.fr` redirige (301) vers `www.melanie-photographie.fr`. Les deux domaines doivent pointer vers le serveur (DNS) et être couverts par le certificat SSL. Côté Nginx, `www.melanie-photographie.fr` doit servir le site : aucune redirection de www vers le domaine sans www (réglage par défaut de certains panneaux d'hébergement), sinon les deux redirections tournent en boucle. Les fichiers statiques (images, `sitemap.xml`…) sont servis directement par le serveur web, sans passer par Laravel : pour les rediriger aussi, ajoutez la même règle dans la configuration du serveur.
+
+Le serveur SSR utilise le port 13728 et non 13714, le port par défaut d'Inertia, déjà pris par d'autres sites du serveur. Ce port est défini dans `vite.config.js` (il est compilé dans le bundle SSR) et dans `config/inertia.php` : modifiez les deux ensemble, puis relancez `npm run build`, `php artisan config:cache` (si la configuration est mise en cache) et le serveur SSR.
 
 Sans serveur SSR actif, le site reste fonctionnel (rendu côté client). Les dossiers `public/photos` (variantes d'images) et `storage` doivent être accessibles en écriture.
 

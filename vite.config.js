@@ -28,7 +28,10 @@ export default defineConfig({
                 }),
             ],
         }),
-        inertia(),
+        // Serveur SSR de production (php artisan inertia:start-ssr) : accessible seulement en local,
+        // sur un port propre au site (13714, le port par défaut, est pris par d'autres sites du serveur).
+        // Même port que dans config/inertia.php.
+        inertia({ ssr: { port: 13728, host: '127.0.0.1' } }),
         tailwindcss(),
         vue({
             template: {
