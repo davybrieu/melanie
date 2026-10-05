@@ -135,7 +135,6 @@ const etiquette = 'text-[0.72rem] font-normal tracking-[0.2em] text-cacao-700 up
                         v-model="form.telephone"
                         libelle="Téléphone"
                         obligatoire
-                        aide="Uniquement pour vous rappeler au sujet de votre séance."
                         :erreur="form.errors.telephone"
                         type="tel"
                         autocomplete="tel"
