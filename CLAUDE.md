@@ -115,7 +115,10 @@ Exceptions, à garder dans leur format, car le WebP n'y est pas lu partout :
   - Un petit texte posé sur un décor (fleur, pinceau) doit avoir un fond uni derrière lui, comme le fil d'Ariane (`FilAriane.vue`).
 - Utilitaires maison (en `@utility`) : `surtitre`, `manuscrit`, `conteneur`, `texte-courant`. La classe `.prose-mp` met en forme le HTML de la FAQ et des pages légales ; `.a-completer` signale les champs à remplir.
 - Pièges de Tailwind 4 : une classe maison doit être déclarée en `@utility` pour marcher avec `@apply` et les variantes ; le modificateur important s'écrit en suffixe (`px-6!`).
-- Polices : Gilda Display pour les titres, Jost pour le texte, Allison (manuscrite) pour les phrases courtes seulement. Elles sont auto-hébergées via `bunny()` dans `vite.config.js`, sans appel externe (RGPD), avec `optimizedFallbacks` (paquet `fontaine`) : une police système aux mêmes dimensions s'affiche le temps du chargement, sans faire bouger le texte. Dans `@theme`, chaque police est suivie de sa police de secours (`'Jost', 'Jost fallback', …`).
+- Polices : Gilda Display pour les titres, Jost pour le texte, Allison (manuscrite) pour les phrases courtes seulement. Elles sont auto-hébergées via `bunny()` dans `vite.config.js`, sans appel externe (RGPD), avec `optimizedFallbacks` (paquet `fontaine`) : une police système aux mêmes dimensions s'affiche le temps du chargement, sans faire bouger le texte.
+  - La police de secours générée au build (« Jost fallback »…) est réglée sur Arial, absente d'Android et de Linux. `app.css` ajoute donc, aux mêmes dimensions, « … fallback Roboto » (Android, d'où viennent les mesures Core Web Vitals de Google) et « … fallback Liberation » (Linux).
+  - Si une police change, recalculer ces valeurs avec `readMetrics` (paquet `fontaine`), comme le plugin : `size-adjust` = (xWidthAvg ÷ unitsPerEm de la police) ÷ (même rapport pour la police de secours) ; ascent, descent et line-gap = valeur ÷ (unitsPerEm × size-adjust).
+  - Dans `@theme`, chaque police est suivie de ses polices de secours, dans cet ordre : `'Jost', 'Jost fallback', 'Jost fallback Roboto', 'Jost fallback Liberation', …`.
 - Boutons : `components/Bouton.vue`, variantes `plein`, `contour` et `lien`. Une ancre `#…` ou un lien `externe` donne une balise `<a>` classique, sans navigation Inertia.
 
 ## Règles de contenu

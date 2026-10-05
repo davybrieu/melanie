@@ -2,10 +2,11 @@
 
 /* Direction artistique Mélanie Photographie : crème, poudre, cacao et touches dorées. */
 @theme {
-    /* « … fallback » : polices de secours aux dimensions ajustées, générées au build (vite.config.js). */
-    --font-sans: 'Jost', 'Jost fallback', ui-sans-serif, system-ui, sans-serif;
-    --font-serif: 'Gilda Display', 'Gilda Display fallback', ui-serif, Georgia, serif;
-    --font-script: 'Allison', 'Allison fallback', cursive;
+    /* Polices de secours aux dimensions ajustées : « … fallback » (Arial) générée au build
+       (vite.config.js), puis « … fallback Roboto » et « … fallback Liberation » (voir plus bas). */
+    --font-sans: 'Jost', 'Jost fallback', 'Jost fallback Roboto', 'Jost fallback Liberation', ui-sans-serif, system-ui, sans-serif;
+    --font-serif: 'Gilda Display', 'Gilda Display fallback', 'Gilda Display fallback Roboto', 'Gilda Display fallback Liberation', ui-serif, Georgia, serif;
+    --font-script: 'Allison', 'Allison fallback', 'Allison fallback Roboto', 'Allison fallback Liberation', cursive;
 
     --color-creme-50: #fdfaf6;
     --color-creme-100: #f8f2ec;
@@ -27,6 +28,67 @@
     --color-or-400: #c4a171;
     --color-or-500: #ab8556;
     --color-or-600: #8b6638;
+}
+
+/*
+ * Polices de secours là où Arial manque. Le build génère « … fallback », réglée sur Arial
+ * (Windows, macOS, iOS) ; celles-ci prennent le relais aux mêmes dimensions : Roboto sur
+ * Android (les mesures Core Web Vitals de Google viennent de Chrome Android), Liberation
+ * Sans sur Linux. Valeurs calculées comme le plugin (fontaine, sur les fichiers des polices) :
+ * à recalculer si une police du site change.
+ */
+@font-face {
+    font-family: 'Gilda Display fallback Roboto';
+    src: local('Roboto'), local('Roboto Regular'), local('Roboto-Regular');
+    ascent-override: 87.98%;
+    descent-override: 28.11%;
+    line-gap-override: 0%;
+    size-adjust: 101.39%;
+}
+
+@font-face {
+    font-family: 'Gilda Display fallback Liberation';
+    src: local('Liberation Sans'), local('LiberationSans');
+    ascent-override: 88.17%;
+    descent-override: 28.17%;
+    line-gap-override: 0%;
+    size-adjust: 101.17%;
+}
+
+@font-face {
+    font-family: 'Jost fallback Roboto';
+    src: local('Roboto'), local('Roboto Regular'), local('Roboto-Regular');
+    ascent-override: 114.41%;
+    descent-override: 40.1%;
+    line-gap-override: 0%;
+    size-adjust: 93.52%;
+}
+
+@font-face {
+    font-family: 'Jost fallback Liberation';
+    src: local('Liberation Sans'), local('LiberationSans');
+    ascent-override: 114.67%;
+    descent-override: 40.19%;
+    line-gap-override: 0%;
+    size-adjust: 93.32%;
+}
+
+@font-face {
+    font-family: 'Allison fallback Roboto';
+    src: local('Roboto'), local('Roboto Regular'), local('Roboto-Regular');
+    ascent-override: 160.93%;
+    descent-override: 68.71%;
+    line-gap-override: 0%;
+    size-adjust: 55.3%;
+}
+
+@font-face {
+    font-family: 'Allison fallback Liberation';
+    src: local('Liberation Sans'), local('LiberationSans');
+    ascent-override: 161.29%;
+    descent-override: 68.86%;
+    line-gap-override: 0%;
+    size-adjust: 55.18%;
 }
 
 /* Surtitres en capitales espacées, comme sur le flyer. */
