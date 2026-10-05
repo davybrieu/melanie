@@ -94,6 +94,7 @@ Toute image affichée sur le site est en WebP optimisé, avec un `alt` descripti
    - Qualité : 80, ou 85 pour un logo aux bords nets. Pour une image détourée à la transparence fine (fleurs à l'aquarelle), ajouter `alpha_quality=50` : la transparence pèse souvent plus que l'image, et la différence ne se voit pas.
    - Pas de `loading="lazy"` sur une image qui peut s'afficher en haut de page : différer le plus grand élément visible (LCP) retarde tout l'affichage. `Fleur.vue` n'est jamais différée ; son option `prioritaire` (chargement en priorité) est à mettre sur la fleur qui est le plus grand élément de sa page (tarifs).
    - Ensuite : utiliser le `.webp` dans le code, avec ses vraies dimensions dans `width` et `height`, et ne pas garder l'original dans `public/`.
+   - Remplacement d'une image sous le même nom : Cloudflare et les navigateurs la gardent en cache jusqu'à un an. Après le déploiement, purger le cache Cloudflare (ou donner un nouveau nom au fichier).
 3. **Vérifier** : `grep -rnE "\.(png|jpe?g)" resources/js resources/views public/site.webmanifest` ne doit lister que les exceptions ci-dessous.
 
 Exceptions, à garder dans leur format, car le WebP n'y est pas lu partout :
