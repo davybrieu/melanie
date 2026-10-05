@@ -68,7 +68,7 @@ export const entrepriseJsonLd = (site) => ({
             itemOffered: { '@type': 'Service', '@id': idSeance(site, seance), name: nomSeance(seance) },
         })),
     },
-    sameAs: [site.instagramUrl, site.facebook].filter(Boolean),
+    sameAs: [site.instagramUrl],
 });
 
 // Une séance de data/seances.js, avec le même @id sur sa page et sur la page tarifs.

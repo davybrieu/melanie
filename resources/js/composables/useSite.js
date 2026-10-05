@@ -30,9 +30,8 @@ export function useSite() {
             instagramUrl,
             telephoneUrl: numero ? `tel:+${numero}` : null,
             whatsappUrl,
-            // Facebook et WhatsApp n'apparaissent que s'ils sont renseignés (config/site.php).
+            // WhatsApp n'apparaît que si le téléphone est renseigné (config/site.php).
             reseaux: [
-                site.facebook && { nom: 'Facebook', url: site.facebook, icone: 'facebook' },
                 { nom: 'Instagram', url: instagramUrl, icone: 'instagram' },
                 whatsappUrl && { nom: 'WhatsApp', url: whatsappUrl, icone: 'whatsapp' },
             ].filter(Boolean),
