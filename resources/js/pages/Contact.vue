@@ -96,8 +96,8 @@ const etiquette = 'text-[0.72rem] font-normal tracking-[0.2em] text-cacao-700 up
     />
 
     <section class="relative isolate overflow-hidden pt-8 pb-24 sm:pb-32">
-        <Fleur variante="pampa" class="absolute top-16 -right-12 -z-10 hidden w-56 opacity-70 md:block" />
-        <Fleur variante="gypsophile" class="absolute bottom-10 -left-14 -z-10 hidden w-48 opacity-70 md:block" />
+        <Fleur variante="pampa" visible-des="md" class="absolute top-16 -right-12 -z-10 hidden w-56 opacity-70 md:block" />
+        <Fleur variante="gypsophile" visible-des="md" class="absolute bottom-10 -left-14 -z-10 hidden w-48 opacity-70 md:block" />
 
         <div class="conteneur max-w-3xl">
             <FilAriane :liens="[{ libelle: 'Contact' }]" />

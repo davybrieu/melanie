@@ -112,6 +112,7 @@ Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter u
 - `resources/js/app.js` : point d'entrée client **et** SSR
 - `resources/views/app.blade.php` : template racine · `resources/views/mail/` : e-mail de demande de contact
 - `public/images/marque/` : logo, monogramme, fleurs, image de partage
+- `resources/fonts/` : polices du site (WOFF2), déclarées dans `vite.config.js`
 
 ## Routes côté Vue (Ziggy)
 

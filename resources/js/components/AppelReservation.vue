@@ -22,8 +22,8 @@ const route = inject('route');
 
 <template>
     <section class="relative isolate overflow-hidden bg-creme-200 py-20 sm:py-28">
-        <Fleur variante="gypsophile" class="absolute -top-6 -left-10 -z-10 w-40 opacity-80 sm:w-56" />
-        <Fleur variante="pampa" class="absolute -right-10 -bottom-10 -z-10 w-36 opacity-70 sm:w-52" />
+        <Fleur variante="gypsophile" differee class="absolute -top-6 -left-10 -z-10 w-40 opacity-80 sm:w-56" />
+        <Fleur variante="pampa" differee class="absolute -right-10 -bottom-10 -z-10 w-36 opacity-70 sm:w-52" />
 
         <div class="conteneur text-center">
             <p>

@@ -76,7 +76,7 @@ const moments = ['Bébé paisiblement endormi', 'Blotti dans vos bras', 'Ses min
 
     <!-- Sécurité et bien-être : juste après l'en-tête -->
     <section id="securite" class="relative isolate overflow-hidden border-y border-creme-300 bg-creme-50 py-20 sm:py-28">
-        <Fleur variante="gypsophile-coeur" class="absolute -right-6 -bottom-6 -z-10 w-36 opacity-60 sm:w-48" />
+        <Fleur variante="gypsophile-coeur" differee class="absolute -right-6 -bottom-6 -z-10 w-36 opacity-60 sm:w-48" />
         <div class="conteneur">
             <TitreSection surtitre="Sécurité & bien-être" titre="Le bien-être de bébé passe avant tout" manuscrit="Douceur, bienveillance & patience" />
             <p class="texte-courant mx-auto mt-8 max-w-2xl text-center">

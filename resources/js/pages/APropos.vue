@@ -100,7 +100,7 @@ const raisons = [
 
     <!-- Grande photo + présentation -->
     <section class="relative isolate overflow-hidden pt-8 pb-20 sm:pb-28">
-        <Fleur variante="pampa" class="absolute top-24 -right-12 -z-10 hidden w-56 opacity-70 lg:block" />
+        <Fleur variante="pampa" visible-des="lg" class="absolute top-24 -right-12 -z-10 hidden w-56 opacity-70 lg:block" />
         <div class="conteneur">
             <FilAriane :liens="[{ libelle: 'Mon univers' }]" />
             <div class="mt-10 grid items-center gap-12 lg:mt-14 lg:grid-cols-2 lg:gap-20">

@@ -34,7 +34,7 @@ const colonnes = [
 
 <template>
     <footer class="relative isolate overflow-hidden border-t border-creme-300 bg-creme-50">
-        <Fleur variante="gypsophile-coeur" class="absolute right-4 bottom-16 -z-10 w-32 opacity-60 sm:w-44" />
+        <Fleur variante="gypsophile-coeur" differee class="absolute right-4 bottom-16 -z-10 w-32 opacity-60 sm:w-44" />
 
         <div class="conteneur py-16 sm:py-20">
             <div class="grid gap-12 lg:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
