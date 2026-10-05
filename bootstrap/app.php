@@ -3,6 +3,7 @@
 use App\Http\Middleware\AdresseVisiteurCloudflare;
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\RedirigerVersWww;
+use App\Http\Middleware\RefuserAdressesEnDouble;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -22,6 +23,9 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // Adresse IP du visiteur derrière Cloudflare (limite d'envois du formulaire, sessions).
         $middleware->prepend(AdresseVisiteurCloudflare::class);
+
+        // Une seule adresse par page : /tarifs/, /index.php/tarifs… répondent 404.
+        $middleware->append(RefuserAdressesEnDouble::class);
 
         $middleware->web(append: [
             HandleInertiaRequests::class,
