@@ -28,6 +28,13 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    // Protection anti-spam du formulaire de contact (App\Support\Captcha) :
+    // inactive tant que les deux clés ne sont pas renseignées.
+    'hcaptcha' => [
+        'cle' => env('HCAPTCHA_SITE_KEY'),
+        'secret' => env('HCAPTCHA_SECRET'),
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),

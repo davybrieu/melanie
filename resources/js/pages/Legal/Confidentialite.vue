@@ -21,11 +21,7 @@ const site = useSite();
         </p>
 
         <h2>Données collectées</h2>
-        <p>Via le formulaire de contact : prénom, nom, numéro de téléphone, type de séance souhaitée, date prévue d’accouchement (facultative), nombre de personnes, période souhaitée et votre message.</p>
-        <p>
-            La date prévue d’accouchement révèle une grossesse : elle est facultative et, en la renseignant, vous acceptez qu’elle soit utilisée uniquement pour planifier votre
-            séance (article 9.2.a du RGPD).
-        </p>
+        <p>Via le formulaire de contact : prénom, nom, numéro de téléphone, type de séance souhaitée, nombre de personnes, période souhaitée et votre message.</p>
         <p>Si vous m’écrivez sur Instagram, nos échanges sont également soumis à la politique de confidentialité d’Instagram.</p>
 
         <h2>Pourquoi ces données ?</h2>
@@ -39,9 +35,18 @@ const site = useSite();
             obligations légales pour la comptabilité (article 6.1.c).
         </p>
 
+        <h2>Protection contre les robots</h2>
+        <p>
+            Le formulaire de contact est protégé par hCaptcha, un service d’Intuition Machines, Inc., qui vérifie qu’une demande est envoyée par une personne et non par un
+            robot. Il n’est chargé qu’à l’approche du bouton d’envoi et reçoit pour cela des informations techniques (adresse IP, navigateur, interaction avec la case
+            « Je suis un humain »). Ce contrôle repose sur mon intérêt légitime à protéger le formulaire contre les envois automatisés (article 6.1.f du RGPD). Pour en savoir plus,
+            consultez la <a href="https://www.hcaptcha.com/privacy" target="_blank" rel="noopener">politique de confidentialité d’hCaptcha</a>.
+        </p>
+
         <h2>Qui y a accès ?</h2>
         <p>
-            Moi seule. Mes prestataires techniques (hébergement du site, messagerie) n’y accèdent que pour assurer leur service. Vos données ne sont jamais vendues ni cédées.
+            Moi seule. Mes prestataires techniques (hébergement du site, messagerie, protection du formulaire) n’y accèdent que pour assurer leur service. Vos données ne sont
+            jamais vendues ni cédées.
         </p>
 
         <h2>Combien de temps sont-elles conservées ?</h2>
@@ -67,8 +72,9 @@ const site = useSite();
 
         <h2>Cookies</h2>
         <p>
-            Ce site dépose uniquement des cookies techniques indispensables (maintien de la session et sécurité du formulaire). Ils sont exemptés de consentement. Aucun outil de
-            mesure d’audience ni cookie publicitaire n’est utilisé, et les polices d’écriture sont hébergées sur le site lui-même.
+            Ce site dépose uniquement des cookies techniques indispensables (maintien de la session et sécurité du formulaire, y compris ceux d’hCaptcha sur la page de
+            contact). Ils sont exemptés de consentement. Aucun outil de mesure d’audience ni cookie publicitaire n’est utilisé, et les polices d’écriture sont hébergées sur le
+            site lui-même.
         </p>
 
         <h2>Sécurité</h2>

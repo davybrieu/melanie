@@ -12,16 +12,13 @@ Appeler {{ $demande['prenom'] }} au {{ $telephone }}
 |:--|:--|
 | Téléphone | [{{ $telephone }}]({{ $lienTelephone }}) |
 | Séance(s) | {{ $seances }} |
-| Date prévue d'accouchement | {{ $dateAccouchement ?? '—' }} |
 | Nombre de personnes | {{ $demande['nombre_personnes'] ?? '—' }} |
 | Période souhaitée | {{ $demande['periode'] ?? '—' }} |
 </x-mail::table>
 
-@if (filled($demande['message'] ?? null))
 **Message :**
 
 {!! nl2br(e($demande['message'])) !!}
-@endif
 
 Le site annonce un rappel dans l'heure : appelez {{ $demande['prenom'] }} dès que possible.
 </x-mail::message>

@@ -89,6 +89,7 @@ Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter u
 | Acompte, paiement, livraison, report, bon cadeau | `resources/js/data/conditions.js` (repris dans la FAQ et les CGV) |
 | Questions / réponses de la FAQ | `resources/js/data/faq.js` |
 | E-mail de contact, téléphone | `.env` (`SITE_EMAIL`, `SITE_TELEPHONE`) et `config/site.php` |
+| Anti-spam du formulaire (hCaptcha) | `.env` (`HCAPTCHA_SITE_KEY`, `HCAPTCHA_SECRET`) |
 | Textes des pages | `resources/js/pages/*.vue` |
 | Pages du sitemap | `config/seo.php` |
 | Résumé du site pour les IA | `public/llms.txt` (à tenir à jour à la main) |

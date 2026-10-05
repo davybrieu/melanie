@@ -7,7 +7,6 @@ use App\Support\Telephone;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Support\Carbon;
 
 class DemandeContact extends Mailable
 {
@@ -32,9 +31,6 @@ class DemandeContact extends Mailable
                 'seances' => $this->seances(),
                 'telephone' => $this->telephone(),
                 'lienTelephone' => Telephone::lien(Telephone::normaliser($this->demande['telephone'])),
-                'dateAccouchement' => filled($this->demande['date_accouchement'] ?? null)
-                    ? Carbon::parse($this->demande['date_accouchement'])->translatedFormat('j F Y')
-                    : null,
             ],
         );
     }

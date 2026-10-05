@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Support\Captcha;
 use App\Support\Telephone;
 use Closure;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 
 class DemandeContactRequest extends FormRequest
 {
@@ -33,12 +35,34 @@ class DemandeContactRequest extends FormRequest
             }],
             'seances' => ['required', 'array', 'min:1'],
             'seances.*' => ['string', Rule::in(array_keys(self::SEANCES))],
-            'date_accouchement' => ['nullable', 'date'],
             'nombre_personnes' => ['nullable', 'integer', 'min:1', 'max:30'],
             'periode' => ['nullable', 'string', 'max:120'],
-            'message' => ['nullable', 'string', 'max:3000'],
+            'message' => ['required', 'string', 'max:3000'],
             // Champ invisible : seuls les robots le remplissent.
             'site_web' => ['prohibited'],
+            // Jeton hCaptcha, vérifié dans after() une fois les autres champs valides.
+            'captcha' => Captcha::actif() ? ['required', 'string'] : ['nullable'],
+        ];
+    }
+
+    /**
+     * Vérification hCaptcha, seulement si le reste du formulaire est valide : un jeton ne sert
+     * qu'une fois, et la cliente qui corrige un champ n'a pas à refaire la vérification.
+     *
+     * @return array<int, Closure>
+     */
+    public function after(): array
+    {
+        return [
+            function (Validator $validator) {
+                if (! Captcha::actif() || $validator->errors()->isNotEmpty()) {
+                    return;
+                }
+
+                if (! Captcha::verifier((string) $this->input('captcha'))) {
+                    $validator->errors()->add('captcha', 'La vérification anti-robot a échoué ou expiré : cochez à nouveau la case.');
+                }
+            },
         ];
     }
 
@@ -53,7 +77,6 @@ class DemandeContactRequest extends FormRequest
             'telephone' => 'téléphone',
             'seances' => 'type de séance',
             'seances.*' => 'type de séance',
-            'date_accouchement' => "date prévue d'accouchement",
             'nombre_personnes' => 'nombre de personnes',
             'periode' => 'période souhaitée',
             'message' => 'message',
@@ -68,6 +91,8 @@ class DemandeContactRequest extends FormRequest
         return [
             'seances.required' => 'Choisissez au moins un type de séance.',
             'telephone.required' => 'Indiquez votre numéro de téléphone : je vous rappelle rapidement.',
+            'message.required' => 'Dites-m’en un peu plus sur votre projet : quelques mots suffisent.',
+            'captcha.required' => 'Cochez la case « Je suis un humain » avant d’envoyer votre demande.',
         ];
     }
 }
