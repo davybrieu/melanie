@@ -11,7 +11,7 @@ import Seo from '../components/Seo.vue';
 import Separateur from '../components/Separateur.vue';
 import TitreSection from '../components/TitreSection.vue';
 import { useSite } from '../composables/useSite';
-import { euros, photoSupplementaire, photosIncluses, seances } from '../data/seances';
+import { euros, seances } from '../data/seances';
 import { entrepriseJsonLd, siteWebJsonLd } from '../data/seo';
 
 const props = defineProps({
@@ -198,9 +198,6 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
                     <p class="mt-auto pt-4 font-serif text-4xl text-brique">{{ euros(offre.prix) }}</p>
                 </li>
             </ul>
-            <p class="mt-8 text-center text-[0.95rem] text-taupe-600">
-                Prêt de tenues et {{ photosIncluses }} photos retouchées inclus · Photo supplémentaire : {{ euros(photoSupplementaire) }}
-            </p>
             <div class="mt-10 text-center">
                 <Bouton :href="route('tarifs')" variante="contour">Voir les tarifs en détail</Bouton>
             </div>
