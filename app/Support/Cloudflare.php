@@ -4,8 +4,8 @@ namespace App\Support;
 
 /**
  * Le site est servi derrière Cloudflare : le serveur ne voit que l'adresse IP d'un serveur
- * Cloudflare, qui ajoute celle du visiteur dans l'en-tête X-Forwarded-For. bootstrap/app.php
- * ne lit cet en-tête que pour les requêtes venues de ces adresses : ailleurs, il est ignoré.
+ * Cloudflare, qui transmet celle du visiteur dans l'en-tête CF-Connecting-IP.
+ * AdresseVisiteurCloudflare ne lit cet en-tête que pour les requêtes venues de ces adresses.
  *
  * Plages publiées par Cloudflare (https://www.cloudflare.com/ips/), relevées le 5 octobre 2026.
  * Elles changent très rarement ; si une plage manque, Laravel voit l'adresse de Cloudflare
