@@ -46,7 +46,9 @@ const engagements = [
     />
 
     <section class="relative isolate overflow-hidden pt-8 pb-20 sm:pb-28">
-        <Fleur variante="pampa" prioritaire class="absolute top-6 -right-10 -z-10 w-40 opacity-80 sm:w-60" />
+        <!-- Sur mobile, w-36 : plus grande, sa partie visible dépasserait le titre et deviendrait le plus
+             grand élément affiché (LCP), mesuré à l'arrivée de l'image au lieu de l'affichage du texte. -->
+        <Fleur variante="pampa" prioritaire class="absolute top-6 -right-10 -z-10 w-36 opacity-80 sm:w-60" />
         <Fleur variante="gypsophile" class="absolute top-28 -left-14 -z-10 w-36 opacity-70 sm:w-48" />
 
         <div class="conteneur">
