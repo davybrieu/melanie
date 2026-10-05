@@ -2,9 +2,10 @@
 
 /* Direction artistique Mélanie Photographie : crème, poudre, cacao et touches dorées. */
 @theme {
-    --font-sans: 'Jost', ui-sans-serif, system-ui, sans-serif;
-    --font-serif: 'Gilda Display', ui-serif, Georgia, serif;
-    --font-script: 'Allison', cursive;
+    /* « … fallback » : polices de secours aux dimensions ajustées, générées au build (vite.config.js). */
+    --font-sans: 'Jost', 'Jost fallback', ui-sans-serif, system-ui, sans-serif;
+    --font-serif: 'Gilda Display', 'Gilda Display fallback', ui-serif, Georgia, serif;
+    --font-script: 'Allison', 'Allison fallback', cursive;
 
     --color-creme-50: #fdfaf6;
     --color-creme-100: #f8f2ec;

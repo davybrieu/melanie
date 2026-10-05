@@ -46,15 +46,15 @@ const engagements = [
     />
 
     <section class="relative isolate overflow-hidden pt-8 pb-20 sm:pb-28">
-        <Fleur variante="pampa" class="absolute top-6 -right-10 -z-10 w-40 opacity-80 sm:w-60" />
+        <Fleur variante="pampa" prioritaire class="absolute top-6 -right-10 -z-10 w-40 opacity-80 sm:w-60" />
         <Fleur variante="gypsophile" class="absolute top-28 -left-14 -z-10 w-36 opacity-70 sm:w-48" />
 
         <div class="conteneur">
             <FilAriane :liens="[{ libelle: 'Tarifs' }]" />
 
             <div class="mt-10 text-center">
-                <img src="/images/marque/monogramme-mp.webp" width="320" height="168" alt="Mélanie Photographie" aria-hidden="true" class="mx-auto h-12 w-auto" />
-                <TitreSection class="mt-4" balise="h1" surtitre="Mes offres" coeurs titre="Tarifs" majuscules manuscrit="Des souvenirs vrais, remplis d’émotions" />
+                <img src="/images/marque/monogramme-mp.webp" width="240" height="126" alt="Mélanie Photographie" aria-hidden="true" class="mx-auto h-12 w-auto" />
+                <TitreSection class="mt-4" balise="h1" surtitre="Mes offres" coeurs titre="Tarifs des séances photo" majuscules manuscrit="Des souvenirs vrais, remplis d’émotions" />
                 <p class="surtitre mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
                     <span>Grossesse</span><span class="text-or-600">·</span><span>Nouveau-né</span><span class="text-or-600">·</span><span>Famille</span>
                 </p>

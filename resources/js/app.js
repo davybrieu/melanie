@@ -5,7 +5,8 @@ import SiteLayout from './layouts/SiteLayout.vue';
 // Ce fichier sert à la fois d'entrée client et d'entrée SSR : le plugin
 // @inertiajs/vite résout les pages de ./pages et génère le serveur SSR.
 createInertiaApp({
-    title: (title) => (title ? `${title} | Mélanie Photographie` : 'Mélanie Photographie'),
+    // Le suffixe « | Mélanie Photographie » est ajouté par components/Seo.vue, s'il tient.
+    title: (title) => title || 'Mélanie Photographie',
     layout: () => SiteLayout,
     withApp(app, { ssr, page }) {
         // Dans le navigateur, Ziggy lit la config injectée par @routes ;

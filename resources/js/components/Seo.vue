@@ -3,7 +3,7 @@ import { Head, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
 const props = defineProps({
-    // Titre sans suffixe : « | Mélanie Photographie » est ajouté par app.js.
+    // Titre sans suffixe : « | Mélanie Photographie » est ajouté ci-dessous s'il tient.
     titre: { type: String, required: true },
     description: { type: String, required: true },
     jsonLd: { type: [Object, Array], default: null },
@@ -12,6 +12,15 @@ const props = defineProps({
 
 const page = usePage();
 const site = computed(() => page.props.site);
+
+// Google tronque les titres au-delà d'environ 60 caractères : le suffixe de marque n'est
+// ajouté que s'il tient. Sinon, le titre reste seul (Google affiche de toute façon le nom
+// du site au-dessus du résultat).
+const titreComplet = computed(() => {
+    const avecMarque = `${props.titre} | ${site.value.nom}`;
+
+    return avecMarque.length <= 60 ? avecMarque : props.titre;
+});
 
 // Image de partage : JPEG, jamais WebP (LinkedIn et d'anciennes versions de WhatsApp ne l'affichent pas).
 // Ses dimensions permettent aux réseaux d'afficher l'aperçu dès le premier partage.
@@ -33,14 +42,14 @@ const scripts = computed(() =>
 </script>
 
 <template>
-    <Head :title="titre">
+    <Head :title="titreComplet">
         <meta head-key="description" name="description" :content="description" />
         <meta v-if="!indexer" head-key="robots" name="robots" content="noindex, follow" />
         <link head-key="canonical" rel="canonical" :href="page.props.canonical" />
         <meta head-key="og:type" property="og:type" content="website" />
         <meta head-key="og:locale" property="og:locale" content="fr_FR" />
         <meta head-key="og:site_name" property="og:site_name" :content="site.nom" />
-        <meta head-key="og:title" property="og:title" :content="`${titre} | ${site.nom}`" />
+        <meta head-key="og:title" property="og:title" :content="titreComplet" />
         <meta head-key="og:description" property="og:description" :content="description" />
         <meta head-key="og:url" property="og:url" :content="page.props.canonical" />
         <meta head-key="og:image" property="og:image" :content="image" />

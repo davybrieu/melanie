@@ -11,20 +11,22 @@ export default defineConfig({
             input: ['resources/css/app.css', 'resources/js/app.js'],
             refresh: true,
             // Polices téléchargées au build et servies par le site (aucun appel externe, RGPD).
+            // optimizedFallbacks (paquet fontaine) : police système ajustée aux mêmes dimensions,
+            // affichée le temps du chargement, pour que le texte ne bouge pas au changement de police.
             fonts: [
                 bunny('Gilda Display', {
                     weights: [400],
-                    optimizedFallbacks: false,
+                    optimizedFallbacks: true,
                 }),
                 bunny('Jost', {
                     weights: [300, 400, 500],
                     preload: [{ weight: 300 }, { weight: 400 }],
-                    optimizedFallbacks: false,
+                    optimizedFallbacks: true,
                 }),
                 bunny('Allison', {
                     weights: [400],
                     preload: false,
-                    optimizedFallbacks: false,
+                    optimizedFallbacks: true,
                 }),
             ],
         }),

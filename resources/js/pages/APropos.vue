@@ -94,7 +94,7 @@ const raisons = [
 <template>
     <Seo
         titre="Mon univers – Mélanie, photographe à Dijon"
-        description="Bonjour, moi c’est Mélanie, photographe grossesse, nouveau-né et famille à Chenôve et Dijon. Découvrez mon histoire, ma façon de travailler et ce qui me tient à cœur."
+        description="Bonjour, moi c’est Mélanie, photographe grossesse, nouveau-né et famille à Dijon. Mon histoire, ma façon de travailler et ce qui me tient à cœur."
         :json-ld="jsonLd"
     />
 

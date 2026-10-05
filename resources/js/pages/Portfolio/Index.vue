@@ -44,7 +44,7 @@ const jsonLd = computed(() =>
     <section class="pt-8 pb-20 sm:pb-28">
         <div class="conteneur">
             <FilAriane :liens="[{ libelle: 'Portfolio' }]" />
-            <TitreSection class="mt-12" balise="h1" surtitre="Mon travail" titre="Portfolio" majuscules manuscrit="Des souvenirs vrais, remplis d’émotions">
+            <TitreSection class="mt-12" balise="h1" surtitre="Mon travail" titre="Portfolio grossesse, nouveau-né et famille" manuscrit="Des souvenirs vrais, remplis d’émotions">
                 <p class="texte-courant mx-auto mt-6 max-w-2xl">
                     Trois univers, une même envie : des images douces et naturelles, où l’on se reconnaît. Choisissez celui qui vous parle.
                 </p>

@@ -35,15 +35,15 @@ const jsonLd = computed(() =>
 
 <template>
     <Seo
-        :titre="`${infos.titre} – séances photo à Dijon`"
-        :description="`${infos.intro} Mélanie Photographie, à Dijon et Chenôve.`"
+        :titre="`${infos.titre} à Dijon`"
+        :description="infos.description"
         :json-ld="jsonLd"
     />
 
     <section class="pt-8 pb-20 sm:pb-28">
         <div class="conteneur">
             <FilAriane :liens="[{ libelle: 'Portfolio', href: route('portfolio') }, { libelle: infos.nom }]" />
-            <TitreSection class="mt-12" balise="h1" surtitre="Portfolio" :titre="infos.nom" majuscules :manuscrit="infos.manuscrit">
+            <TitreSection class="mt-12" balise="h1" surtitre="Portfolio" :titre="`Photos de ${infos.nom.toLowerCase()}`" majuscules :manuscrit="infos.manuscrit">
                 <p class="texte-courant mx-auto mt-6 max-w-2xl">{{ infos.intro }}</p>
             </TitreSection>
 

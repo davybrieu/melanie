@@ -13,7 +13,7 @@ const site = useSite();
 <template>
     <PageLegale
         titre="Conditions générales de vente"
-        description="Conditions générales de vente des séances photo grossesse, nouveau-né et famille de Mélanie Photographie, à Dijon : réservation, paiement, report, livraison, droits."
+        description="Conditions générales de vente des séances photo de Mélanie Photographie, à Dijon : réservation, paiement, report, livraison des photos, droits."
         mise-a-jour="septembre 2026"
     >
         <h2>1. Objet</h2>

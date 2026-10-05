@@ -10,6 +10,9 @@ const route = inject('route');
 const page = usePage();
 
 const menuOuvert = ref(false);
+// Les fleurs du menu ne sont ajoutées qu'à sa première ouverture : présentes plus tôt (menu
+// seulement transparent), elles lanceraient le chargement des images avant celles de la page.
+const menuDejaOuvert = ref(false);
 const defile = ref(false);
 
 // Chemin relatif d'une route, pour marquer le lien actif (réactif à la navigation Inertia).
@@ -22,6 +25,7 @@ const actif = (nom) => {
 
 function basculerMenu(ouvert = !menuOuvert.value) {
     menuOuvert.value = ouvert;
+    menuDejaOuvert.value ||= ouvert;
     document.documentElement.classList.toggle('overflow-hidden', ouvert);
 }
 
@@ -53,9 +57,11 @@ onBeforeUnmount(() => {
     >
         <div class="conteneur flex h-20 max-w-7xl items-center justify-between gap-6">
             <Link :href="route('accueil')" class="flex shrink-0 items-center gap-3" aria-label="Mélanie Photographie, accueil">
-                <img src="/images/marque/monogramme-mp.webp" width="320" height="168" alt="Mélanie Photographie" class="h-8 w-auto sm:h-9" />
+                <img src="/images/marque/monogramme-mp.webp" width="240" height="126" alt="Mélanie Photographie" class="h-8 w-auto sm:h-9" />
                 <span class="leading-none">
                     <span class="block font-serif text-[1.02rem] tracking-[0.26em] text-cacao-800 uppercase sm:text-lg">Mélanie</span>
+                    <!-- Espace : le texte du lien se lit « Mélanie Photographie », comme son aria-label -->
+                    {{ ' ' }}
                     <span class="mt-1.5 block text-[0.58rem] tracking-[0.36em] text-taupe-500 uppercase">Photographie</span>
                 </span>
             </Link>
@@ -103,7 +109,7 @@ onBeforeUnmount(() => {
         aria-label="Menu"
     >
         <!-- Cadre qui coupe les fleurs au bord de l'écran : sinon le menu défile vers la droite -->
-        <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div v-if="menuDejaOuvert" class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
             <Fleur variante="gypsophile" class="absolute -top-4 -left-8 w-44 opacity-70" />
             <Fleur variante="pampa" class="absolute -right-8 -bottom-6 w-40 opacity-60" />
         </div>
@@ -116,7 +122,7 @@ onBeforeUnmount(() => {
 
         <nav aria-label="Navigation mobile" class="relative flex flex-1 flex-col items-center justify-center gap-10 px-6 pb-16" @click="fermerSiLien">
             <Link :href="route('accueil')" class="block" aria-label="Mélanie Photographie, accueil">
-                <img src="/images/marque/monogramme-mp.webp" width="320" height="168" alt="Mélanie Photographie" class="h-12 w-auto" />
+                <img src="/images/marque/monogramme-mp.webp" width="240" height="126" alt="Mélanie Photographie" class="h-12 w-auto" />
             </Link>
             <ul class="space-y-5 text-center">
                 <li v-for="lien in navigation" :key="lien.route">

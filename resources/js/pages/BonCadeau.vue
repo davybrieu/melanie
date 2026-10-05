@@ -19,7 +19,7 @@ defineProps({
 const route = inject('route');
 const site = useSite();
 
-const description = `Offrez une séance photo grossesse, nouveau-né ou famille à Dijon avec un bon cadeau Mélanie Photographie, valable ${conditions.validiteBonCadeau}. Un souvenir pour la vie, dès ${euros(seances.famille.prix)}.`;
+const description = `Offrez une séance photo grossesse, nouveau-né ou famille à Dijon avec un bon cadeau valable ${conditions.validiteBonCadeau}. Un souvenir pour la vie, dès ${euros(seances.famille.prix)}.`;
 
 const offres = [seances.grossesse, seances['nouveau-ne'], seances.famille];
 

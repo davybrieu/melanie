@@ -31,7 +31,7 @@ Pas de tests automatisés ni de linter, par choix du projet : n'en ajoutez pas e
 
 ## Architecture
 
-**Chaîne de rendu.** Route nommée (`routes/web.php`) → contrôleur → `Inertia::render('Page', props)` → `resources/views/app.blade.php` → page Vue de `resources/js/pages/`. `resources/js/app.js` est l'unique point d'entrée, client et SSR (plugin `@inertiajs/vite`) : il ajoute « | Mélanie Photographie » aux titres et applique `layouts/SiteLayout.vue` (en-tête et pied de page) à toutes les pages.
+**Chaîne de rendu.** Route nommée (`routes/web.php`) → contrôleur → `Inertia::render('Page', props)` → `resources/views/app.blade.php` → page Vue de `resources/js/pages/`. `resources/js/app.js` est l'unique point d'entrée, client et SSR (plugin `@inertiajs/vite`) : il applique `layouts/SiteLayout.vue` (en-tête et pied de page) à toutes les pages.
 
 **Props partagées** (`app/Http/Middleware/HandleInertiaRequests.php`) :
 - `site` : `config/site.php` (identité, contact, localisation), envoyée une fois par visite (`Inertia::once`). Côté Vue, passer par le composable `useSite()`, qui ajoute `instagramUrl`, `telephoneUrl`, `whatsappUrl` (même numéro, message pré-rempli) et `reseaux` (liste utilisée par la carte contact et le pied de page).
@@ -40,7 +40,7 @@ Pas de tests automatisés ni de linter, par choix du projet : n'en ajoutez pas e
 
 Les messages ponctuels passent par `Inertia::flash()` / `page.flash` (`demandeEnvoyee`, `sessionExpiree`).
 
-**Ziggy.** `route()` est global dans les templates. Dans `<script setup>`, écrire `const route = inject('route')` pour que le code fonctionne en SSR. Les réponses de la FAQ sont du HTML avec des liens écrits en dur (`/tarifs`, `/contact`) : à reprendre si une URL change. Les routes techniques sont exclues dans `config/ziggy.php`.
+**Ziggy.** `route()` est global dans les templates. Dans `<script setup>`, écrire `const route = inject('route')` pour que le code fonctionne en SSR. Les réponses de la FAQ sont du HTML avec des liens écrits en dur (`/tarifs`, `/contact`) : à reprendre si une URL change. Les routes techniques sont exclues dans `config/ziggy.php`, où `skip-route-function` limite `@routes` à la liste des routes : la fonction `route()` vient du bundle (`ZiggyVue`, dans `app.js`).
 
 **Données de contenu** (`resources/js/data/`). Les textes vivent dans les pages Vue ; ce qui est repris à plusieurs endroits est centralisé ici :
 - `seances.js` : prix, durées et contenu des séances. C'est la source unique : pages, FAQ, CGV, meta descriptions et JSON-LD en dépendent. Ne jamais écrire un prix en dur dans une page.
@@ -61,7 +61,7 @@ Ajouter un type de séance, c'est modifier tous ces endroits.
 
 Les contrôleurs passent aux pages des objets `{src, srcset, largeur, hauteur, alt}` ; le texte `alt` est tiré du nom de fichier. Les variantes WebP (`/photos/{largeur}/{dossier}/{nom}-{empreinte}.webp`) sont créées à la première demande par `PhotoController`, puis servies comme fichiers statiques depuis `public/photos` (non versionné). S'il n'y a pas de photo, `components/Photo.vue` affiche un emplacement aux couleurs du site.
 
-**SEO.** Chaque page inclut `<Seo titre="…" description="…" :json-ld="…" />`, avec un titre sans suffixe. Le composant ajoute l'URL canonique et les balises Open Graph et Twitter ; l'image de partage est toujours `og-image.jpg` (1200 × 630, avec type, dimensions et texte alternatif). Le favicon (16, 32 et 48 px), l'icône Apple, le manifeste et la couleur de thème sont déclarés dans `app.blade.php`.
+**SEO.** Chaque page inclut `<Seo titre="…" description="…" :json-ld="…" />`, avec un titre sans suffixe. Le composant ajoute « | Mélanie Photographie » seulement si le titre complet tient en 60 caractères (Google tronque au-delà, et affiche de toute façon le nom du site) : viser 37 caractères au plus pour garder la marque. La description fait 155 caractères au plus. Le composant ajoute aussi l'URL canonique et les balises Open Graph et Twitter ; l'image de partage est toujours `og-image.jpg` (1200 × 630, avec type, dimensions et texte alternatif). Le favicon (16, 32 et 48 px), l'icône Apple, le manifeste et la couleur de thème sont déclarés dans `app.blade.php`.
 
 Données structurées (JSON-LD, `data/seo.js`), validées sans erreur ni avertissement sur validator.schema.org :
 - accueil : `WebSite` + `LocalBusiness` (l'entreprise, avec le catalogue des séances) ; à propos et contact : `AboutPage` / `ContactPage` + `LocalBusiness` ;
@@ -91,7 +91,8 @@ Toute image affichée sur le site est en WebP optimisé, avec un `alt` descripti
 1. **Photo** (séance, accueil, portrait, bon cadeau…) : déposer le fichier d'origine, en grand, dans `resources/photos/{dossier}/` (JPEG, PNG ou WebP). Rien à convertir : le site crée lui-même les variantes WebP redimensionnées (480 à 2000 px de large, qualité 82). Ne jamais mettre une photo dans `public/`.
 2. **Autre image** (logo, décor, illustration) : la convertir en WebP avant de l'ajouter à `public/images/`, par exemple avec Pillow (`Image.open('image.png').save('image.webp', 'WEBP', quality=80, method=6)`) ou `cwebp -q 80 -m 6`.
    - Largeur : 2 à 3 fois la largeur d'affichage maximale.
-   - Qualité : 80, ou 85 pour un logo aux bords nets.
+   - Qualité : 80, ou 85 pour un logo aux bords nets. Pour une image détourée à la transparence fine (fleurs à l'aquarelle), ajouter `alpha_quality=50` : la transparence pèse souvent plus que l'image, et la différence ne se voit pas.
+   - Pas de `loading="lazy"` sur une image qui peut s'afficher en haut de page : différer le plus grand élément visible (LCP) retarde tout l'affichage. `Fleur.vue` n'est jamais différée ; son option `prioritaire` (chargement en priorité) est à mettre sur la fleur qui est le plus grand élément de sa page (tarifs).
    - Ensuite : utiliser le `.webp` dans le code, avec ses vraies dimensions dans `width` et `height`, et ne pas garder l'original dans `public/`.
 3. **Vérifier** : `grep -rnE "\.(png|jpe?g)" resources/js resources/views public/site.webmanifest` ne doit lister que les exceptions ci-dessous.
 
@@ -109,7 +110,7 @@ Exceptions, à garder dans leur format, car le WebP n'y est pas lu partout :
   - Un petit texte posé sur un décor (fleur, pinceau) doit avoir un fond uni derrière lui, comme le fil d'Ariane (`FilAriane.vue`).
 - Utilitaires maison (en `@utility`) : `surtitre`, `manuscrit`, `conteneur`, `texte-courant`. La classe `.prose-mp` met en forme le HTML de la FAQ et des pages légales ; `.a-completer` signale les champs à remplir.
 - Pièges de Tailwind 4 : une classe maison doit être déclarée en `@utility` pour marcher avec `@apply` et les variantes ; le modificateur important s'écrit en suffixe (`px-6!`).
-- Polices : Gilda Display pour les titres, Jost pour le texte, Allison (manuscrite) pour les phrases courtes seulement. Elles sont auto-hébergées via `bunny()` dans `vite.config.js`, sans appel externe (RGPD).
+- Polices : Gilda Display pour les titres, Jost pour le texte, Allison (manuscrite) pour les phrases courtes seulement. Elles sont auto-hébergées via `bunny()` dans `vite.config.js`, sans appel externe (RGPD), avec `optimizedFallbacks` (paquet `fontaine`) : une police système aux mêmes dimensions s'affiche le temps du chargement, sans faire bouger le texte. Dans `@theme`, chaque police est suivie de sa police de secours (`'Jost', 'Jost fallback', …`).
 - Boutons : `components/Bouton.vue`, variantes `plein`, `contour` et `lien`. Une ancre `#…` ou un lien `externe` donne une balise `<a>` classique, sans navigation Inertia.
 
 ## Règles de contenu

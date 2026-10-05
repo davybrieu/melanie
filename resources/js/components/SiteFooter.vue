@@ -40,7 +40,7 @@ const colonnes = [
             <div class="grid gap-12 lg:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
                 <div class="text-center lg:text-left">
                     <Link :href="route('accueil')" class="inline-block" aria-label="Mélanie Photographie, accueil">
-                        <img src="/images/marque/logo-mp.webp" width="387" height="227" alt="Mélanie Photographie" loading="lazy" class="w-40" />
+                        <img src="/images/marque/logo-mp.webp" width="320" height="188" alt="Mélanie Photographie" loading="lazy" class="w-40" />
                     </Link>
                 </div>
 
