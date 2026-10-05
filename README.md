@@ -62,6 +62,8 @@ Chaque déploiement crée un nouveau dossier (`releases/…`) : `sitemap.xml` et
 
 Sans `--graceful`, la commande échoue (« Unable to connect to Inertia SSR server. ») dès que le serveur SSR est arrêté, et fait échouer tout le déploiement. Après un changement de port, redémarrez une fois le daemon depuis Forge : l'ancien processus écoute encore sur l'ancien port.
 
+Le site est servi derrière **Cloudflare**. Laravel lit l'adresse IP réelle du visiteur dans l'en-tête `X-Forwarded-For`, que Cloudflare ajoute de lui-même (aucun réglage à faire), mais seulement pour les requêtes venues des adresses de Cloudflare, listées dans `app/Support/Cloudflare.php`. Si Cloudflare publie de nouvelles plages ([cloudflare.com/ips](https://www.cloudflare.com/ips/)), mettez cette liste à jour.
+
 Sans serveur SSR actif, le site reste fonctionnel (rendu côté client). Les dossiers `public/photos` (variantes d'images) et `storage` doivent être accessibles en écriture.
 
 ## Sitemap, robots.txt et llms.txt

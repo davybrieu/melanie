@@ -29,8 +29,8 @@ class Captcha
     }
 
     /**
-     * Vérifie le jeton auprès d'hCaptcha. Un jeton ne sert qu'une fois. L'adresse IP n'est pas
-     * transmise : derrière Cloudflare, Laravel ne voit que celle du serveur Cloudflare.
+     * Vérifie le jeton auprès d'hCaptcha. Un jeton ne sert qu'une fois. L'adresse IP, facultative,
+     * n'est pas transmise : hCaptcha la reçoit déjà quand la case est cochée dans le navigateur.
      * Si hCaptcha ne répond pas, la demande passe quand même (le champ piège et la
      * limite d'envois restent actifs) : mieux vaut un spam qu'une cliente perdue.
      */

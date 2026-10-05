@@ -43,6 +43,13 @@ const site = useSite();
             consultez la <a href="https://www.hcaptcha.com/privacy" target="_blank" rel="noopener">politique de confidentialité d’hCaptcha</a>.
         </p>
 
+        <h2>Données de connexion</h2>
+        <p>
+            Comme sur tout site, votre adresse IP est transmise au serveur à chaque visite. Elle sert à limiter les envois répétés du formulaire et n’est conservée qu’avec votre
+            session de navigation, qui expire après deux heures d’inactivité, puis est effacée. Ce traitement repose sur mon intérêt légitime à sécuriser le site (article 6.1.f du
+            RGPD).
+        </p>
+
         <h2>Qui y a accès ?</h2>
         <p>
             Moi seule. Mes prestataires techniques (hébergement du site, messagerie, protection du formulaire) n’y accèdent que pour assurer leur service. Vos données ne sont

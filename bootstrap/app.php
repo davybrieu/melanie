@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\RedirigerVersWww;
+use App\Support\Cloudflare;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -18,6 +19,11 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         // En production : melanie-photographie.fr → www.melanie-photographie.fr (hôte de APP_URL).
         $middleware->prepend(RedirigerVersWww::class);
+
+        // Adresse IP du visiteur derrière Cloudflare (limite d'envois du formulaire, sessions) :
+        // Cloudflare l'ajoute dans X-Forwarded-For. Les autres en-têtes X-Forwarded-* ne sont pas lus :
+        // l'hôte, le port et le préfixe peuvent venir du visiteur, et Cloudflare joint déjà le serveur en HTTPS.
+        $middleware->trustProxies(at: Cloudflare::PLAGES_IP, headers: Request::HEADER_X_FORWARDED_FOR);
 
         $middleware->web(append: [
             HandleInertiaRequests::class,
