@@ -3,11 +3,14 @@
 
 **{{ $demande['prenom'] }} {{ $demande['nom'] }}** souhaite une séance **{{ $seances }}**.
 
+<x-mail::button :url="$lienTelephone">
+Appeler {{ $demande['prenom'] }} au {{ $telephone }}
+</x-mail::button>
+
 <x-mail::table>
 | | |
 |:--|:--|
-| E-mail | {{ $demande['email'] }} |
-| Téléphone | {{ $demande['telephone'] ?? '—' }} |
+| Téléphone | [{{ $telephone }}]({{ $lienTelephone }}) |
 | Séance(s) | {{ $seances }} |
 | Date prévue d'accouchement | {{ $dateAccouchement ?? '—' }} |
 | Nombre de personnes | {{ $demande['nombre_personnes'] ?? '—' }} |
@@ -20,5 +23,5 @@
 {!! nl2br(e($demande['message'])) !!}
 @endif
 
-Répondez simplement à cet e-mail pour écrire à {{ $demande['prenom'] }}.
+Le site annonce un rappel dans l'heure : appelez {{ $demande['prenom'] }} dès que possible.
 </x-mail::message>

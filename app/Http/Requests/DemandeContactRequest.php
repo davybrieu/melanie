@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Support\Telephone;
+use Closure;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -23,8 +25,12 @@ class DemandeContactRequest extends FormRequest
         return [
             'prenom' => ['required', 'string', 'max:80'],
             'nom' => ['required', 'string', 'max:80'],
-            'email' => ['required', 'email', 'max:150'],
-            'telephone' => ['nullable', 'string', 'max:30', 'regex:/^[0-9+().\s-]{6,}$/'],
+            // Pas d'e-mail : Mélanie rappelle le client. Le numéro doit être un vrai numéro (App\Support\Telephone).
+            'telephone' => ['required', 'string', 'max:30', function (string $attribut, mixed $valeur, Closure $echec) {
+                if (! is_string($valeur) || Telephone::normaliser($valeur) === null) {
+                    $echec('Ce numéro ne semble pas valide : indiquez vos 10 chiffres (06, 07…) ou le format international (+33…).');
+                }
+            }],
             'seances' => ['required', 'array', 'min:1'],
             'seances.*' => ['string', Rule::in(array_keys(self::SEANCES))],
             'date_accouchement' => ['nullable', 'date'],
@@ -44,7 +50,6 @@ class DemandeContactRequest extends FormRequest
         return [
             'prenom' => 'prénom',
             'nom' => 'nom',
-            'email' => 'e-mail',
             'telephone' => 'téléphone',
             'seances' => 'type de séance',
             'seances.*' => 'type de séance',
@@ -62,7 +67,7 @@ class DemandeContactRequest extends FormRequest
     {
         return [
             'seances.required' => 'Choisissez au moins un type de séance.',
-            'telephone.regex' => 'Le numéro de téléphone ne semble pas valide.',
+            'telephone.required' => 'Indiquez votre numéro de téléphone : je vous rappelle rapidement.',
         ];
     }
 }

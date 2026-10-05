@@ -21,7 +21,7 @@ const site = useSite();
         </p>
 
         <h2>Données collectées</h2>
-        <p>Via le formulaire de contact : prénom, nom, adresse e-mail, téléphone (facultatif), type de séance souhaitée, date prévue d’accouchement (facultative), nombre de personnes, période souhaitée et votre message.</p>
+        <p>Via le formulaire de contact : prénom, nom, numéro de téléphone, type de séance souhaitée, date prévue d’accouchement (facultative), nombre de personnes, période souhaitée et votre message.</p>
         <p>
             La date prévue d’accouchement révèle une grossesse : elle est facultative et, en la renseignant, vous acceptez qu’elle soit utilisée uniquement pour planifier votre
             séance (article 9.2.a du RGPD).
@@ -30,7 +30,7 @@ const site = useSite();
 
         <h2>Pourquoi ces données ?</h2>
         <ul>
-            <li>répondre à votre demande et vous proposer une date ;</li>
+            <li>vous rappeler pour répondre à votre demande et vous proposer une date ;</li>
             <li>préparer et réaliser votre séance, puis vous livrer vos photos ;</li>
             <li>établir les documents comptables (devis, factures).</li>
         </ul>

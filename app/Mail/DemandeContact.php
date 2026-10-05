@@ -3,8 +3,8 @@
 namespace App\Mail;
 
 use App\Http\Requests\DemandeContactRequest;
+use App\Support\Telephone;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Support\Carbon;
@@ -18,9 +18,9 @@ class DemandeContact extends Mailable
 
     public function envelope(): Envelope
     {
+        // Le numéro dans l'objet : visible dès la notification, pour rappeler sans attendre.
         return new Envelope(
-            replyTo: [new Address($this->demande['email'], "{$this->demande['prenom']} {$this->demande['nom']}")],
-            subject: "Nouvelle demande de {$this->demande['prenom']} {$this->demande['nom']} ({$this->seances()})",
+            subject: "À rappeler : {$this->demande['prenom']} {$this->demande['nom']}, {$this->telephone()} ({$this->seances()})",
         );
     }
 
@@ -30,11 +30,18 @@ class DemandeContact extends Mailable
             markdown: 'mail.demande-contact',
             with: [
                 'seances' => $this->seances(),
+                'telephone' => $this->telephone(),
+                'lienTelephone' => Telephone::lien(Telephone::normaliser($this->demande['telephone'])),
                 'dateAccouchement' => filled($this->demande['date_accouchement'] ?? null)
                     ? Carbon::parse($this->demande['date_accouchement'])->translatedFormat('j F Y')
                     : null,
             ],
         );
+    }
+
+    private function telephone(): string
+    {
+        return Telephone::affichage(Telephone::normaliser($this->demande['telephone']));
     }
 
     private function seances(): string

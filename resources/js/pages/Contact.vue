@@ -34,7 +34,6 @@ const types = [
 const form = useForm({
     prenom: '',
     nom: '',
-    email: '',
     telephone: '',
     seances: props.seance ? [props.seance] : [],
     date_accouchement: '',
@@ -64,7 +63,7 @@ const etiquette = 'text-[0.72rem] font-normal tracking-[0.2em] text-cacao-700 up
 <template>
     <Seo
         titre="Contact – réserver une séance photo à Dijon"
-        description="Parlons de votre projet de séance photo grossesse, nouveau-né ou famille à Dijon et alentours. Écrivez à Mélanie via le formulaire ou sur Instagram."
+        description="Parlons de votre projet de séance photo grossesse, nouveau-né ou famille à Dijon. Laissez-moi votre numéro : je vous rappelle généralement dans l’heure."
         :json-ld="jsonLd"
     />
 
@@ -87,7 +86,7 @@ const etiquette = 'text-[0.72rem] font-normal tracking-[0.2em] text-cacao-700 up
                     <Icone nom="coeur" class="size-8" />
                 </span>
                 <h2 class="mt-6 text-3xl">Merci, votre demande est bien envoyée !</h2>
-                <p class="texte-courant mt-4">Je vous réponds généralement sous {{ site.delai_reponse }} heures. À très vite !</p>
+                <p class="texte-courant mt-4">Je vous rappelle généralement dans l’heure. À très vite !</p>
                 <div class="mt-8 flex flex-wrap justify-center gap-4">
                     <Bouton :href="route('portfolio')" variante="contour">Voir le portfolio</Bouton>
                 </div>
@@ -112,14 +111,20 @@ const etiquette = 'text-[0.72rem] font-normal tracking-[0.2em] text-cacao-700 up
                         <p v-if="form.errors.nom" id="erreur-nom" class="mt-2 text-sm text-brique">{{ form.errors.nom }}</p>
                     </div>
                     <div>
-                        <label for="email" :class="etiquette">E-mail <span class="text-rouge" aria-hidden="true">*</span></label>
-                        <input id="email" v-model="form.email" type="email" autocomplete="email" placeholder="Ex. : lea.martin@exemple.fr" required :class="champ" :aria-invalid="!!form.errors.email" aria-describedby="erreur-email" />
-                        <p v-if="form.errors.email" id="erreur-email" class="mt-2 text-sm text-brique">{{ form.errors.email }}</p>
-                    </div>
-                    <div>
-                        <label for="telephone" :class="etiquette">Téléphone</label>
-                        <input id="telephone" v-model="form.telephone" type="tel" autocomplete="tel" placeholder="Ex. : 06 12 34 56 78" :class="champ" :aria-invalid="!!form.errors.telephone" aria-describedby="erreur-telephone" />
-                        <p v-if="form.errors.telephone" id="erreur-telephone" class="mt-2 text-sm text-brique">{{ form.errors.telephone }}</p>
+                        <label for="telephone" :class="etiquette">Téléphone <span class="text-rouge" aria-hidden="true">*</span></label>
+                        <input
+                            id="telephone"
+                            v-model="form.telephone"
+                            type="tel"
+                            autocomplete="tel"
+                            placeholder="Ex. : 06 12 34 56 78"
+                            required
+                            :class="champ"
+                            :aria-invalid="!!form.errors.telephone"
+                            aria-describedby="aide-telephone erreur-telephone"
+                        />
+                        <p id="aide-telephone" class="mt-2 text-sm text-taupe-500">Uniquement pour vous rappeler au sujet de votre séance.</p>
+                        <p v-if="form.errors.telephone" id="erreur-telephone" class="mt-1 text-sm text-brique">{{ form.errors.telephone }}</p>
                     </div>
                 </div>
 
@@ -181,7 +186,7 @@ const etiquette = 'text-[0.72rem] font-normal tracking-[0.2em] text-cacao-700 up
                         <Icone nom="coeur" class="size-4" />
                         {{ form.processing ? 'Envoi en cours…' : 'Envoyer ma demande' }}
                     </button>
-                    <p class="mt-6 text-[0.95rem] text-cacao-700">Je vous réponds généralement sous {{ site.delai_reponse }} heures.</p>
+                    <p class="mt-6 text-[0.95rem] text-cacao-700">Je vous rappelle généralement dans l’heure.</p>
                 </div>
             </form>
 

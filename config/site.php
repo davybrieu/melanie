@@ -32,9 +32,6 @@ return [
 
     'instagram' => 'mb_photographiiie',
 
-    // Délai de réponse annoncé sous le formulaire de contact (en heures).
-    'delai_reponse' => (int) env('SITE_DELAI_REPONSE', 48),
-
     /*
     |--------------------------------------------------------------------------
     | Localisation
