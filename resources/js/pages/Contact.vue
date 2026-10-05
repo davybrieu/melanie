@@ -199,11 +199,6 @@ const etiquette = 'text-[0.72rem] font-normal tracking-[0.2em] text-cacao-700 up
                             <Icone nom="telephone" class="size-5 shrink-0 text-or-500" /> {{ site.telephone }}
                         </a>
                     </li>
-                    <li>
-                        <a :href="`mailto:${site.email}`" class="inline-flex items-center gap-3 break-all transition-colors hover:text-brique">
-                            <Icone nom="email" class="size-5 shrink-0 text-or-500" /> {{ site.email }}
-                        </a>
-                    </li>
                 </ul>
                 <ul class="mt-8 flex flex-wrap justify-center gap-3" aria-label="Réseaux sociaux">
                     <li v-for="reseau in site.reseaux" :key="reseau.nom">

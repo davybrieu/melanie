@@ -65,11 +65,6 @@ const colonnes = [
                                 <Icone nom="telephone" class="size-5 shrink-0 text-or-500" /> {{ site.telephone }}
                             </a>
                         </li>
-                        <li>
-                            <a :href="`mailto:${site.email}`" class="inline-flex items-center gap-2.5 break-all transition-colors hover:text-brique">
-                                <Icone nom="email" class="size-5 shrink-0 text-or-500" /> {{ site.email }}
-                            </a>
-                        </li>
                     </ul>
                     <ul class="mt-6 flex justify-center gap-3 lg:justify-start" aria-label="Réseaux sociaux">
                         <li v-for="reseau in site.reseaux" :key="reseau.nom">
