@@ -42,6 +42,10 @@ const site = useSite();
             « Je suis un humain »). Ce contrôle repose sur mon intérêt légitime à protéger le formulaire contre les envois automatisés (article 6.1.f du RGPD). Pour en savoir plus,
             consultez la <a href="https://www.hcaptcha.com/privacy" target="_blank" rel="noopener">politique de confidentialité d’hCaptcha</a>.
         </p>
+        <p>
+            Pour la même raison, Cloudflare, qui protège le site, vérifie à chaque visite qu’elle vient d’un navigateur et non d’un robot : un court script s’exécute dans
+            votre navigateur et dépose un cookie de sécurité (cf_clearance).
+        </p>
 
         <h2>Données de connexion</h2>
         <p>
@@ -89,8 +93,8 @@ const site = useSite();
 
         <h2>Cookies</h2>
         <p>
-            Ce site dépose uniquement des cookies techniques indispensables (maintien de la session, sécurité du site et du formulaire, y compris ceux d’hCaptcha sur la page
-            de contact et, si besoin, de Cloudflare). Ils sont exemptés de consentement. La mesure d’audience n’en dépose aucun, aucun cookie publicitaire n’est utilisé, et les
+            Ce site dépose uniquement des cookies techniques indispensables (maintien de la session, sécurité du site et du formulaire, y compris le cookie de sécurité de
+            Cloudflare et ceux d’hCaptcha sur la page de contact). Ils sont exemptés de consentement. La mesure d’audience n’en dépose aucun, aucun cookie publicitaire n’est utilisé, et les
             polices d’écriture sont hébergées sur le site lui-même.
         </p>
 
