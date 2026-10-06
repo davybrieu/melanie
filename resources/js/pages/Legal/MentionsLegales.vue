@@ -17,7 +17,7 @@ const site = useSite();
     <PageLegale
         titre="Mentions légales"
         description="Mentions légales du site melanie-photographie.fr : éditeur, hébergeur, propriété intellectuelle des photographies de Mélanie Photographie."
-        mise-a-jour="septembre 2026"
+        mise-a-jour="octobre 2026"
     >
         <h2>Éditeur du site</h2>
         <p>
@@ -41,7 +41,11 @@ const site = useSite();
         <p>Directrice de la publication : <span class="a-completer">[À compléter : prénom et nom]</span>.</p>
 
         <h2>Hébergement</h2>
-        <p><span class="a-completer">[À compléter : nom, adresse et téléphone de l’hébergeur]</span></p>
+        <p>Le site est hébergé par <strong>Cloudflare, Inc.</strong></p>
+        <ul>
+            <li>Adresse : 101 Townsend St, San Francisco, CA 94107, États-Unis</li>
+            <li>Téléphone : +1 650 319 8930</li>
+        </ul>
 
         <h2>Propriété intellectuelle</h2>
         <p>

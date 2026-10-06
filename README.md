@@ -99,7 +99,7 @@ Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter u
 
 ## Avant la mise en ligne
 
-- [ ] Compléter les champs surlignés **[À compléter]** des pages Mentions légales et CGV (SIRET, adresse, hébergeur, médiateur…), et faire relire les CGV.
+- [ ] Compléter les champs surlignés **[À compléter]** des pages Mentions légales et CGV (SIRET, adresse, médiateur…), et faire relire les CGV.
 - [ ] Valider les conditions de `resources/js/data/conditions.js`.
 - [ ] Déposer les photos (portfolio, portrait, accueil).
 - [ ] Relire et personnaliser la page « Mon univers » (`resources/js/pages/APropos.vue`).
