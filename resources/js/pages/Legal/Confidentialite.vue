@@ -50,9 +50,19 @@ const site = useSite();
             RGPD).
         </p>
 
+        <h2>Mesure d’audience</h2>
+        <p>
+            Pour savoir quelles pages vous intéressent et vérifier que le site s’affiche vite, j’utilise Cloudflare Web Analytics, un service de Cloudflare, Inc., qui protège
+            et accélère déjà le site. À chaque page vue, il mesure le temps de chargement et relève la page consultée, le site d’où vous venez, le type d’appareil, le navigateur,
+            le système et le pays. Il ne dépose aucun cookie, n’enregistre rien sur votre appareil et ne vous suit pas d’un site à l’autre : je n’en vois que des statistiques
+            globales, qui ne permettent pas de vous identifier. Cette mesure repose sur mon intérêt légitime à améliorer le site (article 6.1.f du RGPD). Cloudflare, Inc. est une
+            société américaine : le transfert de données vers les États-Unis est encadré par sa certification au Data Privacy Framework UE–États-Unis. Pour en savoir plus,
+            consultez la <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">politique de confidentialité de Cloudflare</a>.
+        </p>
+
         <h2>Qui y a accès ?</h2>
         <p>
-            Moi seule. Mes prestataires techniques (hébergement du site, messagerie, protection du formulaire) n’y accèdent que pour assurer leur service. Vos données ne sont
+            Moi seule. Mes prestataires techniques (hébergement et protection du site, messagerie, protection du formulaire, mesure d’audience) n’y accèdent que pour assurer leur service. Vos données ne sont
             jamais vendues ni cédées.
         </p>
 
@@ -79,9 +89,9 @@ const site = useSite();
 
         <h2>Cookies</h2>
         <p>
-            Ce site dépose uniquement des cookies techniques indispensables (maintien de la session et sécurité du formulaire, y compris ceux d’hCaptcha sur la page de
-            contact). Ils sont exemptés de consentement. Aucun outil de mesure d’audience ni cookie publicitaire n’est utilisé, et les polices d’écriture sont hébergées sur le
-            site lui-même.
+            Ce site dépose uniquement des cookies techniques indispensables (maintien de la session, sécurité du site et du formulaire, y compris ceux d’hCaptcha sur la page
+            de contact et, si besoin, de Cloudflare). Ils sont exemptés de consentement. La mesure d’audience n’en dépose aucun, aucun cookie publicitaire n’est utilisé, et les
+            polices d’écriture sont hébergées sur le site lui-même.
         </p>
 
         <h2>Sécurité</h2>
