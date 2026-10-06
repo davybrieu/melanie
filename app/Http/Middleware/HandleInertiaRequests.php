@@ -47,10 +47,8 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ]),
-            // Sans les adresses e-mail : la publique ne va qu'aux pages légales (PageController),
-            // la privée, qui reçoit le formulaire, n'est jamais envoyée aux pages.
             'site' => Inertia::once(fn () => [
-                ...Arr::except(config('site'), ['naissance', 'email', 'email_demandes']),
+                ...Arr::except(config('site'), 'naissance'),
                 'age' => Carbon::parse(config('site.naissance'))->age,
                 'url' => rtrim(config('app.url'), '/'),
             ]),

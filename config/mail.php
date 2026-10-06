@@ -110,8 +110,10 @@ return [
     |
     */
 
+    // Adresse du site : elle expédie les e-mails, figure dans les pages légales et reçoit
+    // les demandes du formulaire (OVH les redirige vers la boîte personnelle de Mélanie).
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'contact@melanie-photographie.fr'),
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 

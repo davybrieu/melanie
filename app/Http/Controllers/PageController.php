@@ -73,16 +73,16 @@ class PageController extends Controller
         return Inertia::render('Faq');
     }
 
-    // Adresse e-mail publique : seulement dans ces deux pages, où la loi l'impose (pas dans les
-    // props partagées, sinon elle figurerait dans le code de chaque page).
+    // Adresse e-mail du site (MAIL_FROM_ADDRESS) : seulement dans ces deux pages, où la loi
+    // l'impose (pas dans les props partagées, sinon elle figurerait dans le code de chaque page).
     public function mentionsLegales(): Response
     {
-        return Inertia::render('Legal/MentionsLegales', ['email' => config('site.email')]);
+        return Inertia::render('Legal/MentionsLegales', ['email' => config('mail.from.address')]);
     }
 
     public function confidentialite(): Response
     {
-        return Inertia::render('Legal/Confidentialite', ['email' => config('site.email')]);
+        return Inertia::render('Legal/Confidentialite', ['email' => config('mail.from.address')]);
     }
 
     public function cgv(): Response

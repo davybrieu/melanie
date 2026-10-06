@@ -19,19 +19,12 @@ return [
     | Contact
     |--------------------------------------------------------------------------
     |
-    | L'adresse e-mail publique figure dans les mentions légales et la politique
-    | de confidentialité, où la loi l'impose. Les demandes du formulaire partent
-    | vers une adresse privée (SITE_EMAIL_DEMANDES, la boîte personnelle de
-    | Mélanie), jamais envoyée aux pages (voir HandleInertiaRequests) ; laissée
-    | vide, c'est l'adresse publique qui les reçoit. WhatsApp utilise le numéro
-    | de téléphone. SITE_TELEPHONE peut remplacer la valeur ci-dessous depuis le
-    | .env (laissé vide, c'est cette valeur qui s'applique).
+    | L'adresse e-mail du site est celle d'expédition (MAIL_FROM_ADDRESS, dans
+    | config/mail.php). WhatsApp utilise le numéro de téléphone. SITE_TELEPHONE
+    | peut remplacer la valeur ci-dessous depuis le .env (laissé vide, c'est
+    | cette valeur qui s'applique).
     |
     */
-
-    'email' => env('SITE_EMAIL', 'contact@melanie-photographie.fr'),
-
-    'email_demandes' => env('SITE_EMAIL_DEMANDES') ?: env('SITE_EMAIL', 'contact@melanie-photographie.fr'),
 
     'telephone' => env('SITE_TELEPHONE') ?: '06 16 39 92 96',
 
