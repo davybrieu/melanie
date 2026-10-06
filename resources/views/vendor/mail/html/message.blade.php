@@ -18,5 +18,10 @@
 </x-slot:subcopy>
 @endisset
 
-{{-- Pas de pied de page --}}
+{{-- Pas de pied de page : une simple marge sous le contenu --}}
+<x-slot:footer>
+<tr>
+<td height="32" style="height: 32px; font-size: 0; line-height: 0;">&nbsp;</td>
+</tr>
+</x-slot:footer>
 </x-mail::layout>
