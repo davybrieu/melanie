@@ -111,7 +111,7 @@ Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter u
 - `app/Http/Controllers` : pages, portfolio, contact, photos · `app/Console/Commands` : commande `seo:generer`
 - `resources/js/pages/` : pages Inertia · `resources/js/components/` : composants (DA) · `resources/js/layouts/` : en-tête et pied de page
 - `resources/js/app.js` : point d'entrée client **et** SSR
-- `resources/views/app.blade.php` : template racine · `resources/views/mail/` : e-mail de demande de contact
+- `resources/views/app.blade.php` : template racine · `resources/views/mail/` : e-mail de demande de contact · `resources/views/vendor/mail/` : mise en page des e-mails (logo, sans pied de page)
 - `public/images/marque/` : logo, monogramme, fleurs, image de partage
 - `resources/fonts/` : polices du site (WOFF2), déclarées dans `vite.config.js`
 
