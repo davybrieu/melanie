@@ -4,6 +4,11 @@ import { inject } from 'vue';
 import PageLegale from '../../components/PageLegale.vue';
 import { useSite } from '../../composables/useSite';
 
+defineProps({
+    // Adresse e-mail publique, transmise à cette seule page (voir PageController).
+    email: { type: String, required: true },
+});
+
 const route = inject('route');
 const site = useSite();
 </script>
@@ -26,7 +31,7 @@ const site = useSite();
             <li>
                 TVA : <span class="a-completer">[À confirmer : TVA non applicable, article 293 B du CGI]</span>
             </li>
-            <li>E-mail : <a :href="`mailto:${site.email}`">{{ site.email }}</a></li>
+            <li>E-mail : <a :href="`mailto:${email}`">{{ email }}</a></li>
             <li>
                 Téléphone :
                 <template v-if="site.telephone">{{ site.telephone }}</template>
@@ -48,7 +53,7 @@ const site = useSite();
         <h2>Droit à l’image</h2>
         <p>
             Les photographies de personnes présentées sur ce site sont publiées avec l’accord écrit des personnes photographiées ou, pour les enfants, de leurs représentants
-            légaux. Pour toute demande de retrait, écrivez à <a :href="`mailto:${site.email}`">{{ site.email }}</a>.
+            légaux. Pour toute demande de retrait, écrivez à <a :href="`mailto:${email}`">{{ email }}</a>.
         </p>
 
         <h2>Données personnelles et cookies</h2>

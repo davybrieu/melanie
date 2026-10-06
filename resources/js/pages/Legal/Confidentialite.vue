@@ -2,10 +2,13 @@
 import { Link } from '@inertiajs/vue3';
 import { inject } from 'vue';
 import PageLegale from '../../components/PageLegale.vue';
-import { useSite } from '../../composables/useSite';
+
+defineProps({
+    // Adresse e-mail publique, transmise à cette seule page (voir PageController).
+    email: { type: String, required: true },
+});
 
 const route = inject('route');
-const site = useSite();
 </script>
 
 <template>
@@ -87,7 +90,7 @@ const site = useSite();
         <h2>Vos droits</h2>
         <p>
             Vous disposez d’un droit d’accès, de rectification, d’effacement, de limitation, d’opposition et de portabilité de vos données, ainsi que du droit de retirer votre
-            consentement. Pour les exercer, écrivez-moi à <a :href="`mailto:${site.email}`">{{ site.email }}</a>. Si vous estimez que vos droits ne sont pas respectés, vous
+            consentement. Pour les exercer, écrivez-moi à <a :href="`mailto:${email}`">{{ email }}</a>. Si vous estimez que vos droits ne sont pas respectés, vous
             pouvez adresser une réclamation à la CNIL (<a href="https://www.cnil.fr" target="_blank" rel="noopener">cnil.fr</a>).
         </p>
 

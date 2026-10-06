@@ -26,7 +26,7 @@ class ContactController extends Controller
 
     public function store(DemandeContactRequest $request): RedirectResponse
     {
-        Mail::to(config('site.email'), config('site.nom'))->send(new DemandeContact($request->safe()->except(['site_web', 'captcha'])));
+        Mail::to(config('site.email_demandes'), config('site.nom'))->send(new DemandeContact($request->safe()->except(['site_web', 'captcha'])));
 
         Inertia::flash('demandeEnvoyee', true);
 

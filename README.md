@@ -90,7 +90,8 @@ Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter u
 | Tarifs, durées, accroches des séances | `resources/js/data/seances.js` |
 | Acompte, paiement, livraison, report, bon cadeau | `resources/js/data/conditions.js` (repris dans la FAQ et les CGV) |
 | Questions / réponses de la FAQ | `resources/js/data/faq.js` |
-| E-mail de contact, téléphone | `.env` (`SITE_EMAIL`, `SITE_TELEPHONE`) et `config/site.php` |
+| E-mail public, téléphone | `.env` (`SITE_EMAIL`, `SITE_TELEPHONE`) et `config/site.php` |
+| Adresse privée qui reçoit les demandes du formulaire | `.env` (`SITE_EMAIL_DEMANDES`, jamais affichée) |
 | Anti-spam du formulaire (hCaptcha) | `.env` (`HCAPTCHA_SITE_KEY`, `HCAPTCHA_SECRET`) |
 | Textes des pages | `resources/js/pages/*.vue` |
 | Pages du sitemap | `config/seo.php` |
@@ -102,7 +103,7 @@ Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter u
 - [ ] Valider les conditions de `resources/js/data/conditions.js`.
 - [ ] Déposer les photos (portfolio, portrait, accueil).
 - [ ] Relire et personnaliser la page « Mon univers » (`resources/js/pages/APropos.vue`).
-- [ ] Créer l'adresse `contact@melanie-photographie.fr` (ou changer `SITE_EMAIL`) et configurer l'envoi d'e-mails.
+- [ ] Créer l'adresse publique `contact@melanie-photographie.fr` (redirigée vers la boîte personnelle), renseigner `SITE_EMAIL_DEMANDES` et configurer l'envoi d'e-mails (`MAIL_*`).
 
 ## Structure
 
