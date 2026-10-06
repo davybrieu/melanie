@@ -19,6 +19,4 @@ Appeler {{ $demande['prenom'] }} au {{ $telephone }}
 **Message :**
 
 {!! nl2br(e($demande['message'])) !!}
-
-Le site annonce un rappel dans l'heure : appelez {{ $demande['prenom'] }} dès que possible.
 </x-mail::message>
