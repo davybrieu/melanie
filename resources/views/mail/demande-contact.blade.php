@@ -1,12 +1,6 @@
 <x-mail::message>
 # Nouvelle demande de séance
 
-**{{ $demande['prenom'] }} {{ $demande['nom'] }}** souhaite une séance **{{ $seances }}**.
-
-<x-mail::button :url="$lienTelephone">
-Appeler {{ $demande['prenom'] }} au {{ $telephone }}
-</x-mail::button>
-
 <x-mail::table>
 | | |
 |:--|:--|
