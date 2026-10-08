@@ -24,7 +24,10 @@ export function useSite() {
         const numero = site.telephone ? international(site.telephone) : null;
         const instagramUrl = `https://www.instagram.com/${site.instagram}/`;
         const whatsappUrl = numero ? `https://wa.me/${numero}?text=${encodeURIComponent(messageWhatsapp)}` : null;
-        const googleUrl = site.google_cid ? `https://www.google.com/maps?cid=${site.google_cid}` : null;
+        // Lien officiel de Google Maps vers la fiche (« Maps URLs »), par son Place ID.
+        const googleUrl = site.google_place_id
+            ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.nom)}&query_place_id=${encodeURIComponent(site.google_place_id)}`
+            : null;
 
         return {
             ...site,
