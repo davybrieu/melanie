@@ -24,16 +24,19 @@ export function useSite() {
         const numero = site.telephone ? international(site.telephone) : null;
         const instagramUrl = `https://www.instagram.com/${site.instagram}/`;
         const whatsappUrl = numero ? `https://wa.me/${numero}?text=${encodeURIComponent(messageWhatsapp)}` : null;
+        const googleUrl = site.google_cid ? `https://www.google.com/maps?cid=${site.google_cid}` : null;
 
         return {
             ...site,
             instagramUrl,
             telephoneUrl: numero ? `tel:+${numero}` : null,
             whatsappUrl,
-            // WhatsApp n'apparaît que si le téléphone est renseigné (config/site.php).
+            googleUrl,
+            // WhatsApp n'apparaît que si le téléphone est renseigné, Google que si la fiche l'est (config/site.php).
             reseaux: [
                 { nom: 'Instagram', url: instagramUrl, icone: 'instagram' },
                 whatsappUrl && { nom: 'WhatsApp', url: whatsappUrl, icone: 'whatsapp' },
+                googleUrl && { nom: 'Google', url: googleUrl, icone: 'google' },
             ].filter(Boolean),
         };
     });

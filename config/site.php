@@ -30,6 +30,11 @@ return [
 
     'instagram' => 'mb_photographiiie',
 
+    // Fiche Google (Google Business Profile), désignée par son CID, tiré du lien de
+    // partage Google Maps. En texte : le nombre dépasse la précision de JavaScript.
+    // Place ID de la même fiche : ChIJT5cm6jVu_0IRPk-l6R7IuVQ.
+    'google_cid' => '6105130804971917118',
+
     /*
     |--------------------------------------------------------------------------
     | Localisation

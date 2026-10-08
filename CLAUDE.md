@@ -34,7 +34,7 @@ Pas de tests automatisés ni de linter, par choix du projet : n'en ajoutez pas e
 **Chaîne de rendu.** Route nommée (`routes/web.php`) → contrôleur → `Inertia::render('Page', props)` → `resources/views/app.blade.php` → page Vue de `resources/js/pages/`. `resources/js/app.js` est l'unique point d'entrée, client et SSR (plugin `@inertiajs/vite`) : il applique `layouts/SiteLayout.vue` (en-tête et pied de page) à toutes les pages.
 
 **Props partagées** (`app/Http/Middleware/HandleInertiaRequests.php`) :
-- `site` : `config/site.php` (identité, contact, localisation), envoyée une fois par visite (`Inertia::once`). L'adresse e-mail du site n'y figure pas : elle n'est passée qu'aux pages Mentions légales et Confidentialité (prop `email`, `PageController`), pour ne pas apparaître dans le code des autres pages. Côté Vue, passer par le composable `useSite()`, qui ajoute `instagramUrl`, `telephoneUrl`, `whatsappUrl` (même numéro, message pré-rempli) et `reseaux` (liste utilisée par la carte contact et le pied de page).
+- `site` : `config/site.php` (identité, contact, localisation), envoyée une fois par visite (`Inertia::once`). L'adresse e-mail du site n'y figure pas : elle n'est passée qu'aux pages Mentions légales et Confidentialité (prop `email`, `PageController`), pour ne pas apparaître dans le code des autres pages. Côté Vue, passer par le composable `useSite()`, qui ajoute `instagramUrl`, `telephoneUrl`, `whatsappUrl` (même numéro, message pré-rempli), `googleUrl` (fiche Google, construite sur le CID `google_cid`, gardé en texte car il dépasse la précision des nombres JavaScript) et `reseaux` (liste utilisée par la carte contact et le pied de page).
 - `ziggy` : configuration des routes, utile seulement au rendu SSR (le navigateur utilise `@routes`).
 - `canonical` : toujours construite à partir de `APP_URL`, jamais de l'hôte de la requête.
 
@@ -64,7 +64,7 @@ Les contrôleurs passent aux pages des objets `{src, srcset, largeur, hauteur, a
 **SEO.** Chaque page inclut `<Seo titre="…" description="…" :json-ld="…" />`, avec un titre sans suffixe. Le composant ajoute « | Mélanie Photographie » seulement si le titre complet tient en 60 caractères (Google tronque au-delà, et affiche de toute façon le nom du site) : viser 37 caractères au plus pour garder la marque. La description fait 155 caractères au plus. Le composant ajoute aussi l'URL canonique et les balises Open Graph et Twitter ; l'image de partage est toujours `og-image.jpg` (1200 × 630, avec type, dimensions et texte alternatif). Le favicon (16, 32 et 48 px), l'icône Apple, le manifeste et la couleur de thème sont déclarés dans `app.blade.php`.
 
 Données structurées (JSON-LD, `data/seo.js`), validées sans erreur ni avertissement sur validator.schema.org :
-- accueil : `WebSite` + `LocalBusiness` (l'entreprise, avec le catalogue des séances) ; à propos et contact : `AboutPage` / `ContactPage` + `LocalBusiness` ;
+- accueil : `WebSite` + `LocalBusiness` (l'entreprise, avec le catalogue des séances ; son `sameAs`, Instagram et la fiche Google, relie le site à la fiche) ; à propos et contact : `AboutPage` / `ContactPage` + `LocalBusiness` ;
 - pages séances et tarifs : un `Service` par séance, avec le même `@id` partout (`/#seance-{clé}`) ; bon cadeau : `Service` avec une `AggregateOffer` ;
 - FAQ : `FAQPage`, seule page qui balise les questions ;
 - portfolio : `CollectionPage`, puis une `ImageGallery` par catégorie dont chaque photo est un `ImageObject` (créateur, crédit, droits d'auteur) ;
