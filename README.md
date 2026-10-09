@@ -32,6 +32,7 @@ Lance le serveur Laravel, la file d'attente et Vite. En développement, le SSR p
 npm run build                 # bundle client (public/build) + bundle SSR (bootstrap/ssr)
 php artisan seo:generer       # sitemap.xml et robots.txt (à relancer à chaque déploiement)
 php artisan inertia:start-ssr # serveur SSR Node sur 127.0.0.1:13728, à garder actif (Supervisor, etc.)
+php artisan avis:actualiser   # note et avis de la fiche Google (planifié chaque matin)
 ```
 
 Dans le `.env` de production : `APP_URL=https://www.melanie-photographie.fr` (URL canoniques et sitemap), `APP_ENV=production`, `APP_DEBUG=false`, et la configuration SMTP (`MAIL_*`) pour recevoir les demandes de contact.
@@ -40,7 +41,7 @@ En production, `melanie-photographie.fr` redirige (301) vers `www.melanie-photog
 
 Le serveur SSR utilise le port 13728 et non 13714, le port par défaut d'Inertia, déjà pris par d'autres sites du serveur. Ce port est défini dans `vite.config.js` (il est compilé dans le bundle SSR) et dans `config/inertia.php` : modifiez les deux ensemble, puis relancez `npm run build`, `php artisan config:cache` (si la configuration est mise en cache) et le serveur SSR.
 
-Sur **Laravel Forge**, activez « Inertia SSR » (daemon du serveur SSR) dans l'onglet Overview du site. Aucune tâche planifiée n'est nécessaire. Le script de déploiement doit contenir ces deux commandes, à ces places :
+Sur **Laravel Forge**, activez « Inertia SSR » (daemon du serveur SSR) dans l'onglet Overview du site, et le Scheduler : il lance chaque matin `avis:actualiser` (avis Google). Dans les réglages de déploiement, ajoutez le chemin partagé `database/database.sqlite` : sans lui, chaque déploiement repart d'une base vide (sessions perdues, avis Google à réimporter). Le script de déploiement doit contenir ces deux commandes, à ces places :
 
 ```bash
 $CREATE_RELEASE()
@@ -93,6 +94,8 @@ Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter u
 | E-mail du site (pages légales, demandes du formulaire) | `.env` (`MAIL_FROM_ADDRESS`) |
 | Téléphone | `.env` (`SITE_TELEPHONE`) et `config/site.php` |
 | Anti-spam du formulaire (hCaptcha) | `.env` (`HCAPTCHA_SITE_KEY`, `HCAPTCHA_SECRET`) |
+| Fiche Google (Place ID) | `.env` (`GOOGLE_PLACE_ID`) et `config/site.php` |
+| Avis Google (Business Profile API) | `.env` (`GOOGLE_BUSINESS_CLIENT_ID`, `GOOGLE_BUSINESS_CLIENT_SECRET`, `GOOGLE_BUSINESS_REFRESH_TOKEN`) |
 | Textes des pages | `resources/js/pages/*.vue` |
 | Pages du sitemap | `config/seo.php` |
 | Résumé du site pour les IA | `public/llms.txt` (à tenir à jour à la main) |
@@ -104,11 +107,13 @@ Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter u
 - [ ] Déposer les photos (portfolio, portrait, accueil).
 - [ ] Relire et personnaliser la page « Mon univers » (`resources/js/pages/APropos.vue`).
 - [ ] Créer la boîte `contact@melanie-photographie.fr` chez OVH, avec une redirection vers la boîte personnelle, et renseigner l'envoi d'e-mails (`MAIL_*`, SMTP d'OVH).
+- [ ] Avis Google : obtenir l'accès à la Business Profile API, renseigner `GOOGLE_BUSINESS_*`, activer le Scheduler de Forge et le chemin partagé de la base SQLite, puis lancer `php artisan avis:actualiser`.
 
 ## Structure
 
 - `routes/web.php` : pages du site (silo `/photographe-{séance}-dijon`, `/portfolio/{catégorie}`…)
-- `app/Http/Controllers` : pages, portfolio, contact, photos · `app/Console/Commands` : commande `seo:generer`
+- `app/Http/Controllers` : pages, portfolio, contact, photos · `app/Console/Commands` : commandes `seo:generer` et `avis:actualiser`
+- `app/Support/FicheGoogle.php` : lecture de la fiche Google (Business Profile API) · `app/Models` : note et avis Google enregistrés
 - `resources/js/pages/` : pages Inertia · `resources/js/components/` : composants (DA) · `resources/js/layouts/` : en-tête et pied de page
 - `resources/js/app.js` : point d'entrée client **et** SSR
 - `resources/views/app.blade.php` : template racine · `resources/views/mail/` : e-mail de demande de contact · `resources/views/vendor/mail/` : mise en page des e-mails (logo, sans pied de page)

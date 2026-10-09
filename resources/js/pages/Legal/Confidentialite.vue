@@ -6,6 +6,8 @@ import PageLegale from '../../components/PageLegale.vue';
 defineProps({
     // Adresse e-mail publique, transmise à cette seule page (voir PageController).
     email: { type: String, required: true },
+    // Des avis Google sont affichés sur la page d'accueil (commande avis:actualiser).
+    avisGoogle: { type: Boolean, default: false },
 });
 
 const route = inject('route');
@@ -86,6 +88,16 @@ const route = inject('route');
             Les photos de votre séance ne sont diffusées (site, réseaux sociaux) qu’avec votre accord écrit, et celui des deux parents pour les enfants mineurs. Vous pouvez
             retirer cet accord à tout moment.
         </p>
+
+        <template v-if="avisGoogle">
+            <h2>Avis Google</h2>
+            <p>
+                La page d’accueil reprend des avis laissés sur ma fiche Google : leur note, leur texte, leur date et le prénom de leur auteur, suivi de l’initiale de son nom.
+                Rien d’autre n’est conservé, pas même la photo de profil. Ils sont actualisés chaque jour : un avis modifié ou supprimé sur Google l’est aussi sur le site.
+                Les afficher ne transmet aucune donnée à Google, car ils sont enregistrés sur le site lui-même. Ce traitement repose sur mon intérêt légitime à présenter les
+                retours de mes clients (article 6.1.f du RGPD). Pour faire retirer le vôtre, écrivez-moi à <a :href="`mailto:${email}`">{{ email }}</a>.
+            </p>
+        </template>
 
         <h2>Vos droits</h2>
         <p>

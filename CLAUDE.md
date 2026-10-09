@@ -8,7 +8,7 @@ Site de **Mélanie Photographie**, photographe grossesse, nouveau-né et famille
 
 Tout est en français : noms de classes, méthodes, variables et composants, contenus, messages de commit. Les textes du site sont écrits par Mélanie à la première personne et vouvoient le visiteur ; les textes affichés utilisent l'apostrophe typographique `’`.
 
-Pas de base de données métier : SQLite ne sert qu'aux sessions, au cache et à la file d'attente. Les contenus sont dans le code.
+Pas de base de données métier : SQLite sert aux sessions, au cache, à la file d'attente et aux avis Google (voir Avis Google). Les contenus sont dans le code.
 
 **Git : tous les commits se font directement sur `main`.** Ne créez ni branche ni pull request.
 
@@ -20,6 +20,7 @@ composer dev                    # serveur Laravel + file d'attente + Vite (en de
 npm run build                   # bundle client (public/build) + bundle SSR (bootstrap/ssr)
 php artisan inertia:start-ssr   # serveur SSR Node de production (127.0.0.1:13728)
 php artisan seo:generer         # génère public/sitemap.xml et robots.txt (llms.txt est écrit à la main)
+php artisan avis:actualiser     # note et avis de la fiche Google (planifié chaque matin ; --nouvelle-selection)
 php artisan lang:update         # met à jour les traductions lang/fr (Laravel Lang)
 ```
 
@@ -80,6 +81,12 @@ Elle se lance à chaque déploiement ; ces deux fichiers ne sont pas versionnés
 
 **`public/llms.txt` est rédigé à la main par Claude et versionné.** Il résume le site pour les assistants IA (séances, prix, conditions, zone, contact) et liste ses pages, avec les URL de production. Le mettre à jour dans le même commit que tout changement qui le concerne : page ajoutée, supprimée ou renommée, prix, durée ou contenu d'une séance (`seances.js`), conditions (`conditions.js`), zone de déplacement, coordonnées, réseaux sociaux. N'y mettre que des informations publiées sur le site.
 
+**Avis Google** (`App\Support\FicheGoogle`, commande `avis:actualiser`, tables `note_google` et `avis_google`). Lus par la Business Profile API, avec l'accès OAuth du compte propriétaire de la fiche (`GOOGLE_BUSINESS_CLIENT_ID`, `GOOGLE_BUSINESS_CLIENT_SECRET`, `GOOGLE_BUSINESS_REFRESH_TOKEN` ; sans eux, la commande ne fait rien) ; la fiche est retrouvée par son Place ID. La commande, planifiée chaque matin à 6 h (`routes/console.php`), enregistre la note globale et le nombre d'avis. Au premier import (ou avec `--nouvelle-selection`), elle choisit les avis affichés : 10 avis avec un texte, les mieux notés puis les plus récents ; ensuite, seuls ceux-là sont actualisés (modifiés ou supprimés sur Google, ils le sont aussi sur le site).
+- Règles de Google : stockage de 30 jours au plus sans actualisation (au-delà, rien n'est affiché et tout est effacé), aucun avis modifié.
+- RGPD : de l'auteur, seuls le prénom et l'initiale du nom sont gardés ; aucune photo de profil (elle ferait charger une image depuis Google).
+- La section (`components/AvisGoogle.vue`, sur l'accueil) n'apparaît que si la fiche a une note ; la politique de confidentialité n'a sa section « Avis Google » que si des avis sont affichés.
+- Pas de JSON-LD pour ces avis ni pour la note : Google ignore les avis qu'une entreprise publie sur elle-même et interdit d'y reprendre ceux d'un autre site.
+
 **Erreurs** (`bootstrap/app.php`). Les codes 403, 404, 429, 500 et 503 affichent la page Inertia `Erreur` (en mode debug, les erreurs 500 gardent la page détaillée de Laravel). Une 419 (session expirée) ramène l'utilisateur sur la page précédente avec le flash `sessionExpiree`.
 
 **Adresses uniques.** Chaque page n'a qu'une adresse. Le middleware global `RefuserAdressesEnDouble` renvoie une 404, sans redirection, aux variantes que Laravel accepterait sinon : barre oblique finale (`/tarifs/`), `index.php` dans l'adresse (`/index.php/tarifs`), caractère encodé (`/%74arifs`). Une adresse du site ne doit donc jamais finir par `/` ni contenir de `%` (les noms des photos passent par `Str::slug`). Les paramètres (`?seance=…`, `?utm_…`) restent acceptés : l'URL canonique les écarte.
@@ -136,7 +143,7 @@ Exceptions, à garder dans leur format, car le WebP n'y est pas lu partout :
 ## Production
 
 - `APP_URL` doit être l'URL https avec www (`https://www.melanie-photographie.fr`) : les URL canoniques, le sitemap et `robots.txt` en dépendent. En production, le middleware global `RedirigerVersWww` redirige en 301 le domaine sans www vers cet hôte (les fichiers statiques ne passent pas par Laravel). Nginx ne doit jamais rediriger www vers le domaine sans www : boucle de redirections.
-- Hébergement sur Laravel Forge : le serveur SSR tourne dans le daemon de l'option « Inertia SSR » ; aucune tâche planifiée. Déploiements sans interruption : chaque déploiement crée un nouveau dossier de release, où `sitemap.xml` et `robots.txt` n'existent que si `seo:generer` y tourne (générés à la main, ils disparaissent au déploiement suivant). Dans le script de déploiement : `npm run build` et `php artisan seo:generer` avant `$ACTIVATE_RELEASE()`, puis `php artisan inertia:stop-ssr --graceful` après (Forge relance le daemon avec le nouveau bundle ; sans `--graceful`, un serveur SSR arrêté fait échouer le déploiement).
+- Hébergement sur Laravel Forge : le serveur SSR tourne dans le daemon de l'option « Inertia SSR » ; le Scheduler de Forge lance `avis:actualiser` chaque matin. La base SQLite doit survivre aux déploiements : chemin partagé `database/database.sqlite` dans les réglages de déploiement (sinon chaque release repart d'une base vide). Déploiements sans interruption : chaque déploiement crée un nouveau dossier de release, où `sitemap.xml` et `robots.txt` n'existent que si `seo:generer` y tourne (générés à la main, ils disparaissent au déploiement suivant). Dans le script de déploiement : `npm run build` et `php artisan seo:generer` avant `$ACTIVATE_RELEASE()`, puis `php artisan inertia:stop-ssr --graceful` après (Forge relance le daemon avec le nouveau bundle ; sans `--graceful`, un serveur SSR arrêté fait échouer le déploiement).
 - Le serveur SSR écoute sur `127.0.0.1:13728`, pas sur 13714, le port par défaut d'Inertia, déjà pris par d'autres sites du serveur. Les sites s'y arrêteraient les uns les autres, car `inertia:start-ssr` commence par envoyer `/shutdown` au port configuré. Le port est écrit dans `vite.config.js` (compilé dans le bundle SSR) et dans `config/inertia.php` : les changer ensemble.
 - Sans serveur SSR actif, le site reste fonctionnel en rendu côté client.
 - Cloudflare est devant le site. Les mentions légales (« Hébergement ») nomment Cloudflare, Inc., avec l'adresse et le téléphone publiés dans sa politique de confidentialité : les tenir à jour si l'hébergement change. Le middleware global `AdresseVisiteurCloudflare` remplace l'adresse IP vue par Laravel par celle de l'en-tête `CF-Connecting-IP`, seulement pour les requêtes venues des plages de Cloudflare (`App\Support\Cloudflare`, à mettre à jour si Cloudflare en publie de nouvelles). Ne pas lire `X-Forwarded-For` : un Worker Cloudflare peut y placer l'adresse de son choix, alors que Cloudflare impose la sienne dans `CF-Connecting-IP`. Dans Cloudflare, laisser désactivée la transformation « Remove visitor IP headers », qui supprime cet en-tête. Cette adresse sert à la limite d'envois du formulaire et est enregistrée avec la session : la politique de confidentialité (« Données de connexion ») annonce une expiration après deux heures d'inactivité, à garder en accord avec `SESSION_LIFETIME` (120).

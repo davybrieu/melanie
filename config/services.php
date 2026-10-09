@@ -35,6 +35,15 @@ return [
         'secret' => env('HCAPTCHA_SECRET'),
     ],
 
+    // Avis de la fiche Google (App\Support\FicheGoogle, commande avis:actualiser), par la
+    // Business Profile API : client OAuth et jeton d'actualisation du compte propriétaire de
+    // la fiche. Inactif tant que les trois valeurs ne sont pas renseignées.
+    'google_business' => [
+        'client_id' => env('GOOGLE_BUSINESS_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_BUSINESS_CLIENT_SECRET'),
+        'refresh_token' => env('GOOGLE_BUSINESS_REFRESH_TOKEN'),
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),

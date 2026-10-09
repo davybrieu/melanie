@@ -2,6 +2,7 @@
 import { Link } from '@inertiajs/vue3';
 import { computed, inject } from 'vue';
 import AppelReservation from '../components/AppelReservation.vue';
+import AvisGoogle from '../components/AvisGoogle.vue';
 import Bouton from '../components/Bouton.vue';
 import Fleur from '../components/Fleur.vue';
 import Icone from '../components/Icone.vue';
@@ -16,6 +17,8 @@ import { entrepriseJsonLd, siteWebJsonLd } from '../data/seo';
 
 const props = defineProps({
     photos: { type: Object, required: true },
+    // Note et avis de la fiche Google (commande avis:actualiser) ; null tant qu'il n'y en a pas.
+    avis: { type: Object, default: null },
 });
 
 const route = inject('route');
@@ -183,6 +186,8 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
             </div>
         </div>
     </section>
+
+    <AvisGoogle v-if="avis" :fiche="avis" />
 
     <!-- Tarifs -->
     <section class="py-24 sm:py-32">

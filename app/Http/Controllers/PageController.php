@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AvisGoogle;
+use App\Models\NoteGoogle;
 use App\Support\Photos;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -23,6 +25,7 @@ class PageController extends Controller
                 'mosaique' => $this->melanger(['grossesse', 'nouveau-ne', 'famille'], 2, 1),
                 'portrait' => $this->photos->nommee('portrait'),
             ],
+            'avis' => $this->avisGoogle(),
         ]);
     }
 
@@ -82,12 +85,44 @@ class PageController extends Controller
 
     public function confidentialite(): Response
     {
-        return Inertia::render('Legal/Confidentialite', ['email' => config('mail.from.address')]);
+        return Inertia::render('Legal/Confidentialite', [
+            'email' => config('mail.from.address'),
+            'avisGoogle' => AvisGoogle::aJour()->exists(),
+        ]);
     }
 
     public function cgv(): Response
     {
         return Inertia::render('Legal/Cgv');
+    }
+
+    /**
+     * Note de la fiche Google et avis choisis (commande avis:actualiser), les mieux notés puis
+     * les plus récents d'abord ; null tant que la fiche n'a pas de note.
+     *
+     * @return array{note: float, noteTexte: string, nombre: int, avis: list<array{auteur: string, note: int, texte: string, date: string}>}|null
+     */
+    private function avisGoogle(): ?array
+    {
+        $note = NoteGoogle::aJour()->first();
+
+        if ($note?->note === null) {
+            return null;
+        }
+
+        return [
+            'note' => $note->note,
+            'noteTexte' => number_format($note->note, 1, ',', ''),
+            'nombre' => $note->nombre_avis,
+            'avis' => AvisGoogle::aJour()->orderByDesc('note')->orderByDesc('publie_le')->get()
+                ->map(fn (AvisGoogle $avis) => [
+                    'auteur' => $avis->auteur,
+                    'note' => $avis->note,
+                    'texte' => $avis->texte,
+                    'date' => $avis->publie_le->locale('fr')->translatedFormat('F Y'),
+                ])
+                ->all(),
+        ];
     }
 
     /**
