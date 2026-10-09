@@ -41,7 +41,7 @@ En production, `melanie-photographie.fr` redirige (301) vers `www.melanie-photog
 
 Le serveur SSR utilise le port 13728 et non 13714, le port par défaut d'Inertia, déjà pris par d'autres sites du serveur. Ce port est défini dans `vite.config.js` (il est compilé dans le bundle SSR) et dans `config/inertia.php` : modifiez les deux ensemble, puis relancez `npm run build`, `php artisan config:cache` (si la configuration est mise en cache) et le serveur SSR.
 
-Sur **Laravel Forge**, activez « Inertia SSR » (daemon du serveur SSR) dans l'onglet Overview du site, et le Scheduler : il lance chaque matin `avis:actualiser` (avis Google). Dans les réglages de déploiement, ajoutez le chemin partagé `database/database.sqlite` : sans lui, chaque déploiement repart d'une base vide (sessions perdues, avis Google à réimporter). Le script de déploiement doit contenir ces deux commandes, à ces places :
+Sur **Laravel Forge**, activez « Inertia SSR » (daemon du serveur SSR) et « Laravel Scheduler » dans l'onglet Overview du site. Ce dernier crée la tâche cron qui lance `php artisan schedule:run` chaque minute, et donc les tâches de `routes/console.php` : la mise à jour des avis Google, chaque matin. Le script de déploiement doit contenir ces deux commandes, à ces places :
 
 ```bash
 $CREATE_RELEASE()
@@ -78,6 +78,23 @@ Relancez-la à chaque déploiement. Toute nouvelle page publique doit être ajou
 
 `public/llms.txt`, le résumé du site pour les assistants IA, est rédigé à la main et versionné. Il doit être mis à jour à chaque changement de pages, de séances, de prix, de conditions ou de coordonnées.
 
+## Avis Google
+
+L'accueil affiche la note de la fiche Google et 10 avis, mis à jour chaque matin par `php artisan avis:actualiser` (Business Profile API). Mise en place, une fois pour toutes, avec le compte Google propriétaire de la fiche :
+
+1. **Projet** : créez un projet sur [console.cloud.google.com](https://console.cloud.google.com) et notez son numéro.
+2. **Accès à l'API** : demandez-le avec le [formulaire de Google](https://support.google.com/business/contact/api_default) (« Application for Basic API Access »), avec le numéro du projet et l'adresse du site. Réponse sous 14 jours environ.
+3. **API** : une fois l'accès accordé, activez dans le projet « Google My Business API », « My Business Account Management API » et « My Business Business Information API ».
+4. **Écran de consentement OAuth** : type « External », puis publiez-le (« In production »). En test, le jeton d'actualisation expire au bout de 7 jours.
+5. **Identifiants** : créez un ID client OAuth de type « Application Web », avec l'URI de redirection autorisée `https://developers.google.com/oauthplayground`. Notez l'ID client et le code secret.
+6. **Jeton d'actualisation** (refresh token), sur [l'OAuth Playground](https://developers.google.com/oauthplayground) :
+   - roue dentée : cochez « Use your own OAuth credentials », collez l'ID client et le code secret, et laissez « Access type » sur « Offline » ;
+   - étape 1 : saisissez la portée `https://www.googleapis.com/auth/business.manage` (champ « Input your own scopes »), cliquez sur « Authorize APIs » et connectez-vous avec le compte de la fiche ; à l'avertissement « Google n'a pas validé cette application », continuez ;
+   - étape 2 : cliquez sur « Exchange authorization code for tokens » et copiez le « Refresh token ».
+7. **Forge** : dans Environment, renseignez `GOOGLE_PLACE_ID`, `GOOGLE_BUSINESS_CLIENT_ID`, `GOOGLE_BUSINESS_CLIENT_SECRET` et `GOOGLE_BUSINESS_REFRESH_TOKEN`, activez « Laravel Scheduler » (onglet Overview du site), redéployez, puis lancez une fois `php artisan avis:actualiser` (onglet Commands).
+
+Le jeton d'actualisation n'a pas de date d'expiration : utilisé chaque jour, il reste valable. Il faut en créer un nouveau (étape 6) seulement si Google le révoque : accès retiré depuis le compte Google, écran de consentement repassé en test, ou plus de 100 jetons créés pour le même ID client (les plus anciens sont annulés). La commande échoue alors (`invalid_grant`) et un e-mail prévient l'adresse du site, au plus une fois par semaine. Sans mise à jour réussie pendant 30 jours, la note et les avis disparaissent du site.
+
 ## Photos
 
 Déposez les photos dans `resources/photos/` : le site les redimensionne et les convertit en WebP tout seul. Mode d'emploi : [`resources/photos/README.md`](resources/photos/README.md).
@@ -107,7 +124,7 @@ Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter u
 - [ ] Déposer les photos (portfolio, portrait, accueil).
 - [ ] Relire et personnaliser la page « Mon univers » (`resources/js/pages/APropos.vue`).
 - [ ] Créer la boîte `contact@melanie-photographie.fr` chez OVH, avec une redirection vers la boîte personnelle, et renseigner l'envoi d'e-mails (`MAIL_*`, SMTP d'OVH).
-- [ ] Avis Google : obtenir l'accès à la Business Profile API, renseigner `GOOGLE_BUSINESS_*`, activer le Scheduler de Forge et le chemin partagé de la base SQLite, puis lancer `php artisan avis:actualiser`.
+- [ ] Avis Google : suivre la section « Avis Google » (accès à l'API, jeton d'actualisation, Forge).
 
 ## Structure
 
