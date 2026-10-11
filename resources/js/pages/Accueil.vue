@@ -12,6 +12,7 @@ import Seo from '../components/Seo.vue';
 import Separateur from '../components/Separateur.vue';
 import TitreSection from '../components/TitreSection.vue';
 import { useSite } from '../composables/useSite';
+import { conditions } from '../data/conditions';
 import { euros, seances } from '../data/seances';
 import { entrepriseJsonLd, siteWebJsonLd } from '../data/seo';
 
@@ -35,6 +36,25 @@ const engagements = [
     { icone: 'appareil', texte: 'Douceur, bienveillance & patience' },
     { icone: 'brin', texte: 'Une expérience simple & agréable' },
     { icone: 'coeurs', texte: 'Des souvenirs qui vous ressemblent' },
+];
+
+// « Dijon et alentours » : le lieu et le moment de chaque séance, repris des pages séances.
+const pratique = [
+    {
+        route: 'grossesse',
+        lien: 'Séance photo grossesse à Dijon',
+        texte: 'Entre le 7e et le 8e mois, quand le ventre est bien rond : en extérieur, dans la lumière dorée de fin de journée, ou chez vous pour une ambiance cocooning.',
+    },
+    {
+        route: 'nouveau-ne',
+        lien: 'Séance photo naissance à domicile',
+        texte: 'Je viens chez vous dans les premiers jours de bébé, idéalement entre 5 et 15 jours, pour des photos de nouveau-né tout en douceur, à son rythme et en toute sécurité.',
+    },
+    {
+        route: 'famille',
+        lien: 'Séance photo famille à Dijon',
+        texte: 'Un parc, un champ, une forêt, un bord d’eau autour de Dijon, ou votre salon : les enfants jouent, rient, et je photographie votre famille telle qu’elle est.',
+    },
 ];
 
 const offres = Object.values(seances);
@@ -184,6 +204,30 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
                     <Bouton :href="route('a-propos')" variante="lien">Découvrir mon univers</Bouton>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Dijon et alentours : où et quand se passent les séances -->
+    <section class="border-b border-creme-300 bg-creme-50 py-20 sm:py-28">
+        <div class="conteneur max-w-3xl">
+            <TitreSection surtitre="Dijon et alentours" titre="Votre photographe à Dijon, chez vous ou en extérieur" />
+            <p class="texte-courant mt-8 text-center text-balance">
+                Je me déplace sur {{ conditions.zone }}, par exemple à Chenôve, Talant, Fontaine-lès-Dijon, Quetigny, Longvic ou Marsannay-la-Côte. Je vous photographie en extérieur, dans un lieu qui vous ressemble, ou tout simplement chez vous.
+            </p>
+            <ul class="mt-12 space-y-8">
+                <li v-for="seance in pratique" :key="seance.route" class="border-t border-creme-300 pt-8">
+                    <h3 class="text-2xl">
+                        <Link :href="route(seance.route)" class="group inline-flex items-center gap-3 transition-colors hover:text-brique">
+                            {{ seance.lien }}
+                            <Icone nom="fleche" class="size-5 shrink-0 text-or-500 transition-transform duration-300 group-hover:translate-x-1" />
+                        </Link>
+                    </h3>
+                    <p class="texte-courant mt-3">{{ seance.texte }}</p>
+                </li>
+            </ul>
+            <p class="texte-courant mt-10 border-t border-creme-300 pt-8 text-center text-balance">
+                Vos photos, retouchées avec soin, vous sont livrées {{ conditions.livraison }}, {{ conditions.livraisonMode }}.
+            </p>
         </div>
     </section>
 

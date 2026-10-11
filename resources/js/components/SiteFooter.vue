@@ -14,7 +14,7 @@ const colonnes = [
         titre: 'Séances',
         liens: [
             { libelle: 'Photographe grossesse', route: 'grossesse' },
-            { libelle: 'Photographe nouveau-né', route: 'nouveau-ne' },
+            { libelle: 'Photographe naissance et nouveau-né', route: 'nouveau-ne' },
             { libelle: 'Photographe famille', route: 'famille' },
             { libelle: 'Tarifs', route: 'tarifs' },
             { libelle: 'Bon cadeau', route: 'bon-cadeau' },

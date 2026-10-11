@@ -25,7 +25,8 @@ const route = inject('route');
 const site = useSite();
 const seance = seances['nouveau-ne'];
 
-const description = `Photographe nouveau-né à Dijon et alentours : une séance douce à domicile, au rythme de bébé, sa sécurité et son bien-être avant tout. Séance à ${euros(seance.prix)}.`;
+// « Naissance » et « bébé » : les mots que les parents tapent aussi souvent que « nouveau-né ».
+const description = `Photographe naissance et nouveau-né à Dijon : une séance photo bébé à domicile, à son rythme, sa sécurité et son bien-être avant tout. Séance à ${euros(seance.prix)}.`;
 
 // Pas de FAQPage ici : les questions sont balisées une seule fois, sur la page FAQ.
 const jsonLd = computed(() => serviceJsonLd(site.value, route, seance));
@@ -53,12 +54,12 @@ const moments = ['Bébé paisiblement endormi', 'Blotti dans vos bras', 'Ses min
 </script>
 
 <template>
-    <Seo titre="Photographe nouveau-né à Dijon" :description="description" :json-ld="jsonLd" />
+    <Seo titre="Photographe naissance et nouveau-né à Dijon" :description="description" :json-ld="jsonLd" />
 
     <EnTetePage
         :fil="[{ libelle: 'Nouveau-né' }]"
-        surtitre="Séance photo nouveau-né à Dijon"
-        titre="Photographe nouveau-né à Dijon"
+        surtitre="Séance photo naissance à domicile"
+        titre="Photographe naissance et nouveau-né à Dijon"
         :manuscrit="seance.accroche"
         :photo="photos.hero"
         libelle-photo="Photo nouveau-né principale"
@@ -67,7 +68,7 @@ const moments = ['Bébé paisiblement endormi', 'Blotti dans vos bras', 'Ses min
             Les premiers jours ne durent pas.<br />Les photographies, oui.
         </p>
         <p class="texte-courant mx-auto mt-5 max-w-xl lg:mx-0">
-            Ses petits doigts qui s’enroulent autour des vôtres, son odeur, ses mimiques pendant son sommeil… Tout change si vite. Je viens chez vous, à Dijon ou dans ses alentours, pour une séance tout en douceur, pensée d’abord pour le confort et la sécurité de bébé.
+            Ses petits doigts qui s’enroulent autour des vôtres, son odeur, ses mimiques pendant son sommeil… Tout change si vite. Je viens chez vous, à Dijon ou dans ses alentours, pour une séance photo de naissance tout en douceur, pensée d’abord pour le confort et la sécurité de bébé.
         </p>
         <div class="mt-9 flex flex-wrap justify-center gap-4 lg:justify-start">
             <Bouton :href="route('contact', { seance: 'nouveau-ne' })">Réserver pendant la grossesse</Bouton>
@@ -98,7 +99,7 @@ const moments = ['Bébé paisiblement endormi', 'Blotti dans vos bras', 'Ses min
     <!-- Déroulement -->
     <section class="py-20 sm:py-28">
         <div class="conteneur">
-            <TitreSection surtitre="Déroulement" titre="Une séance à la maison, dans votre cocon" />
+            <TitreSection surtitre="Déroulement" titre="Une séance photo naissance à domicile, dans votre cocon" />
             <p class="texte-courant mx-auto mt-8 max-w-2xl text-center">
                 Pas de trajet avec un nourrisson de quelques jours : je me déplace chez vous, à Dijon et alentours. Bébé reste dans son environnement, avec ses odeurs et ses repères, et vous restez dans votre bulle.
             </p>
@@ -143,7 +144,7 @@ const moments = ['Bébé paisiblement endormi', 'Blotti dans vos bras', 'Ses min
     <!-- Galerie -->
     <section class="bg-creme-50 py-20 sm:py-28">
         <div class="conteneur">
-            <TitreSection surtitre="Galerie" titre="Quelques séances nouveau-né" manuscrit="Des premiers instants précieux" />
+            <TitreSection surtitre="Galerie" titre="Quelques séances naissance et nouveau-né" manuscrit="Des premiers instants précieux" />
             <div class="mt-12">
                 <Galerie :photos="photos.galerie" libelle="Photo nouveau-né" />
             </div>
