@@ -83,7 +83,7 @@ const engagements = [
                         <Icone nom="image" class="size-6 text-cacao-700" /> Photo supplémentaire
                     </p>
                     <p class="mt-4 font-serif text-3xl text-brique">{{ euros(photoSupplementaire) }} <span class="font-sans text-base text-taupe-600">/ photo</span></p>
-                    <p class="mt-2 text-sm text-taupe-600">À choisir dans votre galerie, en plus des photos incluses.</p>
+                    <p class="mt-2 text-sm text-taupe-600">À choisir en même temps que vos photos incluses.</p>
                 </div>
 
                 <div class="rounded-2xl border border-creme-300 bg-creme-50 p-7">

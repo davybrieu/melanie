@@ -1,6 +1,6 @@
-// Conditions validées par Mélanie en octobre 2026, sauf les moyens de paiement et le mode de
-// livraison des photos (galerie en ligne), encore à confirmer. Reprises dans la FAQ, les CGV,
-// l'accueil et la page bon cadeau : ajustez-les ici, tout le site suit (llms.txt, à la main).
+// Conditions validées par Mélanie en octobre 2026, sauf les moyens de paiement, encore à
+// confirmer. Reprises dans la FAQ, les CGV, l'accueil et la page bon cadeau : ajustez-les ici,
+// tout le site suit (llms.txt, à la main).
 
 // Durée de validité d'un bon cadeau, en mois : texte du site et date proposée à la création
 // d'un bon (espace de gestion).
@@ -13,9 +13,9 @@ export const conditions = {
     paiements: 'espèces ou virement bancaire',
     paiementBonCadeau: 'en totalité à l’achat',
 
-    // Livraison des photos
+    // Livraison des photos retouchées, en haute définition, après le choix des photos. Mélanie les
+    // envoie elle-même, sans galerie en ligne : à sa demande, le site ne dit pas par quel moyen.
     livraison: 'sous 3 jours',
-    livraisonMode: 'dans une galerie en ligne privée, à télécharger en haute définition',
 
     // Délai de prévenance : report sans frais, et annulation avec remboursement de l'acompte
     prevenance: '48 heures',

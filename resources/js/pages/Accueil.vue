@@ -232,7 +232,7 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
                 </li>
             </ul>
             <p class="texte-courant mt-10 border-t border-creme-300 pt-8 text-center text-balance">
-                Vos photos, retouchées avec soin, vous sont livrées {{ conditions.livraison }}, {{ conditions.livraisonMode }}.
+                Vos photos, retouchées avec soin, vous sont livrées {{ conditions.livraison }}, en haute définition.
             </p>
         </div>
     </section>

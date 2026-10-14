@@ -130,7 +130,7 @@ export const faqTarifs = [
     },
     {
         q: 'Les fichiers numériques sont-ils inclus ?',
-        r: `<p>Oui : vos photos retouchées vous sont remises en fichiers numériques haute définition, ${c.livraisonMode}.</p>`,
+        r: `<p>Oui : vos photos retouchées vous sont remises en fichiers numériques, en haute définition.</p>`,
     },
     {
         q: 'Combien de photos sont incluses dans chaque formule ?',
@@ -138,7 +138,7 @@ export const faqTarifs = [
     },
     {
         q: 'Peut-on acheter des photos supplémentaires ?',
-        r: `<p>Oui, bien sûr : chaque photo supplémentaire est à ${euros(photoSupplementaire)}. Vous les choisissez dans votre galerie de sélection, en même temps que vos photos incluses.</p>`,
+        r: `<p>Oui, bien sûr : chaque photo supplémentaire est à ${euros(photoSupplementaire)}. Vous les choisissez en même temps que vos photos incluses.</p>`,
     },
     {
         q: 'Proposes-tu des tirages et des albums photo ?',
@@ -205,7 +205,7 @@ export const faqTarifs = [
 export const faqGeneral = [
     {
         q: 'Comment se déroule une séance photo avec Mélanie ?',
-        r: `<p>Tout commence par un échange pour parler de vos envies, du lieu et des tenues. Le jour J, je vous guide tout en douceur : pas de poses figées, beaucoup de moments naturels. Après la séance, vous choisissez vos photos préférées dans une galerie ; je les retouche et vous les recevez en haute définition.</p>`,
+        r: `<p>Tout commence par un échange pour parler de vos envies, du lieu et des tenues. Le jour J, je vous guide tout en douceur : pas de poses figées, beaucoup de moments naturels. Après la séance, vous choisissez vos photos préférées ; je les retouche et vous les recevez en haute définition.</p>`,
     },
     {
         q: 'Dois-je savoir poser pour une séance photo ?',
@@ -289,7 +289,7 @@ export const faqGeneral = [
     },
     {
         q: 'Pouvons-nous choisir nos photos ?',
-        r: `<p>Oui : après la séance, je vous envoie une galerie de sélection dans laquelle vous choisissez vos ${photosIncluses} photos préférées, et davantage si vous le souhaitez.</p>`,
+        r: `<p>Oui : après la séance, je vous envoie un aperçu de vos photos. Vous choisissez vos ${photosIncluses} préférées, et davantage si vous le souhaitez.</p>`,
     },
     {
         q: 'Les photos brutes sont-elles disponibles ?',
@@ -301,7 +301,7 @@ export const faqGeneral = [
     },
     {
         q: 'Comment recevons-nous nos photos ?',
-        r: `<p>Vos photos vous sont remises ${c.livraisonMode}. Vous pouvez ensuite les partager facilement avec vos proches.</p>`,
+        r: `<p>Je vous envoie directement vos photos retouchées, en fichiers numériques haute définition. Vous pouvez ensuite les imprimer ou les partager facilement avec vos proches.</p>`,
     },
     {
         q: 'Combien de temps faut-il attendre pour recevoir les photos ?',

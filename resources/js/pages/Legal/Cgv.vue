@@ -73,8 +73,8 @@ const site = useSite();
 
         <h2>8. Livraison des photos</h2>
         <p>
-            Après la séance, le client choisit ses photos dans une galerie de sélection. Les photos retouchées sont livrées {{ c.livraison }} après la sélection,
-            {{ c.livraisonMode }}. Les fichiers bruts ne sont pas fournis. Il appartient au client de sauvegarder ses fichiers après téléchargement.
+            Après la séance, le client choisit ses photos parmi les aperçus envoyés par la photographe. Les photos retouchées lui sont livrées {{ c.livraison }} après ce
+            choix, en fichiers numériques haute définition. Les fichiers bruts ne sont pas fournis. Il appartient au client de sauvegarder ses fichiers dès leur réception.
         </p>
 
         <h2>9. Propriété intellectuelle</h2>
