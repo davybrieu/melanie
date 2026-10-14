@@ -216,8 +216,12 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
             </p>
             <h3 class="surtitre mt-10 text-center">Communes desservies</h3>
             <ul class="mt-5 flex flex-wrap justify-center gap-2">
-                <li v-for="commune in conditions.communes" :key="commune" class="rounded-full border border-creme-300 bg-creme-100 px-3.5 py-1.5 text-[0.92rem] text-cacao-700">
-                    {{ commune }}
+                <li
+                    v-for="commune in conditions.communes"
+                    :key="commune.nom"
+                    class="rounded-full border border-creme-300 bg-creme-100 px-3.5 py-1.5 text-[0.92rem] whitespace-nowrap text-cacao-700"
+                >
+                    {{ commune.nom }} <span class="text-taupe-500">{{ commune.codePostal }}</span>
                 </li>
             </ul>
             <ul class="mt-12 space-y-8">

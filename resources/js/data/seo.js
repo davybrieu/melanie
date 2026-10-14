@@ -18,7 +18,7 @@ const adresse = (site, route, nom, parametres) => site.url + route(nom, parametr
 const nomSeance = (seance) => `Séance photo ${seance.nom.toLowerCase()}`;
 
 // Communes desservies, données par Mélanie (conditions.js) : l'entreprise et chaque séance.
-const zoneDesservie = conditions.communes.map((commune) => ({ '@type': 'City', name: commune }));
+const zoneDesservie = conditions.communes.map((commune) => ({ '@type': 'City', name: commune.nom }));
 
 // Les réponses de la FAQ contiennent des liens relatifs (« /tarifs ») : on les rend absolus.
 const liensAbsolus = (site, html) => html.replaceAll('href="/', `href="${site.url}/`);
