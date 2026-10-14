@@ -138,7 +138,7 @@ export const faqTarifs = [
     },
     {
         q: 'Peut-on acheter des photos supplémentaires ?',
-        r: `<p>Oui, bien sûr : chaque photo supplémentaire est à ${euros(photoSupplementaire)}. Vous les choisissez en même temps que vos photos incluses.</p>`,
+        r: `<p>Oui, bien sûr : chaque photo supplémentaire est à ${euros(photoSupplementaire)}. Vous les choisissez avec moi, sur place, en même temps que vos photos incluses.</p>`,
     },
     {
         q: 'Proposes-tu des tirages et des albums photo ?',
@@ -205,7 +205,7 @@ export const faqTarifs = [
 export const faqGeneral = [
     {
         q: 'Comment se déroule une séance photo avec Mélanie ?',
-        r: `<p>Tout commence par un échange pour parler de vos envies, du lieu et des tenues. Le jour J, je vous guide tout en douceur : pas de poses figées, beaucoup de moments naturels. Après la séance, vous choisissez vos photos préférées ; je les retouche et vous les recevez en haute définition.</p>`,
+        r: `<p>Tout commence par un échange pour parler de vos envies, du lieu et des tenues. Le jour J, je vous guide tout en douceur : pas de poses figées, beaucoup de moments naturels. À la fin de la séance, nous choisissons ensemble vos photos préférées ; je les retouche et vous les recevez en haute définition ${c.livraison}.</p>`,
     },
     {
         q: 'Dois-je savoir poser pour une séance photo ?',
@@ -289,7 +289,7 @@ export const faqGeneral = [
     },
     {
         q: 'Pouvons-nous choisir nos photos ?',
-        r: `<p>Oui : après la séance, je vous envoie un aperçu de vos photos. Vous choisissez vos ${photosIncluses} préférées, et davantage si vous le souhaitez.</p>`,
+        r: `<p>Oui, et nous le faisons ensemble : à la fin de la séance, sur place, vous choisissez avec moi vos ${photosIncluses} photos préférées, et davantage si vous le souhaitez.</p>`,
     },
     {
         q: 'Les photos brutes sont-elles disponibles ?',
@@ -305,7 +305,7 @@ export const faqGeneral = [
     },
     {
         q: 'Combien de temps faut-il attendre pour recevoir les photos ?',
-        r: `<p>Vos photos retouchées vous sont livrées ${c.livraison} après votre sélection.</p>`,
+        r: `<p>Vos photos retouchées vous sont livrées ${c.livraison} après la séance.</p>`,
     },
     {
         q: 'Proposes-tu des tirages, albums ou autres supports ?',

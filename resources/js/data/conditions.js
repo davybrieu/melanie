@@ -16,8 +16,9 @@ export const conditions = {
     paiements: 'espèces ou virement bancaire',
     paiementBonCadeau: 'en totalité à l’achat',
 
-    // Livraison des photos retouchées, en haute définition, après le choix des photos. Mélanie les
-    // envoie elle-même, sans galerie en ligne : à sa demande, le site ne dit pas par quel moyen.
+    // Les photos se choisissent avec Mélanie, sur place, à la fin de la séance ; elle les livre
+    // retouchées, en haute définition, dans ce délai après la séance. Elle les envoie elle-même,
+    // sans galerie en ligne : à sa demande, le site ne dit pas par quel moyen.
     livraison: 'sous 3 jours',
 
     // Délai de prévenance : report sans frais, et annulation avec remboursement de l'acompte

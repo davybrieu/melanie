@@ -35,8 +35,8 @@ const grandes = computed(() => [props.photos.grandes[0] ?? null, props.photos.gr
 const etapes = [
     { titre: 'On fait connaissance', texte: 'Par message ou au téléphone, nous parlons de vos envies, du lieu, des tenues et de la date idéale.' },
     { titre: 'Le jour de la séance', texte: `Comptez ${seance.duree}, à votre rythme. Je vous guide pas à pas : inutile de savoir poser.` },
-    { titre: 'Votre sélection', texte: `Je vous envoie un aperçu de vos photos : vous choisissez vos ${photosIncluses} préférées.` },
-    { titre: 'Vos souvenirs', texte: 'Je retouche chaque image avec soin et vous la livre en haute définition.' },
+    { titre: 'Votre sélection', texte: `À la fin de la séance, nous choisissons ensemble vos ${photosIncluses} photos préférées.` },
+    { titre: 'Vos souvenirs', texte: `Je retouche chaque image avec soin et vous la livre en haute définition, ${conditions.livraison}.` },
 ];
 
 const infos = [

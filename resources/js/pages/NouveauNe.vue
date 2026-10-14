@@ -13,6 +13,7 @@ import SectionFaq from '../components/SectionFaq.vue';
 import Seo from '../components/Seo.vue';
 import TitreSection from '../components/TitreSection.vue';
 import { useSite } from '../composables/useSite';
+import { conditions } from '../data/conditions';
 import { faqNouveauNe } from '../data/faq';
 import { euros, photosIncluses, seances } from '../data/seances';
 import { serviceJsonLd } from '../data/seo';
@@ -47,7 +48,7 @@ const etapes = [
     { titre: 'Pendant la grossesse', texte: 'Vous réservez : je bloque une période autour de votre terme.' },
     { titre: 'À la naissance', texte: 'Un petit message pour m’annoncer l’arrivée de bébé, et nous fixons la date, idéalement entre 5 et 15 jours.' },
     { titre: 'Le jour J', texte: `Je viens chez vous : ${seance.duree} tout en douceur, à son rythme, avec pauses tétées et câlins.` },
-    { titre: 'Vos souvenirs', texte: `Vous choisissez vos ${photosIncluses} photos préférées, que je retouche et vous livre en haute définition.` },
+    { titre: 'Vos souvenirs', texte: `Nous choisissons ensemble vos ${photosIncluses} photos préférées, que je retouche et vous livre en haute définition ${conditions.livraison}.` },
 ];
 
 const moments = ['Bébé paisiblement endormi', 'Blotti dans vos bras', 'Ses minuscules mains et petits pieds', 'Les premiers regards', 'La rencontre avec les aînés', 'Votre nouvelle famille, au complet'];
