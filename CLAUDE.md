@@ -8,7 +8,7 @@ Site de **Mélanie Photographie**, photographe grossesse, nouveau-né et famille
 
 Tout est en français : noms de classes, méthodes, variables et composants, contenus, messages de commit. Les textes du site sont écrits par Mélanie à la première personne et vouvoient le visiteur ; les textes affichés utilisent l'apostrophe typographique `’`.
 
-Pas de base de données métier : la base de données (SQLite en local ; en production, celle du serveur Forge, pas SQLite) sert aux sessions, au cache, à la file d'attente et aux avis Google (voir Avis Google). Les contenus sont dans le code.
+Les contenus sont dans le code. La base de données (SQLite en local ; en production, celle du serveur Forge, pas SQLite) ne sert qu'aux sessions, au cache, à la file d'attente, aux avis Google et aux bons cadeaux (voir ces deux sections).
 
 **Git : tous les commits se font directement sur `main`.** Ne créez ni branche ni pull request.
 
@@ -32,16 +32,16 @@ Pas de tests automatisés ni de linter, par choix du projet : n'en ajoutez pas e
 
 ## Architecture
 
-**Chaîne de rendu.** Route nommée (`routes/web.php`) → contrôleur → `Inertia::render('Page', props)` → `resources/views/app.blade.php` → page Vue de `resources/js/pages/`. `resources/js/app.js` est l'unique point d'entrée, client et SSR (plugin `@inertiajs/vite`) : il applique `layouts/SiteLayout.vue` (en-tête et pied de page) à toutes les pages.
+**Chaîne de rendu.** Route nommée (`routes/web.php`) → contrôleur → `Inertia::render('Page', props)` → `resources/views/app.blade.php` → page Vue de `resources/js/pages/`. `resources/js/app.js` est l'unique point d'entrée, client et SSR (plugin `@inertiajs/vite`) : il applique `layouts/SiteLayout.vue` (en-tête et pied de page) à toutes les pages, sauf à celles de l'espace de gestion (`Admin/*`), qui déclarent `AdminLayout.vue` (`defineOptions({ layout })` : la mise en page d'une page l'emporte sur celle par défaut).
 
 **Props partagées** (`app/Http/Middleware/HandleInertiaRequests.php`) :
 - `site` : `config/site.php` (identité, contact, localisation), envoyée une fois par visite (`Inertia::once`). L'adresse e-mail du site n'y figure pas : elle n'est passée qu'aux pages Mentions légales et Confidentialité (prop `email`, `PageController`), pour ne pas apparaître dans le code des autres pages. Côté Vue, passer par le composable `useSite()`, qui ajoute `instagramUrl`, `telephoneUrl`, `whatsappUrl` (même numéro, message pré-rempli), `googleUrl` (lien officiel de Google Maps vers la fiche Google, construit sur son Place ID `google_place_id`, réglable par `GOOGLE_PLACE_ID`) et `reseaux` (liste utilisée par la carte contact et le pied de page).
 - `ziggy` : configuration des routes, utile seulement au rendu SSR (le navigateur utilise `@routes`).
 - `canonical` : toujours construite à partir de `APP_URL`, jamais de l'hôte de la requête.
 
-Les messages ponctuels passent par `Inertia::flash()` / `page.flash` (`demandeEnvoyee`, `sessionExpiree`).
+Les messages ponctuels passent par `Inertia::flash()` / `page.flash` (`demandeEnvoyee`, `sessionExpiree`, `bonCadeau`).
 
-**Ziggy.** `route()` est global dans les templates. Dans `<script setup>`, écrire `const route = inject('route')` pour que le code fonctionne en SSR. Les réponses de la FAQ sont du HTML avec des liens écrits en dur (`/tarifs`, `/contact`) : à reprendre si une URL change. Les routes techniques sont exclues dans `config/ziggy.php`, où `skip-route-function` limite `@routes` à la liste des routes : la fonction `route()` vient du bundle (`ZiggyVue`, dans `app.js`).
+**Ziggy.** `route()` est global dans les templates. Dans `<script setup>`, écrire `const route = inject('route')` pour que le code fonctionne en SSR. Les réponses de la FAQ sont du HTML avec des liens écrits en dur (`/tarifs`, `/contact`) : à reprendre si une URL change. Les routes techniques et celles de l'espace de gestion (`admin.*`) sont exclues dans `config/ziggy.php`, où `skip-route-function` limite `@routes` à la liste des routes : la fonction `route()` vient du bundle (`ZiggyVue`, dans `app.js`).
 
 **Données de contenu** (`resources/js/data/`). Les textes vivent dans les pages Vue ; ce qui est repris à plusieurs endroits est centralisé ici :
 - `seances.js` : prix, durées et contenu des séances. C'est la source unique : pages, FAQ, CGV, meta descriptions et JSON-LD en dépendent. Ne jamais écrire un prix en dur dans une page.
@@ -52,6 +52,7 @@ Les messages ponctuels passent par `Inertia::flash()` / `page.flash` (`demandeEn
 Les clés `grossesse`, `nouveau-ne` et `famille` relient toutes les couches :
 - les URL silo `/photographe-{clé}-dijon` et `/portfolio/{clé}` ;
 - `DemandeContactRequest::SEANCES`, qui y ajoute `autres`, un choix propre au formulaire de contact ;
+- `BonCadeau::SEANCES`, les séances qui peuvent être offertes ;
 - `Photos::DOSSIERS` et les dossiers de `resources/photos/` ;
 - `data/seances.js` et `data/portfolio.js` ;
 - `config/seo.php`.
@@ -88,7 +89,13 @@ Elle se lance à chaque déploiement ; ces deux fichiers ne sont pas versionnés
 - La section (`components/AvisGoogle.vue`, sur l'accueil) n'apparaît que si la fiche a une note ; la politique de confidentialité n'a sa section « Avis Google » que si des avis sont affichés.
 - Pas de JSON-LD pour ces avis ni pour la note : Google ignore les avis qu'une entreprise publie sur elle-même et interdit d'y reprendre ceux d'un autre site.
 
-**Erreurs** (`bootstrap/app.php`). Les codes 403, 404, 429, 500 et 503 affichent la page Inertia `Erreur` (en mode debug, les erreurs 500 gardent la page détaillée de Laravel). Une 419 (session expirée) ramène l'utilisateur sur la page précédente avec le flash `sessionExpiree`.
+**Bons cadeaux** (espace de gestion, `/admin`). Mélanie y crée les bons, télécharge leur image à imprimer et suit ceux déjà créés (valides, utilisés, expirés ; recherche par nom ou numéro).
+- Accès : une seule personne, avec `ADMIN_EMAIL` et `ADMIN_MOT_DE_PASSE` (`config/admin.php`, `App\Support\Admin` ; mot de passe en clair ou empreinte bcrypt). Sans eux, toutes les adresses `/admin…` répondent 404 (middleware `EspaceAdmin`). La session garde un jeton tiré des identifiants : les changer déconnecte tout le monde. Connexion limitée à 5 essais par minute. Une action envoyée après l'expiration de la session ramène à la connexion, avec le flash `sessionExpiree`. Pages jamais indexées (`noindex` dans `AdminLayout.vue` et en-tête `X-Robots-Tag`), absentes du sitemap ; leurs routes étant exclues de Ziggy, les pages `Admin/*` écrivent leurs adresses en dur.
+- Table `bons_cadeaux`, modèle `App\Models\BonCadeau` : numéro unique attribué à la création (`MP-` et 6 caractères qui ne se confondent pas, pour être dicté au téléphone), bénéficiaire, « de la part de », séance, message, dates d'émission, de fin de validité et d'utilisation. Le statut (valide, utilisé, expiré) se calcule à la date du jour en France. Les longueurs maximales (`BonCadeauRequest`) sont celles qui tiennent sur l'image.
+- Image à imprimer (`resources/js/admin/bonCadeau.js`) : dessinée dans le navigateur (canvas), avec les polices du site, `monogramme-mp-impression.webp` (750 px, réservé à l'impression) et les fleurs ; A5 paysage à 300 dpi (2480 × 1748 px), téléchargée en JPEG avec cette densité dans son en-tête. Les textes trop longs rapetissent, puis passent sur deux lignes ; l'aperçu de la page est dessiné à sa taille d'affichage, plus net. Le contenu vient de `seances.js` (nom, accroche, ce qui est inclus), la validité proposée de `validiteBonCadeauMois` (`conditions.js`), la réservation du téléphone et du domaine du site. Seules les informations du bon sont gardées : l'image est redessinée à chaque téléchargement, et suit donc les changements de `seances.js`, anciens bons compris.
+- RGPD : la politique de confidentialité décrit ces données. Les bons sont effacés trois ans après la fin de leur validité ou leur utilisation (`BonCadeau::prunable`, commande `model:prune` planifiée chaque matin).
+
+**Erreurs** (`bootstrap/app.php`). Les codes 403, 404, 429, 500 et 503 affichent la page Inertia `Erreur` (en mode debug, les erreurs 500 gardent la page détaillée de Laravel). Une 419 (session expirée) ramène l'utilisateur sur la page précédente avec le flash `sessionExpiree`. Elle est devenue rare : Laravel 13 (`PreventRequestForgery`) accepte sans jeton CSRF les requêtes que le navigateur déclare venues du site lui-même (en-tête `Sec-Fetch-Site`).
 
 **Adresses uniques.** Chaque page n'a qu'une adresse. Le middleware global `RefuserAdressesEnDouble` renvoie une 404, sans redirection, aux variantes que Laravel accepterait sinon : barre oblique finale (`/tarifs/`), `index.php` dans l'adresse (`/index.php/tarifs`), caractère encodé (`/%74arifs`). Une adresse du site ne doit donc jamais finir par `/` ni contenir de `%` (les noms des photos passent par `Str::slug`). Les paramètres (`?seance=…`, `?utm_…`) restent acceptés : l'URL canonique les écarte.
 
@@ -114,7 +121,8 @@ Toute image affichée sur le site est en WebP optimisé, avec un `alt` descripti
 Exceptions, à garder dans leur format, car le WebP n'y est pas lu partout :
 - `favicon.ico`, `apple-touch-icon.png` et les icônes PNG de `public/site.webmanifest` : formats exigés par les navigateurs et iOS ;
 - l'image de partage `og-image.jpg` (balise `og:image` et `image` des données structurées) : LinkedIn et d'anciennes versions de WhatsApp n'affichent pas le WebP ;
-- les images d'e-mails : Outlook (Windows et macOS) affiche une image cassée à la place d'un WebP.
+- les images d'e-mails : Outlook (Windows et macOS) affiche une image cassée à la place d'un WebP ;
+- l'image à imprimer des bons cadeaux, téléchargée en JPEG (`bonCadeau.js`) : le format qu'attendent imprimeurs et laboratoires photo. Elle n'est pas affichée sur le site.
 
 ## Style (Tailwind CSS 4)
 
@@ -144,7 +152,7 @@ Exceptions, à garder dans leur format, car le WebP n'y est pas lu partout :
 ## Production
 
 - `APP_URL` doit être l'URL https avec www (`https://www.melanie-photographie.fr`) : les URL canoniques, le sitemap et `robots.txt` en dépendent. En production, le middleware global `RedirigerVersWww` redirige en 301 le domaine sans www vers cet hôte (les fichiers statiques ne passent pas par Laravel). Nginx ne doit jamais rediriger www vers le domaine sans www : boucle de redirections.
-- Hébergement sur Laravel Forge : le serveur SSR tourne dans le daemon de l'option « Inertia SSR » ; l'option « Laravel Scheduler » crée la tâche cron qui lance `php artisan schedule:run` chaque minute, donc les tâches de `routes/console.php` (`avis:actualiser`, chaque matin). La base de données de production n'est pas SQLite : elle survit aux déploiements, et les migrations y tournent à chaque déploiement. Déploiements sans interruption : chaque déploiement crée un nouveau dossier de release, où `sitemap.xml` et `robots.txt` n'existent que si `seo:generer` y tourne (générés à la main, ils disparaissent au déploiement suivant). Dans le script de déploiement : `npm run build` et `php artisan seo:generer` avant `$ACTIVATE_RELEASE()`, puis `php artisan inertia:stop-ssr --graceful` après (Forge relance le daemon avec le nouveau bundle ; sans `--graceful`, un serveur SSR arrêté fait échouer le déploiement).
+- Hébergement sur Laravel Forge : le serveur SSR tourne dans le daemon de l'option « Inertia SSR » ; l'option « Laravel Scheduler » crée la tâche cron qui lance `php artisan schedule:run` chaque minute, donc les tâches de `routes/console.php` (`avis:actualiser` et `model:prune`, chaque matin). La base de données de production n'est pas SQLite : elle survit aux déploiements, et les migrations y tournent à chaque déploiement. Déploiements sans interruption : chaque déploiement crée un nouveau dossier de release, où `sitemap.xml` et `robots.txt` n'existent que si `seo:generer` y tourne (générés à la main, ils disparaissent au déploiement suivant). Dans le script de déploiement : `npm run build` et `php artisan seo:generer` avant `$ACTIVATE_RELEASE()`, puis `php artisan inertia:stop-ssr --graceful` après (Forge relance le daemon avec le nouveau bundle ; sans `--graceful`, un serveur SSR arrêté fait échouer le déploiement).
 - Le serveur SSR écoute sur `127.0.0.1:13728`, pas sur 13714, le port par défaut d'Inertia, déjà pris par d'autres sites du serveur. Les sites s'y arrêteraient les uns les autres, car `inertia:start-ssr` commence par envoyer `/shutdown` au port configuré. Le port est écrit dans `vite.config.js` (compilé dans le bundle SSR) et dans `config/inertia.php` : les changer ensemble.
 - Sans serveur SSR actif, le site reste fonctionnel en rendu côté client.
 - Cloudflare est devant le site. Les mentions légales (« Hébergement ») nomment Cloudflare, Inc., avec l'adresse et le téléphone publiés dans sa politique de confidentialité : les tenir à jour si l'hébergement change. Le middleware global `AdresseVisiteurCloudflare` remplace l'adresse IP vue par Laravel par celle de l'en-tête `CF-Connecting-IP`, seulement pour les requêtes venues des plages de Cloudflare (`App\Support\Cloudflare`, à mettre à jour si Cloudflare en publie de nouvelles). Ne pas lire `X-Forwarded-For` : un Worker Cloudflare peut y placer l'adresse de son choix, alors que Cloudflare impose la sienne dans `CF-Connecting-IP`. Dans Cloudflare, laisser désactivée la transformation « Remove visitor IP headers », qui supprime cet en-tête. Cette adresse sert à la limite d'envois du formulaire et est enregistrée avec la session : la politique de confidentialité (« Données de connexion ») annonce une expiration après deux heures d'inactivité, à garder en accord avec `SESSION_LIFETIME` (120).

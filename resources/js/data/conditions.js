@@ -2,6 +2,10 @@
 // Ces conditions ne figurent pas sur le flyer : ce sont des valeurs courantes chez les
 // photographes, reprises dans la FAQ et les CGV. Ajustez-les ici, tout le site suit.
 
+// Durée de validité d'un bon cadeau, en mois : texte du site et date proposée à la création
+// d'un bon (espace de gestion).
+export const validiteBonCadeauMois = 6;
+
 export const conditions = {
     // Réservation et paiement
     acompte: '30 %',
@@ -16,7 +20,7 @@ export const conditions = {
     prevenance: '48 heures',
 
     // Bon cadeau
-    validiteBonCadeau: '6 mois',
+    validiteBonCadeau: `${validiteBonCadeauMois} mois`,
 
     // Lieux : extérieur et domicile (pas de studio mentionné sur le flyer)
     zone: 'Dijon et ses alentours',

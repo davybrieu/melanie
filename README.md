@@ -41,7 +41,7 @@ En production, `melanie-photographie.fr` redirige (301) vers `www.melanie-photog
 
 Le serveur SSR utilise le port 13728 et non 13714, le port par défaut d'Inertia, déjà pris par d'autres sites du serveur. Ce port est défini dans `vite.config.js` (il est compilé dans le bundle SSR) et dans `config/inertia.php` : modifiez les deux ensemble, puis relancez `npm run build`, `php artisan config:cache` (si la configuration est mise en cache) et le serveur SSR.
 
-Sur **Laravel Forge**, activez « Inertia SSR » (daemon du serveur SSR) et « Laravel Scheduler » dans l'onglet Overview du site. Ce dernier crée la tâche cron qui lance `php artisan schedule:run` chaque minute, et donc les tâches de `routes/console.php` : la mise à jour des avis Google, chaque matin. Le script de déploiement doit contenir ces deux commandes, à ces places :
+Sur **Laravel Forge**, activez « Inertia SSR » (daemon du serveur SSR) et « Laravel Scheduler » dans l'onglet Overview du site. Ce dernier crée la tâche cron qui lance `php artisan schedule:run` chaque minute, et donc les tâches de `routes/console.php` : la mise à jour des avis Google et l'effacement des anciens bons cadeaux, chaque matin. Le script de déploiement doit contenir ces deux commandes, à ces places :
 
 ```bash
 $CREATE_RELEASE()
@@ -95,6 +95,20 @@ L'accueil affiche la note de la fiche Google et 10 avis, mis à jour chaque mati
 
 Le jeton d'actualisation n'a pas de date d'expiration : utilisé chaque jour, il reste valable. Il faut en créer un nouveau (étape 6) seulement si Google le révoque : accès retiré depuis le compte Google, écran de consentement repassé en test, ou plus de 100 jetons créés pour le même ID client (les plus anciens sont annulés). La commande échoue alors (`invalid_grant`) et un e-mail prévient l'adresse du site, au plus une fois par semaine. Sans mise à jour réussie pendant 30 jours, la note et les avis disparaissent du site.
 
+## Bons cadeaux
+
+L'espace de gestion, à l'adresse `/admin` (`https://www.melanie-photographie.fr/admin`), sert à créer les bons cadeaux, à télécharger leur image à imprimer et à suivre ceux déjà créés : valides, utilisés ou expirés.
+
+**Mise en place** : dans Forge (Environment), renseignez `ADMIN_EMAIL` (votre adresse e-mail) et `ADMIN_MOT_DE_PASSE` (un mot de passe long, propre à ce site), puis redéployez : la migration crée la table des bons. Tant que l'une des deux valeurs est vide, `/admin` répond 404. Pour ne pas laisser le mot de passe lisible dans le `.env`, `ADMIN_MOT_DE_PASSE` accepte aussi son empreinte bcrypt, à écrire entre apostrophes (`'$2y$12$…'`) et à générer par exemple avec `php -r "echo password_hash('le mot de passe', PASSWORD_BCRYPT), PHP_EOL;"`. Changer l'adresse ou le mot de passe déconnecte les sessions ouvertes.
+
+**Utilisation** :
+
+- remplissez le formulaire (pour qui, de la part de qui, séance, message, dates) : l'aperçu de l'image suit chaque modification ;
+- « Créer le bon cadeau » lui attribue un numéro (MP-7KQ4MZ, demandé à la réservation), puis « Télécharger l'image » donne le fichier à imprimer : un JPEG au format A5 paysage (21 × 14,8 cm) en 300 dpi, à imprimer en « Taille réelle » ou à envoyer tel quel à un imprimeur ;
+- la liste retrouve un bon par nom ou par numéro ; chaque bon peut être retéléchargé, modifié, marqué comme utilisé (le jour de la séance) ou supprimé.
+
+La validité proposée (6 mois) vient de `resources/js/data/conditions.js` ; le nom, l'accroche et le contenu de la séance, de `resources/js/data/seances.js`. Les bons sont effacés automatiquement trois ans après la fin de leur validité ou leur utilisation (`php artisan model:prune`, lancé chaque jour par le « Laravel Scheduler »).
+
 ## Photos
 
 Déposez les photos dans `resources/photos/` : le site les redimensionne et les convertit en WebP tout seul. Mode d'emploi : [`resources/photos/README.md`](resources/photos/README.md).
@@ -113,6 +127,7 @@ Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter u
 | Anti-spam du formulaire (hCaptcha) | `.env` (`HCAPTCHA_SITE_KEY`, `HCAPTCHA_SECRET`) |
 | Fiche Google (Place ID) | `.env` (`GOOGLE_PLACE_ID`) et `config/site.php` |
 | Avis Google (Business Profile API) | `.env` (`GOOGLE_BUSINESS_CLIENT_ID`, `GOOGLE_BUSINESS_CLIENT_SECRET`, `GOOGLE_BUSINESS_REFRESH_TOKEN`) |
+| Accès à l'espace bons cadeaux (`/admin`) | `.env` (`ADMIN_EMAIL`, `ADMIN_MOT_DE_PASSE`) |
 | Textes des pages | `resources/js/pages/*.vue` |
 | Pages du sitemap | `config/seo.php` |
 | Résumé du site pour les IA | `public/llms.txt` (à tenir à jour à la main) |
@@ -125,12 +140,14 @@ Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter u
 - [ ] Relire et personnaliser la page « Mon univers » (`resources/js/pages/APropos.vue`).
 - [ ] Créer la boîte `contact@melanie-photographie.fr` chez OVH, avec une redirection vers la boîte personnelle, et renseigner l'envoi d'e-mails (`MAIL_*`, SMTP d'OVH).
 - [ ] Avis Google : suivre la section « Avis Google » (accès à l'API, jeton d'actualisation, Forge).
+- [ ] Bons cadeaux : renseigner `ADMIN_EMAIL` et `ADMIN_MOT_DE_PASSE` dans Forge (section « Bons cadeaux »).
 
 ## Structure
 
 - `routes/web.php` : pages du site (silo `/photographe-{séance}-dijon`, `/portfolio/{catégorie}`…)
-- `app/Http/Controllers` : pages, portfolio, contact, photos · `app/Console/Commands` : commandes `seo:generer` et `avis:actualiser`
-- `app/Support/FicheGoogle.php` : lecture de la fiche Google (Business Profile API) · `app/Models` : note et avis Google enregistrés
+- `app/Http/Controllers` : pages, portfolio, contact, photos ; `Admin/` : connexion et bons cadeaux · `app/Console/Commands` : commandes `seo:generer` et `avis:actualiser`
+- `app/Support/FicheGoogle.php` : lecture de la fiche Google (Business Profile API) · `app/Models` : note et avis Google, bons cadeaux
+- `resources/js/pages/Admin/` et `resources/js/layouts/AdminLayout.vue` : espace de gestion · `resources/js/admin/bonCadeau.js` : image à imprimer des bons cadeaux
 - `resources/js/pages/` : pages Inertia · `resources/js/components/` : composants (DA) · `resources/js/layouts/` : en-tête et pied de page
 - `resources/js/app.js` : point d'entrée client **et** SSR
 - `resources/views/app.blade.php` : template racine · `resources/views/mail/` : e-mail de demande de contact · `resources/views/vendor/mail/` : mise en page des e-mails (logo, sans pied de page)

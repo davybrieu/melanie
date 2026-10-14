@@ -27,12 +27,14 @@ const route = inject('route');
 
         <h2>Données collectées</h2>
         <p>Via le formulaire de contact : prénom, nom, numéro de téléphone, type de séance souhaitée, nombre de personnes, période souhaitée et votre message.</p>
+        <p>Pour un bon cadeau : le nom de la personne à qui il est offert et, si vous le souhaitez, le vôtre et un petit message, imprimés sur le bon.</p>
         <p>Si vous m’écrivez sur Instagram, nos échanges sont également soumis à la politique de confidentialité d’Instagram.</p>
 
         <h2>Pourquoi ces données ?</h2>
         <ul>
             <li>vous rappeler pour répondre à votre demande et vous proposer une date ;</li>
             <li>préparer et réaliser votre séance, puis vous livrer vos photos ;</li>
+            <li>établir les bons cadeaux, puis les reconnaître lors de la réservation ;</li>
             <li>établir les documents comptables (devis, factures).</li>
         </ul>
         <p>
@@ -79,6 +81,7 @@ const route = inject('route');
         <ul>
             <li>demande restée sans suite : 3 ans après notre dernier échange ;</li>
             <li>clients : pendant la durée de la prestation, puis 3 ans ;</li>
+            <li>bons cadeaux : 3 ans après la fin de leur validité ou leur utilisation, puis effacement automatique ;</li>
             <li>factures : 10 ans (obligation légale) ;</li>
             <li>photos de la séance : aussi longtemps que les données clients, pour vous permettre de les récupérer en cas de perte.</li>
         </ul>

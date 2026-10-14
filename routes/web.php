@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\BonCadeauController;
+use App\Http\Controllers\Admin\ConnexionController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PortfolioController;
+use App\Http\Middleware\EspaceAdmin;
 use App\Support\Photos;
 use Illuminate\Support\Facades\Route;
 
@@ -36,3 +39,18 @@ Route::get('/photos/{largeur}/{dossier}/{fichier}', PhotoController::class)
     ->whereNumber('largeur')
     ->whereIn('dossier', Photos::DOSSIERS)
     ->name('photo');
+
+// Espace de gestion des bons cadeaux, réservé à Mélanie (identifiants ADMIN_* du .env ; sans
+// eux, 404). Ces routes sont exclues de Ziggy : les pages Admin/* écrivent leurs adresses.
+Route::prefix('admin')->name('admin.')->middleware(EspaceAdmin::class)->group(function () {
+    Route::get('/connexion', [ConnexionController::class, 'create'])->name('connexion');
+    Route::post('/connexion', [ConnexionController::class, 'store'])->middleware('throttle:5,1')->name('connexion.envoyer');
+    Route::post('/deconnexion', [ConnexionController::class, 'destroy'])->name('deconnexion');
+
+    Route::redirect('/', '/admin/bons-cadeaux')->name('accueil');
+    Route::get('/bons-cadeaux', [BonCadeauController::class, 'index'])->name('bons-cadeaux');
+    Route::post('/bons-cadeaux', [BonCadeauController::class, 'store'])->name('bons-cadeaux.creer');
+    Route::put('/bons-cadeaux/{bonCadeau}', [BonCadeauController::class, 'update'])->name('bons-cadeaux.modifier');
+    Route::patch('/bons-cadeaux/{bonCadeau}/utilisation', [BonCadeauController::class, 'utilisation'])->name('bons-cadeaux.utilisation');
+    Route::delete('/bons-cadeaux/{bonCadeau}', [BonCadeauController::class, 'destroy'])->name('bons-cadeaux.supprimer');
+});

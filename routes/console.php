@@ -8,3 +8,6 @@ use Illuminate\Support\Facades\Schedule;
 
 // Note et avis de la fiche Google, chaque matin.
 Schedule::command('avis:actualiser')->dailyAt('06:00')->timezone('Europe/Paris');
+
+// Bons cadeaux effacés trois ans après la fin de leur validité ou leur utilisation (BonCadeau::prunable).
+Schedule::command('model:prune')->dailyAt('05:30')->timezone('Europe/Paris');
