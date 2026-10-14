@@ -55,6 +55,7 @@ function connecter() {
                     libelle="Mot de passe"
                     :erreur="form.errors.mot_de_passe"
                     type="password"
+                    revelable
                     autocomplete="current-password"
                     placeholder="Votre mot de passe"
                 />
