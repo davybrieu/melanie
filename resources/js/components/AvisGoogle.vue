@@ -1,7 +1,8 @@
 <script setup>
-import { ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
 import Bouton from './Bouton.vue';
 import Etoiles from './Etoiles.vue';
+import Icone from './Icone.vue';
 import TitreSection from './TitreSection.vue';
 import { useSite } from '../composables/useSite';
 
@@ -15,6 +16,43 @@ const site = useSite();
 // Les avis longs sont coupés ; « Lire la suite » les déplie.
 const LONGUEUR_COUPEE = 300;
 const deplies = ref([]);
+
+// Bandeau mobile : une flèche de chaque côté pour faire défiler les avis d'une carte, cachée
+// quand le bandeau est au bout de ce côté.
+const liste = ref(null);
+const peutReculer = ref(false);
+const peutAvancer = ref(false);
+let observateur = null;
+
+function majFleches() {
+    const bandeau = liste.value;
+
+    if (!bandeau) return;
+
+    peutReculer.value = bandeau.scrollLeft > 2;
+    peutAvancer.value = Math.ceil(bandeau.scrollLeft + bandeau.clientWidth) < bandeau.scrollWidth - 2;
+}
+
+function defiler(sens) {
+    const bandeau = liste.value;
+    const carte = bandeau?.firstElementChild;
+
+    if (!carte) return;
+
+    const pas = carte.getBoundingClientRect().width + (parseFloat(getComputedStyle(bandeau).columnGap) || 0);
+    const animation = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+    bandeau.scrollBy({ left: sens * pas, behavior: animation });
+}
+
+onMounted(() => {
+    if (!liste.value) return;
+
+    majFleches();
+    observateur = new ResizeObserver(majFleches);
+    observateur.observe(liste.value);
+});
+
+onBeforeUnmount(() => observateur?.disconnect());
 </script>
 
 <!-- Pas de photo de profil : l'afficher ferait charger une image depuis Google à chaque visite (RGPD). -->
@@ -34,7 +72,10 @@ const deplies = ref([]);
             <!-- Sur mobile, un bandeau qui défile de côté (10 avis empilés feraient une page sans fin) ; au-delà, des colonnes. -->
             <ul
                 v-if="fiche.avis.length"
+                id="avis-google"
+                ref="liste"
                 class="-mx-5 mt-14 flex snap-x snap-mandatory scroll-px-5 gap-4 overflow-x-auto px-5 pb-2 sm:-mx-8 sm:scroll-px-8 sm:px-8 md:mx-0 md:block md:columns-2 md:gap-5 md:overflow-visible md:px-0 md:pb-0 lg:columns-3"
+                @scroll.passive="majFleches"
             >
                 <li
                     v-for="(avis, i) in fiche.avis"
@@ -69,7 +110,32 @@ const deplies = ref([]);
                 </li>
             </ul>
 
-            <p v-if="site.googleUrl" class="mt-12 text-center">
+            <!-- Flèches du bandeau mobile (au-delà, les avis sont en colonnes). Une flèche cachée garde
+                 sa place : l'autre ne bouge pas. -->
+            <div v-if="fiche.avis.length > 1" class="mt-6 flex justify-center gap-3 md:hidden">
+                <button
+                    type="button"
+                    class="grid size-11 cursor-pointer place-items-center rounded-full border border-cacao-800/30 text-cacao-800 transition-colors hover:border-cacao-800 hover:bg-cacao-800 hover:text-creme-50"
+                    :class="{ invisible: !peutReculer }"
+                    aria-label="Avis précédents"
+                    aria-controls="avis-google"
+                    @click="defiler(-1)"
+                >
+                    <Icone nom="chevron-gauche" class="size-5" />
+                </button>
+                <button
+                    type="button"
+                    class="grid size-11 cursor-pointer place-items-center rounded-full border border-cacao-800/30 text-cacao-800 transition-colors hover:border-cacao-800 hover:bg-cacao-800 hover:text-creme-50"
+                    :class="{ invisible: !peutAvancer }"
+                    aria-label="Avis suivants"
+                    aria-controls="avis-google"
+                    @click="defiler(1)"
+                >
+                    <Icone nom="chevron-droit" class="size-5" />
+                </button>
+            </div>
+
+            <p v-if="site.googleUrl" class="mt-10 text-center md:mt-12">
                 <!-- Texte court ; l'icône Google et le nom complet (lecteurs d'écran) disent où mène le lien. -->
                 <Bouton :href="site.googleUrl" externe variante="contour" icone="google" aria-label="Voir tous les avis sur Google">Voir tous les avis</Bouton>
             </p>
