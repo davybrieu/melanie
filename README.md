@@ -109,7 +109,7 @@ L'espace de gestion, à l'adresse `/admin` (`https://www.melanie-photographie.fr
 
 La validité proposée (6 mois) vient de `resources/js/data/conditions.js` ; le nom, l'accroche et le contenu de la séance, de `resources/js/data/seances.js`. Les bons sont effacés automatiquement trois ans après la fin de leur validité ou leur utilisation (`php artisan model:prune`, lancé chaque jour par le « Laravel Scheduler »).
 
-**Avis Google** : la page liste tous les avis de votre fiche, les plus récents d'abord ; une note laissée sans commentaire porte la mention « Sans commentaire », ici comme sur l'accueil. L'interrupteur « Afficher sur le site » de chaque avis l'ajoute à la page d'accueil ou l'en retire, aussitôt. Un nouvel avis s'y affiche de lui-même : la mise à jour de chaque matin l'ajoute, et garde vos choix pour les autres.
+**Avis Google** : la page liste tous les avis de votre fiche, les plus récents d'abord ; une note laissée sans commentaire porte la mention « Sans commentaire », ici comme sur l'accueil. L'interrupteur « Afficher sur le site » de chaque avis l'ajoute à la page d'accueil ou l'en retire, aussitôt. Un nouvel avis arrive masqué : la mise à jour de chaque matin l'ajoute à la liste, et il n'apparaît sur l'accueil que si vous l'affichez. Vos choix sont gardés d'un jour à l'autre.
 
 ## Photos
 

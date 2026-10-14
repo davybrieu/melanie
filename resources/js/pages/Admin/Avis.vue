@@ -64,7 +64,7 @@ function deplier(avis) {
     <div class="conteneur pt-10 sm:pt-14">
         <h1 class="text-[1.9rem] leading-tight">Avis Google</h1>
         <p class="mt-3 max-w-2xl leading-relaxed text-cacao-700">
-            Choisissez les avis affichés sur la page d’accueil. Un nouvel avis y apparaît de lui-même : masquez-le ici si vous ne souhaitez pas le montrer.
+            Choisissez les avis affichés sur la page d’accueil. Un nouvel avis arrive masqué : il n’y apparaît que si vous l’affichez ici.
         </p>
 
         <!-- Note de la fiche -->
