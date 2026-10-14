@@ -11,6 +11,7 @@ import Photo from '../components/Photo.vue';
 import Seo from '../components/Seo.vue';
 import TitreSection from '../components/TitreSection.vue';
 import { useSite } from '../composables/useSite';
+import { conditions } from '../data/conditions';
 import { faqTarifs } from '../data/faq';
 import { euros, photoSupplementaire, photosIncluses, seances } from '../data/seances';
 import { serviceJsonLd } from '../data/seo';
@@ -61,7 +62,7 @@ const engagements = [
                     <span>Grossesse</span><span class="text-or-600">·</span><span>Nouveau-né</span><span class="text-or-600">·</span><span>Famille</span>
                 </p>
                 <p class="mt-4 inline-flex items-center gap-2 text-taupe-600">
-                    <Icone nom="localisation" class="size-5 text-or-500" /> Déplacements sur Dijon et alentours
+                    <Icone nom="localisation" class="size-5 text-or-500" /> {{ conditions.deplacements }}
                 </p>
             </div>
 
@@ -101,7 +102,7 @@ const engagements = [
                 <div class="rounded-2xl border border-creme-300 bg-creme-50 p-7">
                     <p class="surtitre text-center">Infos</p>
                     <ul class="mt-5 space-y-4 text-[0.97rem]">
-                        <li class="flex items-center gap-3"><Icone nom="localisation" class="size-6 shrink-0 text-cacao-700" /> Déplacements sur Dijon et alentours</li>
+                        <li class="flex items-center gap-3"><Icone nom="localisation" class="size-6 shrink-0 text-cacao-700" /> {{ conditions.deplacements }}</li>
                         <li class="flex items-center gap-3 border-t border-dashed border-creme-300 pt-4">
                             <Icone nom="cadeau" class="size-6 shrink-0 text-cacao-700" />
                             <span>Séances à offrir : <Bouton :href="route('bon-cadeau')" variante="lien" class="mt-1">Bon cadeau</Bouton></span>

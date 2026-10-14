@@ -2,6 +2,7 @@
 import { Link } from '@inertiajs/vue3';
 import { inject } from 'vue';
 import { useSite } from '../composables/useSite';
+import { conditions } from '../data/conditions';
 import Fleur from './Fleur.vue';
 import Icone from './Icone.vue';
 
@@ -58,7 +59,7 @@ const colonnes = [
                     <ul class="mt-5 space-y-3 text-[0.95rem]">
                         <li class="inline-flex items-start gap-2.5">
                             <Icone nom="localisation" class="mt-0.5 size-5 shrink-0 text-or-500" />
-                            <span>Déplacements sur Dijon et alentours</span>
+                            <span>{{ conditions.deplacements }}</span>
                         </li>
                         <li v-if="site.telephone">
                             <a :href="site.telephoneUrl" class="inline-flex items-center gap-2.5 transition-colors hover:text-brique">

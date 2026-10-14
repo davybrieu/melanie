@@ -10,6 +10,7 @@ import Pinceau from '../components/Pinceau.vue';
 import Seo from '../components/Seo.vue';
 import TitreSection from '../components/TitreSection.vue';
 import { useSite } from '../composables/useSite';
+import { conditions } from '../data/conditions';
 import { adresse, entrepriseJsonLd, idEntreprise, pageJsonLd } from '../data/seo';
 
 defineProps({
@@ -87,7 +88,7 @@ const raisons = [
     { icone: 'bouclier', titre: 'La sécurité de bébé avant tout', texte: 'Des positions naturelles et une vigilance de chaque instant pendant les séances nouveau-né.' },
     { icone: 'brin', titre: 'Une expérience simple & agréable', texte: 'Des conseils pour se préparer, des tenues prêtées pour la grossesse et le nouveau-né, et un vrai moment à partager.' },
     { icone: 'coeurs', titre: 'Des souvenirs qui vous ressemblent', texte: 'Chaque séance est pensée avec vous, selon vos envies et votre histoire.' },
-    { icone: 'localisation', titre: 'Tout près de chez vous', texte: 'Déplacements sur Dijon et alentours.' },
+    { icone: 'localisation', titre: 'Tout près de chez vous', texte: `${conditions.deplacements}.` },
 ];
 </script>
 

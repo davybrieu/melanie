@@ -6,6 +6,9 @@
 // d'un bon (espace de gestion).
 export const validiteBonCadeauMois = 6;
 
+// Rayon des déplacements autour de Dijon, à mes frais (fourni par Mélanie).
+const rayon = '40 km';
+
 export const conditions = {
     // Réservation et paiement : un acompte pour une séance ; un bon cadeau se règle en totalité.
     acompte: '30 %',
@@ -27,7 +30,9 @@ export const conditions = {
     // communes desservies ont été fournis par Mélanie : ils sont repris sur l'accueil, dans la
     // FAQ, les CGV, les données structurées (areaServed) et llms.txt. Codes postaux vérifiés sur
     // geo.api.gouv.fr.
-    zone: 'Dijon et ses alentours, dans un rayon de 40 km',
+    zone: `Dijon et ses alentours, dans un rayon de ${rayon}`,
+    // Mention courte : en-tête de l'accueil, page tarifs, appel à réserver, pied de page…
+    deplacements: `Déplacements sur Dijon et alentours (${rayon})`,
     communes: [
         { nom: 'Dijon', codePostal: '21000' },
         { nom: 'Beaune', codePostal: '21200' },

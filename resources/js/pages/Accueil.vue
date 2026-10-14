@@ -78,7 +78,7 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
                 <div class="mx-auto max-w-lg text-center lg:text-left">
                     <p class="inline-flex items-center gap-2 rounded-full border border-or-300 bg-creme-50 px-4 py-1.5 text-sm text-cacao-700">
                         <Icone nom="localisation" class="size-4 text-or-500" />
-                        Déplacements sur Dijon et alentours
+                        {{ conditions.deplacements }}
                     </p>
                     <h1 class="mt-6 text-[2.35rem] leading-[1.1] text-balance sm:text-[3.2rem]">Photographe grossesse, <span class="whitespace-nowrap">nouveau-né</span> et famille à Dijon</h1>
                     <p class="texte-courant mt-6 text-balance">

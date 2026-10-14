@@ -1,5 +1,6 @@
 <script setup>
 import { inject } from 'vue';
+import { conditions } from '../data/conditions';
 import Bouton from './Bouton.vue';
 import Fleur from './Fleur.vue';
 import Icone from './Icone.vue';
@@ -41,7 +42,7 @@ const route = inject('route');
 
             <p class="mt-8 inline-flex items-center gap-2.5 text-sm text-taupe-600">
                 <Icone nom="localisation" class="size-5 text-or-500" />
-                Déplacements sur Dijon et alentours
+                {{ conditions.deplacements }}
             </p>
         </div>
     </section>
