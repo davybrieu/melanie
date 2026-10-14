@@ -261,7 +261,8 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
             <p class="mt-8 text-center text-cacao-700">
                 {{ photosIncluses }} photos retouchées incluses dans chaque séance, puis {{ euros(photoSupplementaire) }} par photo supplémentaire.
             </p>
-            <div class="mt-8 text-center">
+            <div class="mt-8 flex flex-wrap justify-center gap-4">
+                <Bouton :href="route('contact')">Me contacter</Bouton>
                 <Bouton :href="route('tarifs')" variante="contour">Voir les tarifs en détail</Bouton>
             </div>
 

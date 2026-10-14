@@ -1,13 +1,18 @@
 <script setup>
+import { inject } from 'vue';
 import { euros, photoSupplementaire } from '../data/seances';
+import Bouton from './Bouton.vue';
 import Icone from './Icone.vue';
 import Pinceau from './Pinceau.vue';
 
-// Carte tarif inspirée du flyer : pictogramme, titre, accroche manuscrite, inclus, prix.
+// Carte tarif inspirée du flyer : pictogramme, titre, accroche manuscrite, inclus, prix, et un
+// bouton vers le formulaire de contact, la séance déjà cochée (/contact?seance=…).
 defineProps({
     offre: { type: Object, required: true },
     balise: { type: String, default: 'h3' },
 });
+
+const route = inject('route');
 </script>
 
 <template>
@@ -35,11 +40,12 @@ defineProps({
             <p class="mt-3 text-[0.92rem] text-taupe-600">Puis {{ euros(photoSupplementaire) }} par photo supplémentaire</p>
         </div>
 
-        <div class="flex items-center justify-center sm:h-full sm:border-l sm:border-creme-300 sm:pl-8">
+        <div class="flex flex-col items-center justify-center gap-5 sm:h-full sm:border-l sm:border-creme-300 sm:pl-8">
             <p class="relative isolate px-4 font-serif text-[3.25rem] leading-none text-brique">
                 <Pinceau class="text-poudre-100" />
                 {{ euros(offre.prix) }}
             </p>
+            <Bouton :href="route('contact', { seance: offre.cle })">Me contacter</Bouton>
         </div>
 
         <Icone nom="coeur" class="absolute top-5 right-5 size-5 text-poudre-400" />
