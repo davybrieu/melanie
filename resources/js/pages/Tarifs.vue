@@ -77,8 +77,8 @@ const engagements = [
                 </div>
             </div>
 
-            <!-- Photo supplémentaire · Pourquoi me choisir · Infos -->
-            <div class="mt-10 grid gap-5 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.6fr)_minmax(0,0.9fr)]">
+            <!-- Photo supplémentaire · Pourquoi me choisir · Bon cadeau -->
+            <div class="mt-10 grid gap-5 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.5fr)_minmax(0,1fr)]">
                 <div class="rounded-2xl border border-creme-300 bg-creme-50 p-7 text-center lg:text-left">
                     <p class="inline-flex items-center gap-3 text-[0.8rem] tracking-[0.18em] text-cacao-800 uppercase">
                         <Icone nom="image" class="size-6 text-cacao-700" /> Photo supplémentaire
@@ -99,15 +99,19 @@ const engagements = [
                     </ul>
                 </div>
 
-                <div class="rounded-2xl border border-creme-300 bg-creme-50 p-7">
-                    <p class="surtitre text-center">Infos</p>
-                    <ul class="mt-5 space-y-4 text-[0.97rem]">
-                        <li class="flex items-center gap-3"><Icone nom="localisation" class="size-6 shrink-0 text-cacao-700" /> {{ conditions.deplacements }}</li>
-                        <li class="flex items-center gap-3 border-t border-dashed border-creme-300 pt-4">
-                            <Icone nom="cadeau" class="size-6 shrink-0 text-cacao-700" />
-                            <span>Séances à offrir : <Bouton :href="route('bon-cadeau')" variante="lien" class="mt-1">Bon cadeau</Bouton></span>
-                        </li>
-                    </ul>
+                <!-- Bon cadeau : la commande passe par le formulaire de contact, pré-rempli -->
+                <div class="flex flex-col items-center rounded-2xl bg-poudre-100 p-7 text-center">
+                    <span class="grid size-14 place-items-center rounded-full bg-creme-50 text-cacao-800">
+                        <Icone nom="cadeau" class="size-7" />
+                    </span>
+                    <h2 class="mt-4 text-[1.55rem] leading-tight">Offrir une séance photo</h2>
+                    <p class="mt-3 text-[0.95rem] leading-relaxed text-cacao-700">
+                        Un bon cadeau pour une future maman, une naissance ou une famille, valable {{ conditions.validiteBonCadeau }}. Pour le commander, passez par la
+                        page contact.
+                    </p>
+                    <div class="mt-auto pt-6">
+                        <Bouton :href="route('contact', { objet: 'bon-cadeau' })" icone="cadeau">Me contacter</Bouton>
+                    </div>
                 </div>
             </div>
         </div>

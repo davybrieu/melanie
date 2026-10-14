@@ -7,7 +7,7 @@
 export const validiteBonCadeauMois = 6;
 
 // Rayon des déplacements autour de Dijon, à mes frais (fourni par Mélanie).
-const rayon = '40 km';
+const rayon = '40\u00a0km';
 
 export const conditions = {
     // Réservation et paiement : un acompte pour une séance ; un bon cadeau se règle en totalité.
@@ -19,13 +19,13 @@ export const conditions = {
     // Les photos se choisissent avec Mélanie, sur place, à la fin de la séance ; elle les livre
     // retouchées, en haute définition, dans ce délai après la séance. Elle les envoie elle-même,
     // sans galerie en ligne : à sa demande, le site ne dit pas par quel moyen.
-    livraison: 'sous 3 jours',
+    livraison: 'sous 3\u00a0jours',
 
     // Délai de prévenance : report sans frais, et annulation avec remboursement de l'acompte
-    prevenance: '48 heures',
+    prevenance: '48\u00a0heures',
 
     // Bon cadeau
-    validiteBonCadeau: `${validiteBonCadeauMois} mois`,
+    validiteBonCadeau: `${validiteBonCadeauMois}\u00a0mois`,
 
     // Lieux : extérieur et domicile (pas de studio mentionné sur le flyer). Le rayon et les
     // communes desservies ont été fournis par Mélanie : ils sont repris sur l'accueil, dans la
