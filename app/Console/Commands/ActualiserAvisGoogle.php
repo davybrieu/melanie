@@ -15,10 +15,11 @@ use Throwable;
 /**
  * Actualise la note globale, le nombre d'avis et les avis, depuis la fiche Google.
  *
- * Lancée chaque matin (routes/console.php). Elle garde tous les avis avec un texte : modifiés ou
- * supprimés sur Google, ils le sont aussi sur le site. Les avis à afficher se choisissent dans
- * l'espace de gestion, et ce choix est conservé. Un nouvel avis est affiché d'office ; au
- * premier import, seuls les 10 mieux notés puis les plus récents le sont. Les règles de Google
+ * Lancée chaque matin (routes/console.php). Elle garde tous les avis, même sans texte (note
+ * seule) : modifiés ou supprimés sur Google, ils le sont aussi sur le site. Les avis à afficher
+ * se choisissent dans l'espace de gestion, et ce choix est conservé. Un nouvel avis est affiché
+ * d'office ; au premier import, seuls les 10 premiers dans l'ordre du site le sont (les mieux
+ * notés, avec un texte d'abord, puis les plus récents). Les règles de Google
  * limitent ce stockage à 30 jours : sans actualisation réussie depuis, les données sont
  * effacées. En cas d'échec, l'adresse du site est prévenue.
  */
@@ -56,29 +57,33 @@ class ActualiserAvisGoogle extends Command
 
         NoteGoogle::upsert([['id' => 1, 'note' => $fiche['note'], 'nombre_avis' => $fiche['nombre']]], ['id'], ['note', 'nombre_avis']);
 
-        // Un avis sans texte (note seule) n'a rien à afficher : il n'est pas gardé.
-        $avecTexte = collect($fiche['avis'])->filter(fn (array $avis) => $avis['texte'] !== '');
+        $avis = collect($fiche['avis']);
         $affichesDOffice = (AvisGoogle::doesntExist()
-            ? $avecTexte->sortBy([['note', 'desc'], ['publie_le', 'desc']])->take(self::AFFICHES_AU_PREMIER_IMPORT)
-            : $avecTexte
+            ? $avis->sortBy([
+                ['note', 'desc'],
+                fn (array $a, array $b) => ($a['texte'] === '') <=> ($b['texte'] === ''),
+                ['publie_le', 'desc'],
+            ])->take(self::AFFICHES_AU_PREMIER_IMPORT)
+            : $avis
         )->pluck('identifiant');
 
-        AvisGoogle::whereNotIn('identifiant', $avecTexte->pluck('identifiant'))->delete();
+        AvisGoogle::whereNotIn('identifiant', $avis->pluck('identifiant'))->delete();
 
         // « affiche » n'est écrit que pour un nouvel avis : un avis déjà gardé conserve le choix fait dans l'espace de gestion.
-        if ($avecTexte->isNotEmpty()) {
+        if ($avis->isNotEmpty()) {
             AvisGoogle::upsert(
-                $avecTexte->map(fn (array $avis) => [...$avis, 'affiche' => $affichesDOffice->contains($avis['identifiant'])])->values()->all(),
+                $avis->map(fn (array $unAvis) => [...$unAvis, 'affiche' => $affichesDOffice->contains($unAvis['identifiant'])])->values()->all(),
                 ['identifiant'],
                 ['auteur', 'note', 'texte', 'publie_le'],
             );
         }
 
         $this->line(sprintf(
-            '  Note %s/5 (%d avis sur Google) · %d avis avec un texte, dont %d affichés',
+            '  Note %s/5 (%d avis sur Google) · %d avis gardés, dont %d sans commentaire · %d affichés',
             $fiche['note'] === null ? '—' : number_format($fiche['note'], 1, ',', ''),
             $fiche['nombre'],
-            $avecTexte->count(),
+            $avis->count(),
+            $avis->where('texte', '')->count(),
             AvisGoogle::affiches()->count(),
         ));
 

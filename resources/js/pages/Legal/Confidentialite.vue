@@ -95,7 +95,7 @@ const route = inject('route');
         <template v-if="avisGoogle">
             <h2>Avis Google</h2>
             <p>
-                Le site enregistre les avis laissés sur ma fiche Google avec un commentaire : leur note, leur texte, leur date et le prénom de leur auteur, suivi de
+                Le site enregistre les avis laissés sur ma fiche Google : leur note, leur commentaire s’il y en a un, leur date et le prénom de leur auteur, suivi de
                 l’initiale de son nom. Rien d’autre n’est conservé, pas même la photo de profil. La page d’accueil reprend ceux que je choisis d’afficher. Ils sont
                 actualisés chaque jour : un avis modifié ou supprimé sur Google l’est aussi sur le site.
                 Les afficher ne transmet aucune donnée à Google, car ils sont enregistrés sur le site lui-même. Ce traitement repose sur mon intérêt légitime à présenter les

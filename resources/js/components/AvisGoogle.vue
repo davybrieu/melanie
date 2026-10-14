@@ -8,6 +8,7 @@ import { useSite } from '../composables/useSite';
 
 defineProps({
     // { note, noteTexte, nombre, avis: [{ auteur, note, texte, date }] } : PageController, commande avis:actualiser.
+    // Texte vide : note sans commentaire.
     fiche: { type: Object, required: true },
 });
 
@@ -84,11 +85,13 @@ onBeforeUnmount(() => observateur?.disconnect());
                     >
                         <Etoiles :note="avis.note" class="text-lg" />
                         <p
+                            v-if="avis.texte"
                             class="mt-4 text-[0.97rem] leading-relaxed whitespace-pre-line text-cacao-700"
                             :class="{ 'line-clamp-6': avis.texte.length > LONGUEUR_COUPEE && !deplies.includes(i) }"
                         >
                             {{ avis.texte }}
                         </p>
+                        <p v-else class="mt-4 text-[0.97rem] text-taupe-500">Sans commentaire</p>
                         <button
                             v-if="avis.texte.length > LONGUEUR_COUPEE"
                             type="button"

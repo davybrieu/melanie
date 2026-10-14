@@ -97,8 +97,8 @@ class PageController extends Controller
     }
 
     /**
-     * Note de la fiche Google et avis choisis dans l'espace de gestion, les mieux notés puis
-     * les plus récents d'abord ; null tant que la fiche n'a pas de note.
+     * Note de la fiche Google et avis choisis dans l'espace de gestion, dans l'ordre du site
+     * (AvisGoogle::ordreDuSite) ; null tant que la fiche n'a pas de note.
      *
      * @return array{note: float, noteTexte: string, nombre: int, avis: list<array{auteur: string, note: int, texte: string, date: string}>}|null
      */
@@ -114,7 +114,7 @@ class PageController extends Controller
             'note' => $note->note,
             'noteTexte' => number_format($note->note, 1, ',', ''),
             'nombre' => $note->nombre_avis,
-            'avis' => AvisGoogle::aJour()->affiches()->orderByDesc('note')->orderByDesc('publie_le')->get()
+            'avis' => AvisGoogle::aJour()->affiches()->ordreDuSite()->get()
                 ->map(fn (AvisGoogle $avis) => [
                     'auteur' => $avis->auteur,
                     'note' => $avis->note,

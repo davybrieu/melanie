@@ -36,8 +36,8 @@ function basculer(avis) {
 
 const nombreAffiches = computed(() => props.avis.filter((avis) => avis.affiche).length);
 
-// Google compte aussi les avis sans commentaire (note seule), qui ne sont pas gardés.
-const sansCommentaire = computed(() => (props.fiche ? Math.max(0, props.fiche.nombre - props.avis.length) : 0));
+// Notes sans commentaire : leur texte est vide.
+const sansCommentaire = computed(() => props.avis.filter((avis) => !avis.texte).length);
 
 const filtre = ref('tous');
 
@@ -64,8 +64,7 @@ function deplier(avis) {
     <div class="conteneur pt-10 sm:pt-14">
         <h1 class="text-[1.9rem] leading-tight">Avis Google</h1>
         <p class="mt-3 max-w-2xl leading-relaxed text-cacao-700">
-            Choisissez les avis affichés sur la page d’accueil. Un nouvel avis y apparaît de lui-même : masquez-le ici si vous ne souhaitez pas le montrer. Les avis sans
-            commentaire (note seule) ne sont pas listés.
+            Choisissez les avis affichés sur la page d’accueil. Un nouvel avis y apparaît de lui-même : masquez-le ici si vous ne souhaitez pas le montrer.
         </p>
 
         <!-- Note de la fiche -->
@@ -101,7 +100,7 @@ function deplier(avis) {
         </p>
 
         <section v-if="fiche" class="mt-12" aria-labelledby="titre-liste">
-            <h2 id="titre-liste" class="text-[1.6rem] leading-tight">Avis avec un commentaire</h2>
+            <h2 id="titre-liste" class="text-[1.6rem] leading-tight">Avis de votre fiche</h2>
 
             <div v-if="avis.length" class="mt-5 flex flex-wrap gap-2" role="group" aria-label="Filtrer les avis">
                 <button
@@ -133,11 +132,13 @@ function deplier(avis) {
                         <span v-if="!avis.affiche" class="shrink-0 rounded-full border border-taupe-400 px-3 py-0.5 text-[0.8rem] text-cacao-700">Masqué</span>
                     </p>
                     <p
+                        v-if="avis.texte"
                         class="mt-2 text-[0.97rem] leading-relaxed whitespace-pre-line text-cacao-700"
                         :class="{ 'line-clamp-5': avis.texte.length > LONGUEUR_COUPEE && !deplies.includes(avis.id) }"
                     >
                         {{ avis.texte }}
                     </p>
+                    <p v-else class="mt-2 text-[0.97rem] text-taupe-500">Sans commentaire</p>
                     <button
                         v-if="avis.texte.length > LONGUEUR_COUPEE"
                         type="button"
@@ -173,7 +174,7 @@ function deplier(avis) {
                 </li>
             </ul>
             <p v-else class="mt-6 rounded-2xl border border-dashed border-creme-300 px-6 py-10 text-center text-cacao-700">
-                {{ avis.length ? 'Aucun avis dans cette catégorie.' : 'Aucun avis avec un commentaire pour l’instant.' }}
+                {{ avis.length ? 'Aucun avis dans cette catégorie.' : 'Aucun avis pour l’instant.' }}
             </p>
         </section>
     </div>
