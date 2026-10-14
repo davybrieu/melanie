@@ -126,7 +126,7 @@ export const faqTarifs = [
     },
     {
         q: 'Qu’est-ce qui est inclus dans le tarif de la séance ?',
-        r: `<p>La séance (${g.duree} pour la grossesse et la famille, ${n.duree} pour le nouveau-né), le prêt de tenues, la retouche et ${photosIncluses} photos retouchées en haute définition.</p>`,
+        r: `<p>La séance (${g.duree} pour la grossesse, ${n.duree} pour le nouveau-né, ${f.duree} pour la famille), le prêt de tenues, la retouche et ${photosIncluses} photos retouchées en haute définition.</p>`,
     },
     {
         q: 'Les fichiers numériques sont-ils inclus ?',
@@ -221,7 +221,7 @@ export const faqGeneral = [
     },
     {
         q: 'Combien de temps dure une séance photo ?',
-        r: `<p>${g.duree} pour une séance grossesse ou famille, ${n.duree} pour une séance nouveau-né, afin de suivre le rythme de bébé.</p>`,
+        r: `<p>${g.duree} pour une séance grossesse, ${n.duree} pour une séance nouveau-né, afin de suivre le rythme de bébé, et ${f.duree} pour une séance famille.</p>`,
     },
     {
         q: 'Où se déroulent les séances photo ?',
@@ -245,7 +245,7 @@ export const faqGeneral = [
     },
     {
         q: 'Faut-il prévoir plusieurs tenues ?',
-        r: `<p>Deux tenues suffisent largement pour une séance d’une heure. Pour une séance grossesse, vous pouvez aussi piocher parmi les tenues que je prête.</p>`,
+        r: `<p>Deux tenues suffisent largement pour une séance. Pour une séance grossesse, vous pouvez aussi piocher parmi les tenues que je prête.</p>`,
     },
     {
         q: 'Comment préparer les enfants avant une séance photo ?',
