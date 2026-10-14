@@ -272,26 +272,24 @@ const utilisation = (bon) =>
                         placeholder="Ex. : Pour garder un souvenir de ces derniers mois à deux…"
                     />
 
-                    <div class="grid gap-6 sm:grid-cols-2">
-                        <Champ
-                            id="emis_le"
-                            :model-value="form.emis_le"
-                            libelle="Émis le"
-                            obligatoire
-                            :erreur="form.errors.emis_le"
-                            type="date"
-                            @update:model-value="changerEmission"
-                        />
-                        <Champ
-                            id="valable_jusqu_au"
-                            v-model="form.valable_jusqu_au"
-                            libelle="Valable jusqu’au"
-                            obligatoire
-                            :erreur="form.errors.valable_jusqu_au"
-                            type="date"
-                            :aide="`${validiteBonCadeauMois} mois après l’émission, sauf choix contraire.`"
-                        />
-                    </div>
+                    <Champ
+                        id="emis_le"
+                        :model-value="form.emis_le"
+                        libelle="Émis le"
+                        obligatoire
+                        :erreur="form.errors.emis_le"
+                        type="date"
+                        @update:model-value="changerEmission"
+                    />
+                    <Champ
+                        id="valable_jusqu_au"
+                        v-model="form.valable_jusqu_au"
+                        libelle="Valable jusqu’au"
+                        obligatoire
+                        :erreur="form.errors.valable_jusqu_au"
+                        type="date"
+                        :aide="`${validiteBonCadeauMois} mois après l’émission, sauf choix contraire.`"
+                    />
                 </div>
 
                 <div class="mt-9 flex flex-wrap items-center gap-4">
@@ -301,9 +299,15 @@ const utilisation = (bon) =>
                         :disabled="form.processing"
                     >
                         <Icone nom="cadeau" class="size-4" />
-                        {{ form.processing ? 'Enregistrement…' : modifie ? 'Enregistrer les modifications' : 'Créer le bon cadeau' }}
+                        {{ form.processing ? 'Enregistrement…' : modifie ? 'Enregistrer' : 'Créer le bon cadeau' }}
                     </button>
-                    <button v-if="modifie" type="button" class="cursor-pointer text-[0.72rem] tracking-[0.2em] text-cacao-700 uppercase underline-offset-4 hover:underline" @click="nouveau">
+                    <button
+                        v-if="modifie"
+                        type="button"
+                        class="inline-flex cursor-pointer items-center justify-center gap-2.5 rounded-full bg-rouge px-8 py-4 text-[0.72rem] font-normal tracking-[0.24em] text-creme-50 uppercase transition duration-300 hover:brightness-90"
+                        @click="nouveau"
+                    >
+                        <Icone nom="fermer" class="size-4" />
                         Annuler
                     </button>
                 </div>
@@ -367,7 +371,8 @@ const utilisation = (bon) =>
                         <p class="mt-1 text-[0.97rem] text-cacao-700">
                             {{ seances[bon.seance]?.titre ?? bon.seance }}<template v-if="bon.offert_par"> · de la part de {{ bon.offert_par }}</template>
                         </p>
-                        <p class="mt-1 text-sm text-taupe-500">Émis le {{ dateLongue(bon.emis_le) }} · valable jusqu’au {{ dateLongue(bon.valable_jusqu_au) }}</p>
+                        <p class="mt-1 text-sm text-taupe-500">Émis le {{ dateLongue(bon.emis_le) }}</p>
+                        <p class="mt-0.5 text-sm text-taupe-500">Valable jusqu’au {{ dateLongue(bon.valable_jusqu_au) }}</p>
                     </div>
 
                     <div class="flex shrink-0 gap-2">
