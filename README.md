@@ -80,7 +80,7 @@ Relancez-la à chaque déploiement. Toute nouvelle page publique doit être ajou
 
 ## Avis Google
 
-L'accueil affiche la note de la fiche Google et 10 avis, mis à jour chaque matin par `php artisan avis:actualiser` (Business Profile API). Mise en place, une fois pour toutes, avec le compte Google propriétaire de la fiche :
+L'accueil affiche la note de la fiche Google et les avis choisis dans l'espace de gestion (voir « Espace de gestion »), mis à jour chaque matin par `php artisan avis:actualiser` (Business Profile API). Mise en place, une fois pour toutes, avec le compte Google propriétaire de la fiche :
 
 1. **Projet** : créez un projet sur [console.cloud.google.com](https://console.cloud.google.com) et notez son numéro.
 2. **Accès à l'API** : demandez-le avec le [formulaire de Google](https://support.google.com/business/contact/api_default) (« Application for Basic API Access »), avec le numéro du projet et l'adresse du site. Réponse sous 14 jours environ.
@@ -95,19 +95,21 @@ L'accueil affiche la note de la fiche Google et 10 avis, mis à jour chaque mati
 
 Le jeton d'actualisation n'a pas de date d'expiration : utilisé chaque jour, il reste valable. Il faut en créer un nouveau (étape 6) seulement si Google le révoque : accès retiré depuis le compte Google, écran de consentement repassé en test, ou plus de 100 jetons créés pour le même ID client (les plus anciens sont annulés). La commande échoue alors (`invalid_grant`) et un e-mail prévient l'adresse du site, au plus une fois par semaine. Sans mise à jour réussie pendant 30 jours, la note et les avis disparaissent du site.
 
-## Bons cadeaux
+## Espace de gestion
 
-L'espace de gestion, à l'adresse `/admin` (`https://www.melanie-photographie.fr/admin`), sert à créer les bons cadeaux, à télécharger leur image à imprimer et à suivre ceux déjà créés : valides, utilisés ou expirés.
+L'espace de gestion, à l'adresse `/admin` (`https://www.melanie-photographie.fr/admin`), a deux rubriques : les bons cadeaux et les avis Google. Sur mobile, elles sont dans le menu (bouton en haut à droite).
 
 **Mise en place** : dans Forge (Environment), renseignez `ADMIN_EMAIL` (votre adresse e-mail) et `ADMIN_MOT_DE_PASSE` (un mot de passe long, propre à ce site), puis redéployez : la migration crée la table des bons. Tant que l'une des deux valeurs est vide, `/admin` répond 404. Pour ne pas laisser le mot de passe lisible dans le `.env`, `ADMIN_MOT_DE_PASSE` accepte aussi son empreinte bcrypt, à écrire entre apostrophes (`'$2y$12$…'`) et à générer par exemple avec `php -r "echo password_hash('le mot de passe', PASSWORD_BCRYPT), PHP_EOL;"`. Changer l'adresse ou le mot de passe déconnecte les sessions ouvertes.
 
-**Utilisation** :
+**Bons cadeaux** : créez les bons, téléchargez leur image à imprimer et suivez ceux déjà créés (valides, utilisés ou expirés).
 
 - remplissez le formulaire (pour qui, de la part de qui, séance, message, dates) : l'aperçu de l'image suit chaque modification ;
 - « Créer le bon cadeau » lui attribue un numéro (MP-7KQ4MZ, demandé à la réservation), puis « Télécharger l'image » donne le fichier à imprimer : un JPEG au format A5 paysage (21 × 14,8 cm) en 300 dpi, à imprimer en « Taille réelle » ou à envoyer tel quel à un imprimeur ;
 - la liste retrouve un bon par nom ou par numéro ; chaque bon peut être retéléchargé, modifié, marqué comme utilisé (le jour de la séance) ou supprimé.
 
 La validité proposée (6 mois) vient de `resources/js/data/conditions.js` ; le nom, l'accroche et le contenu de la séance, de `resources/js/data/seances.js`. Les bons sont effacés automatiquement trois ans après la fin de leur validité ou leur utilisation (`php artisan model:prune`, lancé chaque jour par le « Laravel Scheduler »).
+
+**Avis Google** : la page liste les avis de votre fiche qui ont un commentaire, les plus récents d'abord. L'interrupteur « Afficher sur le site » de chaque avis l'ajoute à la page d'accueil ou l'en retire, aussitôt. Un nouvel avis s'y affiche de lui-même : la mise à jour de chaque matin l'ajoute, et garde vos choix pour les autres. Les avis sans commentaire (note seule) ne sont pas listés.
 
 ## Photos
 
@@ -127,7 +129,8 @@ Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter u
 | Anti-spam du formulaire (hCaptcha) | `.env` (`HCAPTCHA_SITE_KEY`, `HCAPTCHA_SECRET`) |
 | Fiche Google (Place ID) | `.env` (`GOOGLE_PLACE_ID`) et `config/site.php` |
 | Avis Google (Business Profile API) | `.env` (`GOOGLE_BUSINESS_CLIENT_ID`, `GOOGLE_BUSINESS_CLIENT_SECRET`, `GOOGLE_BUSINESS_REFRESH_TOKEN`) |
-| Accès à l'espace bons cadeaux (`/admin`) | `.env` (`ADMIN_EMAIL`, `ADMIN_MOT_DE_PASSE`) |
+| Avis affichés sur l'accueil | espace de gestion, page « Avis Google » (`/admin/avis`) |
+| Accès à l'espace de gestion (`/admin`) | `.env` (`ADMIN_EMAIL`, `ADMIN_MOT_DE_PASSE`) |
 | Textes des pages | `resources/js/pages/*.vue` |
 | Pages du sitemap | `config/seo.php` |
 | Résumé du site pour les IA | `public/llms.txt` (à tenir à jour à la main) |
@@ -140,7 +143,7 @@ Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter u
 - [ ] Relire et personnaliser la page « Mon univers » (`resources/js/pages/APropos.vue`).
 - [ ] Créer la boîte `contact@melanie-photographie.fr` chez OVH, avec une redirection vers la boîte personnelle, et renseigner l'envoi d'e-mails (`MAIL_*`, SMTP d'OVH).
 - [ ] Avis Google : suivre la section « Avis Google » (accès à l'API, jeton d'actualisation, Forge).
-- [ ] Bons cadeaux : renseigner `ADMIN_EMAIL` et `ADMIN_MOT_DE_PASSE` dans Forge (section « Bons cadeaux »).
+- [ ] Espace de gestion : renseigner `ADMIN_EMAIL` et `ADMIN_MOT_DE_PASSE` dans Forge (section « Espace de gestion »).
 
 ## Structure
 

@@ -13,22 +13,23 @@ use Illuminate\Support\Facades\Mail;
 use Throwable;
 
 /**
- * Actualise la note globale, le nombre d'avis et les avis affichés, depuis la fiche Google.
+ * Actualise la note globale, le nombre d'avis et les avis, depuis la fiche Google.
  *
- * Lancée chaque matin (routes/console.php). Au premier import, ou avec --nouvelle-selection,
- * elle choisit les avis affichés : 10 avis avec un texte, les mieux notés puis les plus récents.
- * Ensuite, seuls ces avis sont actualisés : modifiés ou supprimés sur Google, ils le sont aussi
- * sur le site. Les règles de Google limitent ce stockage à 30 jours : sans actualisation
- * réussie depuis, les données sont effacées. En cas d'échec, l'adresse du site est prévenue.
+ * Lancée chaque matin (routes/console.php). Elle garde tous les avis avec un texte : modifiés ou
+ * supprimés sur Google, ils le sont aussi sur le site. Les avis à afficher se choisissent dans
+ * l'espace de gestion, et ce choix est conservé. Un nouvel avis est affiché d'office ; au
+ * premier import, seuls les 10 mieux notés puis les plus récents le sont. Les règles de Google
+ * limitent ce stockage à 30 jours : sans actualisation réussie depuis, les données sont
+ * effacées. En cas d'échec, l'adresse du site est prévenue.
  */
 class ActualiserAvisGoogle extends Command
 {
-    private const NOMBRE_AFFICHES = 10;
+    private const AFFICHES_AU_PREMIER_IMPORT = 10;
 
     // Échec déjà signalé par e-mail : pas de nouvel e-mail avant une semaine.
     private const CLE_ALERTE = 'avis-google.alerte-envoyee';
 
-    protected $signature = 'avis:actualiser {--nouvelle-selection : Choisit de nouveau les avis affichés}';
+    protected $signature = 'avis:actualiser';
 
     protected $description = 'Actualise la note et les avis de la fiche Google';
 
@@ -55,22 +56,30 @@ class ActualiserAvisGoogle extends Command
 
         NoteGoogle::upsert([['id' => 1, 'note' => $fiche['note'], 'nombre_avis' => $fiche['nombre']]], ['id'], ['note', 'nombre_avis']);
 
+        // Un avis sans texte (note seule) n'a rien à afficher : il n'est pas gardé.
         $avecTexte = collect($fiche['avis'])->filter(fn (array $avis) => $avis['texte'] !== '');
-        $choisis = $this->option('nouvelle-selection') || AvisGoogle::doesntExist()
-            ? $avecTexte->sortBy([['note', 'desc'], ['publie_le', 'desc']])->take(self::NOMBRE_AFFICHES)
-            : $avecTexte->whereIn('identifiant', AvisGoogle::pluck('identifiant'));
+        $affichesDOffice = (AvisGoogle::doesntExist()
+            ? $avecTexte->sortBy([['note', 'desc'], ['publie_le', 'desc']])->take(self::AFFICHES_AU_PREMIER_IMPORT)
+            : $avecTexte
+        )->pluck('identifiant');
 
-        AvisGoogle::whereNotIn('identifiant', $choisis->pluck('identifiant'))->delete();
+        AvisGoogle::whereNotIn('identifiant', $avecTexte->pluck('identifiant'))->delete();
 
-        if ($choisis->isNotEmpty()) {
-            AvisGoogle::upsert($choisis->values()->all(), ['identifiant'], ['auteur', 'note', 'texte', 'publie_le']);
+        // « affiche » n'est écrit que pour un nouvel avis : un avis déjà gardé conserve le choix fait dans l'espace de gestion.
+        if ($avecTexte->isNotEmpty()) {
+            AvisGoogle::upsert(
+                $avecTexte->map(fn (array $avis) => [...$avis, 'affiche' => $affichesDOffice->contains($avis['identifiant'])])->values()->all(),
+                ['identifiant'],
+                ['auteur', 'note', 'texte', 'publie_le'],
+            );
         }
 
         $this->line(sprintf(
-            '  Note %s/5 (%d avis sur Google) · %d avis affichés',
+            '  Note %s/5 (%d avis sur Google) · %d avis avec un texte, dont %d affichés',
             $fiche['note'] === null ? '—' : number_format($fiche['note'], 1, ',', ''),
             $fiche['nombre'],
-            $choisis->count(),
+            $avecTexte->count(),
+            AvisGoogle::affiches()->count(),
         ));
 
         return self::SUCCESS;

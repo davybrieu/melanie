@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AvisGoogleController;
 use App\Http\Controllers\Admin\BonCadeauController;
 use App\Http\Controllers\Admin\ConnexionController;
 use App\Http\Controllers\ContactController;
@@ -40,8 +41,8 @@ Route::get('/photos/{largeur}/{dossier}/{fichier}', PhotoController::class)
     ->whereIn('dossier', Photos::DOSSIERS)
     ->name('photo');
 
-// Espace de gestion des bons cadeaux, réservé à Mélanie (identifiants ADMIN_* du .env ; sans
-// eux, 404). Ces routes sont exclues de Ziggy : les pages Admin/* écrivent leurs adresses.
+// Espace de gestion (bons cadeaux, avis Google), réservé à Mélanie (identifiants ADMIN_* du
+// .env ; sans eux, 404). Ces routes sont exclues de Ziggy : les pages Admin/* écrivent leurs adresses.
 Route::prefix('admin')->name('admin.')->middleware(EspaceAdmin::class)->group(function () {
     Route::get('/connexion', [ConnexionController::class, 'create'])->name('connexion');
     Route::post('/connexion', [ConnexionController::class, 'store'])->middleware('throttle:5,1')->name('connexion.envoyer');
@@ -53,4 +54,7 @@ Route::prefix('admin')->name('admin.')->middleware(EspaceAdmin::class)->group(fu
     Route::put('/bons-cadeaux/{bonCadeau}', [BonCadeauController::class, 'update'])->name('bons-cadeaux.modifier');
     Route::patch('/bons-cadeaux/{bonCadeau}/utilisation', [BonCadeauController::class, 'utilisation'])->name('bons-cadeaux.utilisation');
     Route::delete('/bons-cadeaux/{bonCadeau}', [BonCadeauController::class, 'destroy'])->name('bons-cadeaux.supprimer');
+
+    Route::get('/avis', [AvisGoogleController::class, 'index'])->name('avis');
+    Route::patch('/avis/{avisGoogle}', [AvisGoogleController::class, 'affichage'])->name('avis.affichage');
 });

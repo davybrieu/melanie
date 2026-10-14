@@ -95,8 +95,9 @@ const route = inject('route');
         <template v-if="avisGoogle">
             <h2>Avis Google</h2>
             <p>
-                La page d’accueil reprend des avis laissés sur ma fiche Google : leur note, leur texte, leur date et le prénom de leur auteur, suivi de l’initiale de son nom.
-                Rien d’autre n’est conservé, pas même la photo de profil. Ils sont actualisés chaque jour : un avis modifié ou supprimé sur Google l’est aussi sur le site.
+                Le site enregistre les avis laissés sur ma fiche Google avec un commentaire : leur note, leur texte, leur date et le prénom de leur auteur, suivi de
+                l’initiale de son nom. Rien d’autre n’est conservé, pas même la photo de profil. La page d’accueil reprend ceux que je choisis d’afficher. Ils sont
+                actualisés chaque jour : un avis modifié ou supprimé sur Google l’est aussi sur le site.
                 Les afficher ne transmet aucune donnée à Google, car ils sont enregistrés sur le site lui-même. Ce traitement repose sur mon intérêt légitime à présenter les
                 retours de mes clients (article 6.1.f du RGPD). Pour faire retirer le vôtre, écrivez-moi à <a :href="`mailto:${email}`">{{ email }}</a>.
             </p>

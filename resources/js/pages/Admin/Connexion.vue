@@ -31,8 +31,8 @@ function connecter() {
 
     <section class="conteneur max-w-md pt-16 sm:pt-24">
         <form class="rounded-2xl border border-creme-300 bg-creme-50 p-7 shadow-[0_18px_40px_-30px_rgba(75,52,40,0.35)] sm:p-10" novalidate @submit.prevent="connecter">
-            <h1 class="text-center text-3xl">Espace bons cadeaux</h1>
-            <p class="mt-3 text-center text-[0.95rem] text-cacao-700">Connectez-vous pour créer et suivre vos bons cadeaux.</p>
+            <h1 class="text-center text-3xl">Espace de gestion</h1>
+            <p class="mt-3 text-center text-[0.95rem] text-cacao-700">Connectez-vous pour gérer vos bons cadeaux et vos avis Google.</p>
 
             <!-- Session expirée pendant une action (middleware EspaceAdmin) -->
             <p v-if="page.flash?.sessionExpiree" class="mt-6 rounded-xl bg-poudre-100 px-4 py-3 text-center text-[0.95rem] text-cacao-800" role="status">
