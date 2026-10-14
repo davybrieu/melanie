@@ -1,22 +1,23 @@
-// ⚠️ À VALIDER PAR MÉLANIE AVANT LA MISE EN LIGNE
-// Ces conditions ne figurent pas sur le flyer : ce sont des valeurs courantes chez les
-// photographes, reprises dans la FAQ et les CGV. Ajustez-les ici, tout le site suit.
+// Conditions validées par Mélanie en octobre 2026, sauf les moyens de paiement et le mode de
+// livraison des photos (galerie en ligne), encore à confirmer. Reprises dans la FAQ, les CGV,
+// l'accueil et la page bon cadeau : ajustez-les ici, tout le site suit (llms.txt, à la main).
 
 // Durée de validité d'un bon cadeau, en mois : texte du site et date proposée à la création
 // d'un bon (espace de gestion).
 export const validiteBonCadeauMois = 6;
 
 export const conditions = {
-    // Réservation et paiement
+    // Réservation et paiement : un acompte pour une séance ; un bon cadeau se règle en totalité.
     acompte: '30 %',
-    solde: 'le jour de la séance',
+    solde: 'le jour même, après la séance',
     paiements: 'espèces ou virement bancaire',
+    paiementBonCadeau: 'en totalité à l’achat',
 
     // Livraison des photos
-    livraison: 'sous 3 semaines',
+    livraison: 'sous 3 jours',
     livraisonMode: 'dans une galerie en ligne privée, à télécharger en haute définition',
 
-    // Report et annulation : délai de prévenance
+    // Délai de prévenance : report sans frais, et annulation avec remboursement de l'acompte
     prevenance: '48 heures',
 
     // Bon cadeau

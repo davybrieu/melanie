@@ -14,7 +14,7 @@ const site = useSite();
     <PageLegale
         titre="Conditions générales de vente"
         description="Conditions générales de vente des séances photo de Mélanie Photographie, à Dijon : réservation, paiement, report, livraison des photos, droits."
-        mise-a-jour="septembre 2026"
+        mise-a-jour="octobre 2026"
     >
         <h2>1. Objet</h2>
         <p>
@@ -40,8 +40,8 @@ const site = useSite();
 
         <h2>3. Réservation et acompte</h2>
         <p>
-            La réservation devient ferme à réception d’un acompte de {{ c.acompte }} du montant de la prestation. Pour une séance nouveau-né, la réservation porte sur une
-            période autour du terme ; la date exacte est fixée après la naissance.
+            La réservation devient ferme à réception d’un acompte de {{ c.acompte }} du montant de la prestation, sauf pour une séance offerte avec un bon cadeau, déjà
+            réglé (article 11). Pour une séance nouveau-né, la réservation porte sur une période autour du terme ; la date exacte est fixée après la naissance.
         </p>
 
         <h2>4. Paiement</h2>
@@ -51,7 +51,10 @@ const site = useSite();
         <ul>
             <li>Report à la demande du client : possible sans frais s’il est demandé au moins {{ c.prevenance }} avant la séance.</li>
             <li>Maladie du client ou d’un enfant, naissance anticipée, météo défavorable pour une séance en extérieur : report sans frais.</li>
-            <li>Annulation par le client : l’acompte reste acquis à la photographe.</li>
+            <li>
+                Annulation par le client : l’acompte est remboursé si l’annulation est signalée au moins {{ c.prevenance }} avant la séance ; en deçà, il reste acquis à la
+                photographe.
+            </li>
             <li>Annulation par la photographe (maladie, cas de force majeure) : report à une date convenue ensemble ou remboursement intégral des sommes versées.</li>
         </ul>
 
@@ -89,8 +92,8 @@ const site = useSite();
 
         <h2>11. Bons cadeaux</h2>
         <p>
-            Les bons cadeaux sont valables {{ c.validiteBonCadeau }} à compter de leur émission. Ils ne sont ni remboursables, ni échangeables contre de l’argent. La séance
-            est réservée par le bénéficiaire, dans les conditions des présentes CGV.
+            Les bons cadeaux sont réglés {{ c.paiementBonCadeau }} et valables {{ c.validiteBonCadeau }} à compter de leur émission. Ils ne sont ni remboursables, ni
+            échangeables contre de l’argent. La séance est réservée par le bénéficiaire, dans les conditions des présentes CGV.
         </p>
 
         <h2>12. Responsabilité</h2>

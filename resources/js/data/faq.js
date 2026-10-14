@@ -162,7 +162,7 @@ export const faqTarifs = [
     },
     {
         q: 'Faut-il verser un acompte pour réserver ?',
-        r: `<p>Oui, un acompte de ${c.acompte} du montant de la séance est demandé pour bloquer votre date.</p>`,
+        r: `<p>Oui, un acompte de ${c.acompte} du montant de la séance est demandé pour bloquer votre date. Pour une séance offerte avec un bon cadeau, il n’y a rien à verser : le bon est réglé ${c.paiementBonCadeau}.</p>`,
     },
     {
         q: 'Quand le solde doit-il être réglé ?',
@@ -178,7 +178,7 @@ export const faqTarifs = [
     },
     {
         q: 'Peut-on offrir une séance photo ?',
-        r: `<p>Oui ! Toutes les séances peuvent être offertes grâce à un <a href="/bon-cadeau">bon cadeau</a>, valable ${c.validiteBonCadeau}. Une jolie idée pour une future maman, une naissance ou une fête de famille.</p>`,
+        r: `<p>Oui ! Toutes les séances peuvent être offertes grâce à un <a href="/bon-cadeau">bon cadeau</a>, valable ${c.validiteBonCadeau} et réglé ${c.paiementBonCadeau}. Une jolie idée pour une future maman, une naissance ou une fête de famille.</p>`,
     },
     {
         q: 'Que se passe-t-il si je dois reporter ma séance ?',
@@ -198,7 +198,7 @@ export const faqTarifs = [
     },
     {
         q: 'Que se passe-t-il si je dois annuler ma séance ?',
-        r: `<p>En cas d’annulation, l’acompte reste acquis, car la date vous était réservée. Il peut toutefois être reporté sur une nouvelle date si vous me prévenez au moins ${c.prevenance} à l’avance.</p>`,
+        r: `<p>Prévenez-moi au moins ${c.prevenance} à l’avance : je vous rembourse alors l’acompte. En deçà, l’acompte reste acquis, car la date vous était réservée.</p>`,
     },
 ];
 
@@ -241,7 +241,7 @@ export const faqGeneral = [
     },
     {
         q: 'Est-ce que tu proposes des tenues ou des accessoires ?',
-        r: `<p>Oui, pour les séances grossesse et nouveau-né : le prêt de tenues est inclus, avec des robes pour les futures mamans, des tenues et des accessoires pour les nouveau-nés… Pour une séance famille, vous venez avec vos propres tenues, que nous choisissons ensemble avant la séance.</p>`,
+        r: `<p>Oui, pour les séances grossesse et nouveau-né : le prêt de tenues est inclus, avec des robes pour les futures mamans, des tenues et des accessoires pour les nouveau-nés… Pour une séance famille, vous venez avec vos propres tenues.</p>`,
     },
     {
         q: 'Faut-il prévoir plusieurs tenues ?',

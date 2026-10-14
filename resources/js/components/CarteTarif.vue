@@ -1,5 +1,5 @@
 <script setup>
-import { euros } from '../data/seances';
+import { euros, photoSupplementaire } from '../data/seances';
 import Icone from './Icone.vue';
 import Pinceau from './Pinceau.vue';
 
@@ -32,6 +32,7 @@ defineProps({
                     {{ ligne }}
                 </li>
             </ul>
+            <p class="mt-3 text-[0.92rem] text-taupe-600">Puis {{ euros(photoSupplementaire) }} par photo supplémentaire</p>
         </div>
 
         <div class="flex items-center justify-center sm:h-full sm:border-l sm:border-creme-300 sm:pl-8">
