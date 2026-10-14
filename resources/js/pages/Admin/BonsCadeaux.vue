@@ -3,6 +3,7 @@ import { Head, router, useForm, usePage } from '@inertiajs/vue3';
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { LARGEUR, ajouterMois, dateLongue, dessinerBonCadeau, telechargerBonCadeau } from '../../admin/bonCadeau';
 import Champ from '../../components/Champ.vue';
+import ChoixSeances from '../../components/ChoixSeances.vue';
 import Icone from '../../components/Icone.vue';
 import { useSite } from '../../composables/useSite';
 import { validiteBonCadeauMois } from '../../data/conditions';
@@ -192,7 +193,6 @@ const bonsAffiches = computed(() => {
     );
 });
 
-const etiquette = 'text-[0.72rem] font-normal tracking-[0.2em] text-cacao-700 uppercase';
 const boutonAction =
     'inline-flex cursor-pointer items-center gap-2 rounded-full border border-cacao-800/30 px-4 py-2 text-[0.68rem] tracking-[0.18em] text-cacao-800 uppercase transition-colors hover:border-cacao-800 hover:bg-cacao-800 hover:text-creme-50 disabled:opacity-60';
 </script>
@@ -241,31 +241,7 @@ const boutonAction =
                         placeholder="Ex. : Thomas"
                     />
 
-                    <fieldset :aria-describedby="form.errors.seance ? 'erreur-seance' : undefined">
-                        <legend :class="etiquette">Séance offerte <span class="text-rouge" aria-hidden="true">*</span><span class="sr-only">(obligatoire)</span></legend>
-                        <div class="mt-2 grid grid-cols-3 gap-3">
-                            <label v-for="seance in choixSeances" :key="seance.cle" class="relative cursor-pointer">
-                                <input
-                                    :id="`seance-${seance.cle}`"
-                                    v-model="form.seance"
-                                    type="radio"
-                                    name="seance"
-                                    :value="seance.cle"
-                                    class="peer sr-only"
-                                    :aria-invalid="form.errors.seance ? 'true' : undefined"
-                                />
-                                <span
-                                    class="flex flex-col items-center gap-2 rounded-xl border bg-creme-100/70 px-1 py-4 text-center text-[0.9rem] whitespace-nowrap text-cacao-700 transition-colors sm:text-[0.95rem] peer-checked:border-cacao-700 peer-checked:bg-poudre-100 peer-checked:text-cacao-900 peer-focus-visible:ring-2 peer-focus-visible:ring-or-400"
-                                    :class="form.errors.seance ? 'border-rouge' : 'border-creme-300 hover:border-or-400'"
-                                >
-                                    <Icone :nom="seance.icone" class="size-8" />
-                                    {{ seance.nom }}
-                                </span>
-                                <Icone nom="check" class="absolute top-2 right-2 size-4 text-brique opacity-0 transition-opacity peer-checked:opacity-100" />
-                            </label>
-                        </div>
-                        <p v-if="form.errors.seance" id="erreur-seance" class="mt-2 text-sm text-rouge">{{ form.errors.seance }}</p>
-                    </fieldset>
+                    <ChoixSeances id="seance" v-model="form.seance" libelle="Séance offerte" :choix="choixSeances" obligatoire :erreur="form.errors.seance" />
 
                     <Champ
                         id="message"
@@ -337,13 +313,9 @@ const boutonAction =
         <section class="mt-20" aria-labelledby="titre-liste">
             <div class="flex flex-wrap items-end justify-between gap-5">
                 <h2 id="titre-liste" class="text-[1.9rem] leading-tight">Bons cadeaux créés</h2>
-                <input
-                    v-model="recherche"
-                    type="search"
-                    class="w-full rounded-full border border-creme-300 bg-creme-50 px-5 py-2.5 text-[0.95rem] text-cacao-800 placeholder:text-taupe-500 focus:border-or-500 focus:ring-2 focus:ring-or-300/40 focus:outline-none sm:w-72"
-                    placeholder="Nom ou numéro…"
-                    aria-label="Rechercher un bon cadeau par nom ou numéro"
-                />
+                <div class="w-full sm:w-80">
+                    <Champ id="recherche" v-model="recherche" libelle="Rechercher un bon" type="search" autocomplete="off" placeholder="Ex. : Léa ou MP-7KQ4MZ" />
+                </div>
             </div>
 
             <div class="mt-6 flex flex-wrap gap-2" role="group" aria-label="Filtrer les bons par statut">

@@ -40,7 +40,15 @@ function connecter() {
             </p>
 
             <div class="mt-8 grid gap-6">
-                <Champ id="email" v-model="form.email" libelle="Adresse e-mail" :erreur="form.errors.email" type="email" autocomplete="username" />
+                <Champ
+                    id="email"
+                    v-model="form.email"
+                    libelle="Adresse e-mail"
+                    :erreur="form.errors.email"
+                    type="email"
+                    autocomplete="username"
+                    placeholder="Votre adresse e-mail"
+                />
                 <Champ
                     id="mot_de_passe"
                     v-model="form.mot_de_passe"
@@ -48,6 +56,7 @@ function connecter() {
                     :erreur="form.errors.mot_de_passe"
                     type="password"
                     autocomplete="current-password"
+                    placeholder="Votre mot de passe"
                 />
             </div>
 

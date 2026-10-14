@@ -4,6 +4,7 @@ import { computed, inject, nextTick, ref, watch } from 'vue';
 import Bouton from '../components/Bouton.vue';
 import Captcha from '../components/Captcha.vue';
 import Champ from '../components/Champ.vue';
+import ChoixSeances from '../components/ChoixSeances.vue';
 import FilAriane from '../components/FilAriane.vue';
 import Fleur from '../components/Fleur.vue';
 import Icone from '../components/Icone.vue';
@@ -84,8 +85,6 @@ function envoyer() {
         },
     });
 }
-
-const etiquette = 'text-[0.72rem] font-normal tracking-[0.2em] text-cacao-700 uppercase';
 </script>
 
 <template>
@@ -142,30 +141,16 @@ const etiquette = 'text-[0.72rem] font-normal tracking-[0.2em] text-cacao-700 up
                     />
                 </div>
 
-                <fieldset class="mt-8" :aria-describedby="form.errors.seances ? 'erreur-seances' : undefined">
-                    <legend :class="etiquette">Quel type de séance ? <span class="text-rouge" aria-hidden="true">*</span><span class="sr-only">(obligatoire)</span></legend>
-                    <div class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                        <label v-for="type in types" :key="type.cle" class="relative cursor-pointer">
-                            <input
-                                :id="`seance-${type.cle}`"
-                                v-model="form.seances"
-                                type="checkbox"
-                                :value="type.cle"
-                                class="peer sr-only"
-                                :aria-invalid="form.errors.seances ? 'true' : undefined"
-                            />
-                            <span
-                                class="flex flex-col items-center gap-2 rounded-xl border bg-creme-100/70 px-2 py-4 text-center text-[0.95rem] text-cacao-700 transition-colors peer-checked:border-cacao-700 peer-checked:bg-poudre-100 peer-checked:text-cacao-900 peer-focus-visible:ring-2 peer-focus-visible:ring-or-400"
-                                :class="form.errors.seances ? 'border-rouge' : 'border-creme-300 hover:border-or-400'"
-                            >
-                                <Icone :nom="type.icone" class="size-8" />
-                                {{ type.nom }}
-                            </span>
-                            <Icone nom="check" class="absolute top-2 right-2 size-4 text-brique opacity-0 transition-opacity peer-checked:opacity-100" />
-                        </label>
-                    </div>
-                    <p v-if="form.errors.seances" id="erreur-seances" class="mt-2 text-sm text-rouge">{{ form.errors.seances }}</p>
-                </fieldset>
+                <ChoixSeances
+                    id="seance"
+                    v-model="form.seances"
+                    class="mt-8"
+                    libelle="Quel type de séance ?"
+                    :choix="types"
+                    multiple
+                    obligatoire
+                    :erreur="form.errors.seances"
+                />
 
                 <div class="mt-8 grid gap-6 sm:grid-cols-[minmax(0,0.6fr)_minmax(0,1fr)]">
                     <Champ
