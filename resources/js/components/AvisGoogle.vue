@@ -70,7 +70,8 @@ const deplies = ref([]);
             </ul>
 
             <p v-if="site.googleUrl" class="mt-12 text-center">
-                <Bouton :href="site.googleUrl" externe variante="contour" icone="google">Voir tous les avis sur Google</Bouton>
+                <!-- Texte court ; l'icône Google et le nom complet (lecteurs d'écran) disent où mène le lien. -->
+                <Bouton :href="site.googleUrl" externe variante="contour" icone="google" aria-label="Voir tous les avis sur Google">Voir tous les avis</Bouton>
             </p>
         </div>
     </section>
