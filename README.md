@@ -122,7 +122,7 @@ Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter u
 | Quoi | Où |
 |---|---|
 | Tarifs, durées, accroches des séances | `resources/js/data/seances.js` |
-| Acompte, paiement, livraison, report, bon cadeau | `resources/js/data/conditions.js` (repris dans la FAQ et les CGV) |
+| Acompte, paiement, livraison, report, bon cadeau, zone de déplacement et communes desservies | `resources/js/data/conditions.js` (repris dans la FAQ, les CGV et sur l'accueil) |
 | Questions / réponses de la FAQ | `resources/js/data/faq.js` |
 | E-mail du site (pages légales, demandes du formulaire) | `.env` (`MAIL_FROM_ADDRESS`) |
 | Téléphone | `.env` (`SITE_TELEPHONE`) et `config/site.php` |

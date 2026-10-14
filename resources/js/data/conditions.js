@@ -22,6 +22,30 @@ export const conditions = {
     // Bon cadeau
     validiteBonCadeau: `${validiteBonCadeauMois} mois`,
 
-    // Lieux : extérieur et domicile (pas de studio mentionné sur le flyer)
-    zone: 'Dijon et ses alentours',
+    // Lieux : extérieur et domicile (pas de studio mentionné sur le flyer). Le rayon et les
+    // communes desservies ont été fournis par Mélanie : ils sont repris sur l'accueil, dans la
+    // FAQ, les CGV, les données structurées (areaServed) et llms.txt.
+    zone: 'Dijon et ses alentours, dans un rayon de 40 km',
+    communes: [
+        'Dijon',
+        'Beaune',
+        'Chenôve',
+        'Talant',
+        'Chevigny-Saint-Sauveur',
+        'Fontaine-lès-Dijon',
+        'Quetigny',
+        'Longvic',
+        'Auxonne',
+        'Saint-Apollinaire',
+        'Marsannay-la-Côte',
+        'Nuits-Saint-Georges',
+        'Genlis',
+        'Is-sur-Tille',
+        'Neuilly-Crimolois',
+        'Gevrey-Chambertin',
+        'Arc-sur-Tille',
+        'Plombières-lès-Dijon',
+        'Brazey-en-Plaine',
+        'Selongey',
+    ],
 };

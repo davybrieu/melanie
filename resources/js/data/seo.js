@@ -17,6 +17,9 @@ const adresse = (site, route, nom, parametres) => site.url + route(nom, parametr
 
 const nomSeance = (seance) => `Séance photo ${seance.nom.toLowerCase()}`;
 
+// Communes desservies, données par Mélanie (conditions.js) : l'entreprise et chaque séance.
+const zoneDesservie = conditions.communes.map((commune) => ({ '@type': 'City', name: commune }));
+
 // Les réponses de la FAQ contiennent des liens relatifs (« /tarifs ») : on les rend absolus.
 const liensAbsolus = (site, html) => html.replaceAll('href="/', `href="${site.url}/`);
 
@@ -52,11 +55,7 @@ export const entrepriseJsonLd = (site) => ({
         addressRegion: site.region,
         addressCountry: 'FR',
     },
-    areaServed: [
-        { '@type': 'City', name: site.ville },
-        { '@type': 'City', name: site.commune },
-        { '@type': 'AdministrativeArea', name: site.departement },
-    ],
+    areaServed: zoneDesservie,
     hasOfferCatalog: {
         '@type': 'OfferCatalog',
         name: 'Séances photo',
@@ -80,7 +79,7 @@ export const serviceJsonLd = (site, route, seance) => ({
     description: `${nomSeance(seance)} à ${site.ville} et alentours : ${seance.inclus.join(', ').toLowerCase()}.`,
     url: adresse(site, route, seance.route),
     provider: { '@id': idEntreprise(site) },
-    areaServed: { '@type': 'City', name: site.ville },
+    areaServed: zoneDesservie,
     termsOfService: adresse(site, route, 'cgv'),
     offers: {
         '@type': 'Offer',
@@ -98,7 +97,7 @@ export const bonCadeauJsonLd = (site, route, description) => ({
     description,
     url: adresse(site, route, 'bon-cadeau'),
     provider: { '@id': idEntreprise(site) },
-    areaServed: { '@type': 'City', name: site.ville },
+    areaServed: zoneDesservie,
     termsOfService: adresse(site, route, 'cgv'),
     offers: {
         '@type': 'AggregateOffer',

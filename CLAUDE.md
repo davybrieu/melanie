@@ -45,7 +45,7 @@ Les messages ponctuels passent par `Inertia::flash()` / `page.flash` (`demandeEn
 
 **Données de contenu** (`resources/js/data/`). Les textes vivent dans les pages Vue ; ce qui est repris à plusieurs endroits est centralisé ici :
 - `seances.js` : prix, durées et contenu des séances. C'est la source unique : pages, FAQ, CGV, meta descriptions et JSON-LD en dépendent. Ne jamais écrire un prix en dur dans une page.
-- `conditions.js` : acompte, paiement, livraison, report, validité du bon cadeau. Ce sont des valeurs provisoires, que Mélanie doit valider.
+- `conditions.js` : acompte, paiement, livraison, report, validité du bon cadeau, zone de déplacement. Ce sont des valeurs provisoires, que Mélanie doit valider, sauf la zone, qu'elle a fournie : 40 km autour de Dijon (`zone`, repris par la FAQ et les CGV) et 20 communes desservies (`communes`), listées sur l'accueil et reprises dans les données structurées et `llms.txt`.
 - `faq.js` : questions et réponses (HTML), reprises par la page FAQ, les pages séances et la page tarifs. Seule la page FAQ les balise en JSON-LD `FAQPage` : Google demande de ne baliser chaque question qu'une fois sur tout le site. Les questions ont été fournies par Mélanie : ne pas les reformuler ni les supprimer sans son accord.
 - `seo.js` : générateurs JSON-LD (voir SEO).
 
@@ -71,6 +71,7 @@ Données structurées (JSON-LD, `data/seo.js`), validées sans erreur ni avertis
 - FAQ : `FAQPage`, seule page qui balise les questions ;
 - portfolio : `CollectionPage`, puis une `ImageGallery` par catégorie dont chaque photo est un `ImageObject` (créateur, crédit, droits d'auteur) ;
 - fil d'Ariane : `BreadcrumbList` (`FilAriane.vue`) ;
+- zone desservie (`areaServed` de l'entreprise, des séances et du bon cadeau) : une `City` par commune de `conditions.js` ;
 - toutes les URL sont construites sur `APP_URL` (`adresse()` de `seo.js`), comme l'URL canonique ;
 - ne rien inventer : pas de rue, de coordonnées GPS, d'horaires ni d'avis tant que Mélanie ne les a pas fournis.
 

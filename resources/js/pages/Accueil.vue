@@ -212,8 +212,14 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
         <div class="conteneur max-w-3xl">
             <TitreSection surtitre="Dijon et alentours" titre="Votre photographe à Dijon, chez vous ou en extérieur" />
             <p class="texte-courant mt-8 text-center text-balance">
-                Je me déplace sur {{ conditions.zone }}, par exemple à Chenôve, Talant, Fontaine-lès-Dijon, Quetigny, Longvic ou Marsannay-la-Côte. Je vous photographie en extérieur, dans un lieu qui vous ressemble, ou tout simplement chez vous.
+                Je me déplace sur {{ conditions.zone }}. Je vous photographie en extérieur, dans un lieu qui vous ressemble, ou tout simplement chez vous.
             </p>
+            <h3 class="surtitre mt-10 text-center">Communes desservies</h3>
+            <ul class="mt-5 flex flex-wrap justify-center gap-2">
+                <li v-for="commune in conditions.communes" :key="commune" class="rounded-full border border-creme-300 bg-creme-100 px-3.5 py-1.5 text-[0.92rem] text-cacao-700">
+                    {{ commune }}
+                </li>
+            </ul>
             <ul class="mt-12 space-y-8">
                 <li v-for="seance in pratique" :key="seance.route" class="border-t border-creme-300 pt-8">
                     <h3 class="text-2xl">

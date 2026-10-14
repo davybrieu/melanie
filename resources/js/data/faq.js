@@ -150,7 +150,7 @@ export const faqTarifs = [
     },
     {
         q: 'Les frais de déplacement sont-ils compris ?',
-        r: `<p>Je me déplace sur ${c.zone} sans frais supplémentaires. Pour un lieu plus éloigné, contactez-moi et nous en parlons ensemble.</p>`,
+        r: `<p>Je me déplace sur ${c.zone}, sans frais supplémentaires. Pour un lieu plus éloigné, contactez-moi et nous en parlons ensemble.</p>`,
     },
     {
         q: 'Comment réserver une séance photo ?',
