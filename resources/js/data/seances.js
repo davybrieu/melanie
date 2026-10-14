@@ -9,7 +9,7 @@ export const seances = {
         accroche: 'Un moment rien qu’à vous',
         prix: 100,
         duree: '1 à 2 heures',
-        inclus: ['1 à 2 heures de séance', '10 photos retouchées incluses'],
+        inclus: ['1 à 2 heures de séance', 'Prêt de tenues', '10 photos retouchées incluses'],
         route: 'grossesse',
         icone: 'grossesse',
     },

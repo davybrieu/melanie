@@ -41,7 +41,7 @@ const engagements = [
 <template>
     <Seo
         titre="Tarifs des séances photo grossesse, nouveau-né & famille"
-        :description="`Mes tarifs : séance grossesse ${euros(seances.grossesse.prix)}, nouveau-né ${euros(seances['nouveau-ne'].prix)}, famille ${euros(seances.famille.prix)}. ${photosIncluses} photos retouchées incluses, prêt de tenues pour les nouveau-nés.`"
+        :description="`Mes tarifs : séance grossesse ${euros(seances.grossesse.prix)}, nouveau-né ${euros(seances['nouveau-ne'].prix)}, famille ${euros(seances.famille.prix)}. ${photosIncluses} photos retouchées incluses, prêt de tenues pour la grossesse et le nouveau-né.`"
         :json-ld="jsonLd"
     />
 

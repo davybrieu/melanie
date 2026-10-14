@@ -17,7 +17,7 @@ export const faqGrossesse = [
     },
     {
         q: 'Quelle tenue porter pour une séance grossesse ?',
-        r: `<p>Des matières fluides qui épousent le ventre : robe longue, robe en maille, chemise ouverte… Privilégiez des couleurs douces et unies (crème, beige, blanc, vieux rose, terracotta) et évitez les gros motifs et les logos.</p>`,
+        r: `<p>Des matières fluides qui épousent le ventre : robe longue, robe en maille, chemise ouverte… Privilégiez des couleurs douces et unies (crème, beige, blanc, vieux rose, terracotta) et évitez les gros motifs et les logos.</p><p>Et bonne nouvelle : <strong>le prêt de tenues est inclus</strong> dans la séance.</p>`,
     },
     {
         q: 'Que porter pour une séance photo enceinte ?',
@@ -126,7 +126,7 @@ export const faqTarifs = [
     },
     {
         q: 'Qu’est-ce qui est inclus dans le tarif de la séance ?',
-        r: `<p>La séance (${g.duree} pour la grossesse, ${n.duree} pour le nouveau-né, ${f.duree} pour la famille), la retouche et ${photosIncluses} photos retouchées en haute définition. Pour une séance nouveau-né, le prêt de tenues est aussi inclus.</p>`,
+        r: `<p>La séance (${g.duree} pour la grossesse, ${n.duree} pour le nouveau-né, ${f.duree} pour la famille), la retouche et ${photosIncluses} photos retouchées en haute définition. Pour une séance grossesse ou nouveau-né, le prêt de tenues est aussi inclus.</p>`,
     },
     {
         q: 'Les fichiers numériques sont-ils inclus ?',
@@ -237,15 +237,15 @@ export const faqGeneral = [
     },
     {
         q: 'Comment dois-je m’habiller pour ma séance photo ?',
-        r: `<p>Des tenues confortables, dans des tons doux et unis qui s’accordent entre eux. Évitez les logos et les gros motifs. Nous en parlons avant la séance. Pour une séance nouveau-né, j’apporte les tenues de bébé.</p>`,
+        r: `<p>Des tenues confortables, dans des tons doux et unis qui s’accordent entre eux. Évitez les logos et les gros motifs. Nous en parlons avant la séance. Pour une séance grossesse ou nouveau-né, je peux aussi vous prêter des tenues.</p>`,
     },
     {
         q: 'Est-ce que tu proposes des tenues ou des accessoires ?',
-        r: `<p>Pour les séances nouveau-né, oui : le prêt de tenues et d’accessoires pour bébé est inclus. Pour les séances grossesse et famille, vous venez avec vos propres tenues, que nous choisissons ensemble avant la séance.</p>`,
+        r: `<p>Oui, pour les séances grossesse et nouveau-né : le prêt de tenues est inclus, avec des robes pour les futures mamans, des tenues et des accessoires pour les nouveau-nés… Pour une séance famille, vous venez avec vos propres tenues, que nous choisissons ensemble avant la séance.</p>`,
     },
     {
         q: 'Faut-il prévoir plusieurs tenues ?',
-        r: `<p>Deux tenues suffisent largement pour une séance. Pour bébé, lors d’une séance nouveau-né, j’apporte les tenues.</p>`,
+        r: `<p>Deux tenues suffisent largement pour une séance. Pour une séance grossesse, vous pouvez aussi piocher parmi les tenues que je prête ; pour une séance nouveau-né, j’apporte celles de bébé.</p>`,
     },
     {
         q: 'Comment préparer les enfants avant une séance photo ?',
