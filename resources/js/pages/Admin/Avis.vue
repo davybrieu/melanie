@@ -36,6 +36,9 @@ function basculer(avis) {
 
 const nombreAffiches = computed(() => props.avis.filter((avis) => avis.affiche).length);
 
+// Google compte aussi les avis sans commentaire (note seule), qui ne sont pas gardés.
+const sansCommentaire = computed(() => (props.fiche ? Math.max(0, props.fiche.nombre - props.avis.length) : 0));
+
 const filtre = ref('tous');
 
 const filtres = computed(() => [
@@ -73,7 +76,8 @@ function deplier(avis) {
             </p>
             <div class="min-w-0 flex-1 basis-60">
                 <p class="text-cacao-800">
-                    {{ fiche.nombre }} avis sur Google · {{ nombreAffiches }} {{ nombreAffiches > 1 ? 'affichés' : 'affiché' }} sur le site
+                    {{ fiche.nombre }} avis sur Google<template v-if="sansCommentaire">, dont {{ sansCommentaire }} sans commentaire</template>
+                    · {{ nombreAffiches }} {{ nombreAffiches > 1 ? 'affichés' : 'affiché' }} sur le site
                 </p>
                 <p class="mt-0.5 text-sm text-taupe-500">Actualisés chaque matin ; dernière mise à jour le {{ fiche.actualiseLe }}.</p>
             </div>
