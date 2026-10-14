@@ -193,8 +193,16 @@ const bonsAffiches = computed(() => {
     );
 });
 
-const boutonAction =
-    'inline-flex cursor-pointer items-center gap-2 rounded-full border border-cacao-800/30 px-4 py-2 text-[0.68rem] tracking-[0.18em] text-cacao-800 uppercase transition-colors hover:border-cacao-800 hover:bg-cacao-800 hover:text-creme-50 disabled:opacity-60';
+// Actions sur un bon : icônes seules, nommées par aria-label (lecteurs d'écran, avec le numéro
+// du bon) et par title (bulle au survol).
+const boutonIcone = 'grid size-11 shrink-0 cursor-pointer place-items-center rounded-full border transition-colors disabled:cursor-wait disabled:opacity-60';
+const boutonNeutre = `${boutonIcone} border-cacao-800/30 text-cacao-800 hover:border-cacao-800 hover:bg-cacao-800 hover:text-creme-50`;
+const boutonRouge = `${boutonIcone} border-rouge/40 text-rouge hover:border-rouge hover:bg-rouge hover:text-creme-50`;
+
+const utilisation = (bon) =>
+    bon.statut === 'utilise'
+        ? { icone: 'annuler', titre: 'Annuler l’utilisation', libelle: `Annuler l’utilisation du bon ${bon.code}` }
+        : { icone: 'check', titre: 'Marquer comme utilisé', libelle: `Marquer le bon ${bon.code} comme utilisé` };
 </script>
 
 <template>
@@ -206,8 +214,17 @@ const boutonAction =
                 <Icone nom="check" class="size-5 shrink-0 text-brique" />
                 <span>Le bon cadeau {{ flash.code }} {{ messagesFlash[flash.action] }}.</span>
             </p>
-            <button v-if="bonFlash" type="button" :class="boutonAction" :disabled="enTelechargement === bonFlash.id" @click="telecharger(bonFlash)">
-                {{ enTelechargement === bonFlash.id ? 'Préparation…' : 'Télécharger l’image' }}
+            <button
+                v-if="bonFlash"
+                type="button"
+                :class="boutonNeutre"
+                :disabled="enTelechargement === bonFlash.id"
+                :aria-busy="enTelechargement === bonFlash.id"
+                :aria-label="`Télécharger l’image du bon ${bonFlash.code}`"
+                title="Télécharger l’image"
+                @click="telecharger(bonFlash)"
+            >
+                <Icone nom="telecharger" class="size-5" :class="{ 'animate-pulse': enTelechargement === bonFlash.id }" />
             </button>
         </div>
 
@@ -336,7 +353,7 @@ const boutonAction =
                 <li
                     v-for="bon in bonsAffiches"
                     :key="bon.id"
-                    class="flex flex-col gap-5 rounded-2xl border bg-creme-50 p-5 sm:p-6 lg:flex-row lg:items-center lg:justify-between"
+                    class="flex flex-col gap-5 rounded-2xl border bg-creme-50 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6"
                     :class="modifie?.id === bon.id ? 'border-or-500' : 'border-creme-300'"
                 >
                     <div class="min-w-0">
@@ -353,20 +370,32 @@ const boutonAction =
                         <p class="mt-1 text-sm text-taupe-500">Émis le {{ dateLongue(bon.emis_le) }} · valable jusqu’au {{ dateLongue(bon.valable_jusqu_au) }}</p>
                     </div>
 
-                    <div class="flex shrink-0 flex-wrap gap-2 lg:justify-end">
-                        <button type="button" :class="boutonAction" :disabled="enTelechargement === bon.id" @click="telecharger(bon)">
-                            {{ enTelechargement === bon.id ? 'Préparation…' : 'Télécharger' }}
+                    <div class="flex shrink-0 gap-2">
+                        <button
+                            type="button"
+                            :class="boutonNeutre"
+                            :disabled="enTelechargement === bon.id"
+                            :aria-busy="enTelechargement === bon.id"
+                            :aria-label="`Télécharger l’image du bon ${bon.code}`"
+                            title="Télécharger l’image"
+                            @click="telecharger(bon)"
+                        >
+                            <Icone nom="telecharger" class="size-5" :class="{ 'animate-pulse': enTelechargement === bon.id }" />
                         </button>
-                        <button type="button" :class="boutonAction" @click="modifier(bon)">Modifier</button>
-                        <button type="button" :class="boutonAction" @click="basculerUtilisation(bon)">
-                            {{ bon.statut === 'utilise' ? 'Annuler l’utilisation' : 'Marquer utilisé' }}
+                        <button type="button" :class="boutonNeutre" :aria-label="`Modifier le bon ${bon.code}`" title="Modifier" @click="modifier(bon)">
+                            <Icone nom="crayon" class="size-5" />
                         </button>
                         <button
                             type="button"
-                            class="inline-flex cursor-pointer items-center rounded-full border border-rouge/40 px-4 py-2 text-[0.68rem] tracking-[0.18em] text-rouge uppercase transition-colors hover:border-rouge hover:bg-rouge hover:text-creme-50"
-                            @click="supprimer(bon)"
+                            :class="boutonNeutre"
+                            :aria-label="utilisation(bon).libelle"
+                            :title="utilisation(bon).titre"
+                            @click="basculerUtilisation(bon)"
                         >
-                            Supprimer
+                            <Icone :nom="utilisation(bon).icone" class="size-5" />
+                        </button>
+                        <button type="button" :class="boutonRouge" :aria-label="`Supprimer le bon ${bon.code}`" title="Supprimer" @click="supprimer(bon)">
+                            <Icone nom="poubelle" class="size-5" />
                         </button>
                     </div>
                 </li>
