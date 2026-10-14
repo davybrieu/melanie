@@ -12,7 +12,7 @@ import Seo from '../components/Seo.vue';
 import TitreSection from '../components/TitreSection.vue';
 import { useSite } from '../composables/useSite';
 import { faqTarifs } from '../data/faq';
-import { euros, photoSupplementaire, seances } from '../data/seances';
+import { euros, photoSupplementaire, photosIncluses, seances } from '../data/seances';
 import { serviceJsonLd } from '../data/seo';
 
 defineProps({
@@ -41,7 +41,7 @@ const engagements = [
 <template>
     <Seo
         titre="Tarifs des séances photo grossesse, nouveau-né & famille"
-        :description="`Mes tarifs : séance grossesse ${euros(seances.grossesse.prix)}, nouveau-né ${euros(seances['nouveau-ne'].prix)}, famille ${euros(seances.famille.prix)}. Prêt de tenues et 10 photos retouchées inclus.`"
+        :description="`Mes tarifs : séance grossesse ${euros(seances.grossesse.prix)}, nouveau-né ${euros(seances['nouveau-ne'].prix)}, famille ${euros(seances.famille.prix)}. ${photosIncluses} photos retouchées incluses, prêt de tenues pour les nouveau-nés.`"
         :json-ld="jsonLd"
     />
 

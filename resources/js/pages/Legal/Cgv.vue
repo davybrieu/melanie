@@ -32,7 +32,8 @@ const site = useSite();
             <li>photo supplémentaire : {{ euros(photoSupplementaire) }}.</li>
         </ul>
         <p>
-            Chaque séance comprend la prise de vue, le prêt de tenues, la retouche et la livraison de {{ photosIncluses }} photos en haute définition. Les prix sont
+            Chaque séance comprend la prise de vue, la retouche et la livraison de {{ photosIncluses }} photos en haute définition ; la séance nouveau-né comprend aussi le
+            prêt de tenues pour bébé. Les prix sont
             indiqués en euros, <span class="a-completer">[À confirmer : TVA non applicable, article 293 B du CGI]</span>. Les déplacements sont inclus sur
             {{ c.zone }} ; au-delà, un supplément peut être proposé avant la réservation.
         </p>
