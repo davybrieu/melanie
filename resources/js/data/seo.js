@@ -2,6 +2,7 @@
 // N'y mettre que des informations publiées sur le site : ni adresse, ni horaires, ni avis inventés.
 
 import { conditions } from './conditions';
+import { parcours } from './parcours';
 import { euros, seances } from './seances';
 
 const offres = Object.values(seances);
@@ -68,6 +69,20 @@ export const entrepriseJsonLd = (site) => ({
     },
     // Instagram et la fiche Google : relie le site à la fiche, pour Google.
     sameAs: [site.instagramUrl, site.googleUrl].filter(Boolean),
+    // Mélanie et sa formation (data/parcours.js) : uniquement ce qu'elle a confirmé.
+    founder: {
+        '@type': 'Person',
+        name: parcours.prenom,
+        jobTitle: site.metier,
+        knowsAbout: ['Photographie de grossesse', 'Photographie de nouveau-né', 'Photographie de famille'],
+        hasCredential: {
+            '@type': 'EducationalOccupationalCredential',
+            name: parcours.formation.nom,
+            credentialCategory: 'Certificat de formation en ligne',
+            recognizedBy: { '@type': 'Organization', name: parcours.formation.plateforme },
+            dateCreated: parcours.formation.date,
+        },
+    },
 });
 
 // Une séance de data/seances.js, avec le même @id sur sa page et sur la page tarifs.

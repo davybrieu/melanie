@@ -15,6 +15,7 @@ import TitreSection from '../components/TitreSection.vue';
 import { useSite } from '../composables/useSite';
 import { conditions } from '../data/conditions';
 import { faqNouveauNe } from '../data/faq';
+import { parcours } from '../data/parcours';
 import { euros, photosIncluses, seances } from '../data/seances';
 import { serviceJsonLd } from '../data/seo';
 
@@ -27,14 +28,26 @@ const site = useSite();
 const seance = seances['nouveau-ne'];
 
 // « Naissance » et « bébé » : les mots que les parents tapent aussi souvent que « nouveau-né ».
-const description = `Photographe naissance et nouveau-né à Dijon : une séance photo bébé à domicile, à son rythme, sa sécurité et son bien-être avant tout. Séance à ${euros(seance.prix)}.`;
+const description = `Photographe naissance et nouveau-né à Dijon, formée et vaccinée contre la coqueluche : séance bébé à domicile, sa sécurité avant tout. Séance à ${euros(seance.prix)}.`;
 
 // Pas de FAQPage ici : les questions sont balisées une seule fois, sur la page FAQ.
 const jsonLd = computed(() => serviceJsonLd(site.value, route, seance));
 
 const grandes = computed(() => [props.photos.grandes[0] ?? null, props.photos.grandes[1] ?? null]);
 
-// Engagements sécurité et bien-être (à ajuster si besoin, sans revendiquer de formation non suivie).
+// Ce qui permet à Mélanie de prendre soin de bébé : faits confirmés par elle (data/parcours.js).
+const atouts = [
+    {
+        icone: 'diplome',
+        titre: 'Formée au nouveau-né',
+        texte: `Certificat du cours en ligne «\u00a0${parcours.formation.nom}\u00a0» de ${parcours.formation.studio} (${parcours.formation.plateforme}), avec tout un volet sur la sécurité de bébé.`,
+    },
+    { icone: 'vaccin', titre: 'Vaccinée contre la coqueluche', texte: 'Une protection recommandée pour toutes les personnes au contact des nourrissons.' },
+    { icone: 'coeurs', titre: `Maman de ${parcours.enfants} enfants`, texte: 'Porter, apaiser, emmailloter un tout-petit : des gestes que je connais par cœur.' },
+    { icone: 'sante', titre: 'Je travaille dans la santé', texte: 'En parallèle de la photo, j’exerce dans le milieu de la santé, où l’hygiène et la vigilance sont la règle.' },
+];
+
+// Engagements sécurité et bien-être pendant la séance.
 const engagements = [
     { icone: 'horloge', titre: 'Bébé mène la danse', texte: `La séance suit son rythme : tétées, câlins, changes. Rien n’est jamais forcé, c’est pour cela que je prévois ${seance.duree}.` },
     { icone: 'main', titre: 'Des positions naturelles', texte: 'Je ne propose que des positions confortables et naturelles pour un nouveau-né. Si bébé n’est pas à l’aise, on n’insiste pas.' },
@@ -84,8 +97,17 @@ const moments = ['Bébé paisiblement endormi', 'Blotti dans vos bras', 'Ses min
             <p class="texte-courant mx-auto mt-8 max-w-2xl text-center">
                 Un nouveau-né est fragile, et vous me confiez ce que vous avez de plus précieux. Chaque séance repose sur des règles simples, que je ne négocie jamais : la sécurité de bébé compte plus que n’importe quelle photo.
             </p>
-            <!-- Formations : si Mélanie a suivi une formation (pose et sécurité du nouveau-né…), l'ajouter ici. Ne rien revendiquer d'autre. -->
-            <ul class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- Formation, vaccination, famille, métier : rien d'autre ne doit être revendiqué (CLAUDE.md, Règles de contenu) -->
+            <ul class="mt-12 grid gap-x-6 gap-y-8 rounded-2xl bg-poudre-100 px-6 py-9 sm:grid-cols-2 sm:px-10 lg:grid-cols-4">
+                <li v-for="atout in atouts" :key="atout.titre" class="text-center">
+                    <span class="mx-auto grid size-14 place-items-center rounded-full bg-creme-50 text-cacao-800">
+                        <Icone :nom="atout.icone" class="size-7" />
+                    </span>
+                    <h3 class="mt-4 text-lg leading-snug">{{ atout.titre }}</h3>
+                    <p class="mt-2 text-[0.92rem] leading-relaxed text-cacao-700">{{ atout.texte }}</p>
+                </li>
+            </ul>
+            <ul class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 <li v-for="engagement in engagements" :key="engagement.titre" class="rounded-2xl border border-creme-300 bg-creme-100 p-7">
                     <span class="grid size-14 place-items-center rounded-full bg-poudre-100 text-cacao-800">
                         <Icone :nom="engagement.icone" class="size-7" />

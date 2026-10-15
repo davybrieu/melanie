@@ -47,6 +47,7 @@ Les messages ponctuels passent par `Inertia::flash()` / `page.flash` (`demandeEn
 - `seances.js` : prix, durées et contenu des séances. C'est la source unique : pages, FAQ, CGV, meta descriptions et JSON-LD en dépendent. Ne jamais écrire un prix en dur dans une page.
 - `conditions.js` : acompte, paiement (le bon cadeau se règle en totalité), livraison, report et annulation, validité du bon cadeau, zone de déplacement. Mélanie les a validées en octobre 2026, sauf les moyens de paiement, encore à confirmer. Les photos se choisissent avec Mélanie, sur place, à la fin de la séance, et sont livrées retouchées sous 3 jours : pas de galerie en ligne, et le site ne dit pas par quel moyen elles sont envoyées (à sa demande). Zone : 40 km autour de Dijon (`zone`, repris par la FAQ et les CGV ; `deplacements`, la mention courte « Déplacements sur Dijon et alentours (40 km) » de l'accueil, des tarifs, de l'appel à réserver et du pied de page) et 20 communes desservies (`communes`, avec leur code postal), listées sur l'accueil et reprises dans les données structurées et `llms.txt`.
 - `faq.js` : questions et réponses (HTML), reprises par la page FAQ, les pages séances et la page tarifs. Seule la page FAQ les balise en JSON-LD `FAQPage` : Google demande de ne baliser chaque question qu'une fois sur tout le site. Les questions ont été fournies par Mélanie : ne pas les reformuler ni les supprimer sans son accord.
+- `parcours.js` : le parcours de Mélanie, qu'elle a confirmé (octobre 2026) : maman de quatre enfants, formation en ligne Domestika « Introduction à la photographie newborn » (Guillermo Casas et Marina Gondra, Le Photograph ; certificat du 30 septembre 2026, avec un volet sur la sécurité du nouveau-né). Repris sur les pages nouveau-né (avec sa vaccination contre la coqueluche et son métier dans la santé) et « Mon univers », sur l'accueil, dans le `founder` du `LocalBusiness` (`hasCredential`) et `llms.txt`.
 - `seo.js` : générateurs JSON-LD (voir SEO).
 
 Les clés `grossesse`, `nouveau-ne` et `famille` relient toutes les couches :
@@ -146,7 +147,7 @@ Exceptions, à garder dans leur format, car le WebP n'y est pas lu partout :
 
 ## Règles de contenu
 
-- Ne jamais attribuer à Mélanie une formation, une certification ou un label qu'elle n'a pas (notamment sur la sécurité des nouveau-nés).
+- Ne jamais attribuer à Mélanie une formation, une certification ou un label qu'elle n'a pas (notamment sur la sécurité des nouveau-nés). Sa seule formation connue est le cours en ligne de `parcours.js`, sanctionné par un certificat de suivi : ne pas parler de diplôme ni de certification en sécurité. Faits confirmés par elle : maman de quatre enfants, vaccinée contre la coqueluche, passionnée de photo depuis toute petite, travaille dans le milieu de la santé, activité de photographe lancée il y a moins de deux ans (non mentionné sur le site).
 - Ne pas inventer d'informations légales : les mentions `[À compléter]` des pages Mentions légales et CGV restent à remplir par Mélanie.
 - **Toute image a un texte alternatif (`alt`) descriptif, jamais vide** :
   - photos : texte tiré du nom de fichier (voir Photos) ;

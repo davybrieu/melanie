@@ -11,6 +11,7 @@ import Seo from '../components/Seo.vue';
 import TitreSection from '../components/TitreSection.vue';
 import { useSite } from '../composables/useSite';
 import { conditions } from '../data/conditions';
+import { parcours } from '../data/parcours';
 import { adresse, entrepriseJsonLd, idEntreprise, pageJsonLd } from '../data/seo';
 
 defineProps({
@@ -25,14 +26,15 @@ const jsonLd = computed(() => [
     pageJsonLd(site.value, 'AboutPage', { nom: 'Mon univers', url: adresse(site.value, route, 'a-propos'), about: { '@id': idEntreprise(site.value) } }),
 ]);
 
-// Textes à la première personne. À relire et personnaliser par Mélanie :
-// aucun fait biographique n'a été inventé (formations, parcours, enfants…).
+// Textes à la première personne. Faits biographiques confirmés par Mélanie (octobre 2026) :
+// passion de la photo depuis toute petite, travail dans la santé, enfants et formation
+// (data/parcours.js). Ne rien inventer d'autre.
 const chapitres = [
     {
         titre: 'Mon histoire',
         paragraphes: [
             'J’ai créé Mélanie Photographie avec une envie toute simple : garder une trace des moments qui passent trop vite. Ces instants où tout change, où une famille s’agrandit, où l’on devient parent, où les enfants grandissent sans prévenir.',
-            // À personnaliser : comment la photographie est entrée dans ta vie, ce qui t'a décidée à te lancer.
+            `La photographie me passionne depuis toute petite. J’ai fini par en faire mon métier, en parallèle de mon travail dans le milieu de la santé. Pour photographier les nouveau-nés en toute sécurité, je me suis formée avec le cours en ligne «\u00a0${parcours.formation.nom}\u00a0» de ${parcours.formation.formateurs}, sur ${parcours.formation.plateforme}.`,
         ],
     },
     {
@@ -85,7 +87,11 @@ const facettes = [
 const raisons = [
     { icone: 'coeur', titre: 'Douceur, bienveillance & patience', texte: 'Pas de stress, pas de pression : on avance à votre rythme, et à celui de bébé.' },
     { icone: 'image', titre: 'Des images naturelles & authentiques', texte: 'Une lumière douce, des tons chauds, des émotions vraies. Vous restez vous.' },
-    { icone: 'bouclier', titre: 'La sécurité de bébé avant tout', texte: 'Des positions naturelles et une vigilance de chaque instant pendant les séances nouveau-né.' },
+    {
+        icone: 'bouclier',
+        titre: 'La sécurité de bébé avant tout',
+        texte: 'Formée à la photographie de nouveau-né et vaccinée contre la coqueluche : des positions naturelles et une vigilance de chaque instant.',
+    },
     { icone: 'brin', titre: 'Une expérience simple & agréable', texte: 'Des conseils pour se préparer, des tenues prêtées pour la grossesse et le nouveau-né, et un vrai moment à partager.' },
     { icone: 'coeurs', titre: 'Des souvenirs qui vous ressemblent', texte: 'Chaque séance est pensée avec vous, selon vos envies et votre histoire.' },
     { icone: 'localisation', titre: 'Tout près de chez vous', texte: `${conditions.deplacements}.` },
@@ -117,7 +123,8 @@ const raisons = [
                     </p>
                     <div class="texte-courant mt-7 space-y-4">
                         <p>
-                            J’ai {{ site.age }} ans, je vis à Chenôve, à deux pas de Dijon, et je suis photographe de la grossesse, des nouveau-nés et des familles.
+                            J’ai {{ site.age }} ans, je suis maman de {{ parcours.enfants }} enfants et je vis à Chenôve, à deux pas de Dijon. Je suis photographe de la grossesse,
+                            des nouveau-nés et des familles.
                         </p>
                         <p>
                             Avant de me confier vos souvenirs, et parfois de m’ouvrir la porte de votre maison, vous avez le droit de savoir qui je suis. Alors voilà un peu de moi.
@@ -169,7 +176,6 @@ const raisons = [
                     </div>
                 </li>
             </ul>
-            <!-- À compléter si besoin : expérience, formations suivies, matériel, studio. N'y mettre que du vérifiable. -->
             <div class="mt-14 flex flex-wrap justify-center gap-4">
                 <Bouton :href="route('portfolio')" variante="contour">Voir le portfolio</Bouton>
             </div>

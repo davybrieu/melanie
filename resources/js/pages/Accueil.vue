@@ -13,6 +13,7 @@ import Separateur from '../components/Separateur.vue';
 import TitreSection from '../components/TitreSection.vue';
 import { useSite } from '../composables/useSite';
 import { conditions } from '../data/conditions';
+import { parcours } from '../data/parcours';
 import { euros, photoSupplementaire, photosIncluses, seances } from '../data/seances';
 import { entrepriseJsonLd, siteWebJsonLd } from '../data/seo';
 
@@ -197,7 +198,7 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
                 <p class="surtitre">Mon univers</p>
                 <h2 class="mt-3 text-[2.2rem] leading-tight sm:text-5xl">Bonjour, moi c’est Mélanie</h2>
                 <p class="texte-courant mt-6">
-                    J’ai {{ site.age }} ans, je vis à Chenôve et je suis photographe à Dijon et dans ses alentours. Je photographie la grossesse, les premiers jours de bébé et les familles, avec une envie simple : créer des images douces et naturelles, dans lesquelles vous vous reconnaissez vraiment.
+                    J’ai {{ site.age }} ans, je suis maman de {{ parcours.enfants }} enfants, je vis à Chenôve et je suis photographe à Dijon et dans ses alentours. Je photographie la grossesse, les premiers jours de bébé et les familles, avec une envie simple : créer des images douces et naturelles, dans lesquelles vous vous reconnaissez vraiment.
                 </p>
                 <p class="texte-courant mt-4">Vous vivez le moment, je m’occupe de le garder pour toujours.</p>
                 <div class="mt-9">
