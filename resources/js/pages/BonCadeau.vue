@@ -25,7 +25,7 @@ const offres = [seances.grossesse, seances['nouveau-ne'], seances.famille];
 
 const etapes = [
     { titre: 'Choisissez la séance', texte: 'Grossesse, nouveau-né ou famille : dites-moi ce qui ferait plaisir.' },
-    { titre: 'Écrivez-moi', texte: 'Via le formulaire ou sur Instagram, en précisant le prénom de la personne gâtée.' },
+    { titre: 'Contactez-moi', texte: 'De préférence par le formulaire de contact, en précisant le prénom de la personne gâtée. Vous pouvez aussi m’appeler ou m’écrire sur Instagram.' },
     { titre: 'Recevez le bon', texte: `Le bon se règle ${conditions.paiementBonCadeau} : je vous prépare ensuite un joli bon cadeau personnalisé, prêt à être offert.` },
     { titre: 'Place à la séance', texte: `L’heureux bénéficiaire me contacte pour réserver sa date. Le bon est valable ${conditions.validiteBonCadeau}.` },
 ];

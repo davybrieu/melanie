@@ -154,7 +154,7 @@ export const faqTarifs = [
     },
     {
         q: 'Comment réserver une séance photo ?',
-        r: `<p>Via le <a href="/contact">formulaire de contact</a> ou en message privé sur Instagram. Je vous réponds rapidement pour fixer une date, puis votre réservation est confirmée à réception de l’acompte.</p>`,
+        r: `<p>De préférence par le <a href="/contact">formulaire de contact</a> : je vous rappelle rapidement pour fixer une date. Vous pouvez aussi m’appeler ou m’écrire sur Instagram. Votre réservation est ensuite confirmée à réception de l’acompte.</p>`,
     },
     {
         q: 'Combien de temps à l’avance faut-il réserver ?',
