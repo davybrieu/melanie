@@ -20,9 +20,8 @@ return [
     |--------------------------------------------------------------------------
     |
     | L'adresse e-mail du site est celle d'expédition (MAIL_FROM_ADDRESS, dans
-    | config/mail.php). WhatsApp utilise le numéro de téléphone. SITE_TELEPHONE
-    | peut remplacer la valeur ci-dessous depuis le .env (laissé vide, c'est
-    | cette valeur qui s'applique).
+    | config/mail.php). SITE_TELEPHONE peut remplacer la valeur ci-dessous
+    | depuis le .env (laissé vide, c'est cette valeur qui s'applique).
     |
     */
 

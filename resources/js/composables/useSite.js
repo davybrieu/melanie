@@ -1,9 +1,6 @@
 import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
-// Message pré-rempli quand un visiteur ouvre WhatsApp depuis le site.
-const messageWhatsapp = 'Bonjour Mélanie, je vous écris depuis votre site : j’aimerais en savoir plus sur vos séances photo.';
-
 // Numéro au format international, sans « + » (06 12 34 56 78 → 33612345678).
 function international(telephone) {
     const chiffres = telephone.replace(/[^\d+]/g, '');
@@ -23,7 +20,6 @@ export function useSite() {
         const site = page.props.site;
         const numero = site.telephone ? international(site.telephone) : null;
         const instagramUrl = `https://www.instagram.com/${site.instagram}/`;
-        const whatsappUrl = numero ? `https://wa.me/${numero}?text=${encodeURIComponent(messageWhatsapp)}` : null;
         // Lien officiel de Google Maps vers la fiche (« Maps URLs »), par son Place ID.
         const googleUrl = site.google_place_id
             ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.nom)}&query_place_id=${encodeURIComponent(site.google_place_id)}`
@@ -33,12 +29,10 @@ export function useSite() {
             ...site,
             instagramUrl,
             telephoneUrl: numero ? `tel:+${numero}` : null,
-            whatsappUrl,
             googleUrl,
-            // WhatsApp n'apparaît que si le téléphone est renseigné, Google que si la fiche l'est (config/site.php).
+            // Google n'apparaît que si la fiche est renseignée (config/site.php).
             reseaux: [
                 { nom: 'Instagram', url: instagramUrl, icone: 'instagram' },
-                whatsappUrl && { nom: 'WhatsApp', url: whatsappUrl, icone: 'whatsapp' },
                 googleUrl && { nom: 'Google', url: googleUrl, icone: 'google' },
             ].filter(Boolean),
         };
