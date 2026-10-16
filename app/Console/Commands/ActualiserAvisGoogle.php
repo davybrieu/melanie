@@ -15,8 +15,10 @@ use Throwable;
  * Lancée chaque matin (routes/console.php). Elle garde tous les avis, même sans texte (note
  * seule) : modifiés ou supprimés sur Google, ils le sont aussi sur le site. Un nouvel avis arrive
  * masqué : les avis à afficher se choisissent dans l'espace de gestion, et ce choix est conservé.
- * Les règles de Google limitent ce stockage à 30 jours : sans actualisation réussie depuis, les
- * données sont effacées. Un échec est consigné dans le journal de Laravel, sans e-mail.
+ * En cas d'échec, la note et les avis déjà enregistrés restent affichés, sans limite de durée
+ * (choix de Mélanie, au-delà des 30 jours de stockage permis par les règles des Business Profile
+ * APIs), et la commande réessaie le lendemain matin. L'échec est consigné dans le journal de
+ * Laravel, sans e-mail.
  */
 class ActualiserAvisGoogle extends Command
 {
@@ -35,14 +37,13 @@ class ActualiserAvisGoogle extends Command
         try {
             $fiche = $ficheGoogle->lire();
         } catch (Throwable $exception) {
-            // Seulement dans le journal (storage/logs) : le site n'envoie aucun e-mail d'erreur. Une
-            // panne passagère de Google se règle en général d'elle-même avant le lendemain matin.
+            // Seulement dans le journal (storage/logs) : le site n'envoie aucun e-mail d'erreur, et
+            // rien n'est effacé. Une panne de Google se règle en général d'elle-même avant le lendemain.
             Log::error('Avis Google : actualisation impossible.', [
                 'erreur' => $exception->getMessage(),
                 'derniere_reussite' => NoteGoogle::find(1)?->updated_at?->toIso8601String(),
             ]);
             $this->error("Actualisation impossible : {$exception->getMessage()}");
-            $this->effacerPerimes();
 
             return self::FAILURE;
         }
@@ -73,14 +74,5 @@ class ActualiserAvisGoogle extends Command
         ));
 
         return self::SUCCESS;
-    }
-
-    /** Règles de Google : rien n'est gardé plus de 30 jours sans actualisation. */
-    private function effacerPerimes(): void
-    {
-        $limite = now()->subDays(30);
-
-        AvisGoogle::where('updated_at', '<', $limite)->delete();
-        NoteGoogle::where('updated_at', '<', $limite)->delete();
     }
 }

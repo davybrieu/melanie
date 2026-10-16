@@ -25,12 +25,6 @@ class AvisGoogle extends Model
         ];
     }
 
-    /** Actualisés depuis moins de 30 jours : au-delà, les règles de Google interdisent de les garder. */
-    public function scopeAJour(Builder $requete): void
-    {
-        $requete->where('updated_at', '>=', now()->subDays(30));
-    }
-
     public function scopeAffiches(Builder $requete): void
     {
         $requete->where('affiche', true);

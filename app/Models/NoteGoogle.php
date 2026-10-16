@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -21,11 +20,5 @@ class NoteGoogle extends Model
             'note' => 'float',
             'nombre_avis' => 'integer',
         ];
-    }
-
-    /** Actualisée depuis moins de 30 jours : au-delà, les règles de Google interdisent de la garder. */
-    public function scopeAJour(Builder $requete): void
-    {
-        $requete->where('updated_at', '>=', now()->subDays(30));
     }
 }

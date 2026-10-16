@@ -87,7 +87,7 @@ class PageController extends Controller
     {
         return Inertia::render('Legal/Confidentialite', [
             'email' => config('mail.from.address'),
-            'avisGoogle' => AvisGoogle::aJour()->exists(),
+            'avisGoogle' => AvisGoogle::exists(),
         ]);
     }
 
@@ -104,7 +104,7 @@ class PageController extends Controller
      */
     private function avisGoogle(): ?array
     {
-        $note = NoteGoogle::aJour()->first();
+        $note = NoteGoogle::first();
 
         if ($note?->note === null) {
             return null;
@@ -114,7 +114,7 @@ class PageController extends Controller
             'note' => $note->note,
             'noteTexte' => number_format($note->note, 1, ',', ''),
             'nombre' => $note->nombre_avis,
-            'avis' => AvisGoogle::aJour()->affiches()->ordreDuSite()->get()
+            'avis' => AvisGoogle::affiches()->ordreDuSite()->get()
                 ->map(fn (AvisGoogle $avis) => [
                     'auteur' => $avis->auteur,
                     'note' => $avis->note,

@@ -19,7 +19,7 @@ class AvisGoogleController extends Controller
 {
     public function index(): Response
     {
-        $note = NoteGoogle::aJour()->first();
+        $note = NoteGoogle::first();
 
         return Inertia::render('Admin/Avis', [
             // Accès à la fiche configuré (GOOGLE_BUSINESS_*) : sans lui, aucun avis n'est importé.
@@ -30,7 +30,7 @@ class AvisGoogleController extends Controller
                 'nombre' => $note->nombre_avis,
                 'actualiseLe' => $note->updated_at->timezone('Europe/Paris')->locale('fr')->translatedFormat('j F Y à G \h i'),
             ] : null,
-            'avis' => AvisGoogle::aJour()->latest('publie_le')->get()->map(fn (AvisGoogle $avis) => [
+            'avis' => AvisGoogle::latest('publie_le')->get()->map(fn (AvisGoogle $avis) => [
                 'id' => $avis->id,
                 'auteur' => $avis->auteur,
                 'note' => $avis->note,
@@ -44,8 +44,8 @@ class AvisGoogleController extends Controller
     /** Affiche l'avis sur le site, ou le masque. */
     public function affichage(Request $request, AvisGoogle $avisGoogle): RedirectResponse
     {
-        // updated_at date la dernière actualisation depuis Google (30 jours au plus, règles de
-        // Google) : un choix d'affichage ne doit pas la changer.
+        // updated_at date la dernière actualisation depuis Google : un choix d'affichage ne doit
+        // pas la changer.
         AvisGoogle::withoutTimestamps(fn () => $avisGoogle->update(['affiche' => $request->boolean('affiche')]));
 
         return to_route('admin.avis');
