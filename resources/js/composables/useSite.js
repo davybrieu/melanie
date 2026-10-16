@@ -24,12 +24,15 @@ export function useSite() {
         const googleUrl = site.google_place_id
             ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.nom)}&query_place_id=${encodeURIComponent(site.google_place_id)}`
             : null;
+        // Formulaire de Google pour laisser un avis sur la fiche, par le même Place ID.
+        const avisGoogleUrl = site.google_place_id ? `https://search.google.com/local/writereview?placeid=${encodeURIComponent(site.google_place_id)}` : null;
 
         return {
             ...site,
             instagramUrl,
             telephoneUrl: numero ? `tel:+${numero}` : null,
             googleUrl,
+            avisGoogleUrl,
             // Google n'apparaît que si la fiche est renseignée (config/site.php).
             reseaux: [
                 { nom: 'Instagram', url: instagramUrl, icone: 'instagram' },

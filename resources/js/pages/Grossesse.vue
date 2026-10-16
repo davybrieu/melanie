@@ -12,7 +12,7 @@ import SectionFaq from '../components/SectionFaq.vue';
 import Seo from '../components/Seo.vue';
 import TitreSection from '../components/TitreSection.vue';
 import { useSite } from '../composables/useSite';
-import { conditions } from '../data/conditions';
+import { communesCitees, conditions } from '../data/conditions';
 import { faqGrossesse } from '../data/faq';
 import { euros, photosIncluses, seances } from '../data/seances';
 import { serviceJsonLd } from '../data/seo';
@@ -42,7 +42,7 @@ const etapes = [
 const infos = [
     { icone: 'calendrier', titre: 'Quand ?', texte: 'Entre le 7e et le 8e mois, quand le ventre est bien rond et que vous êtes encore à l’aise. Idéalement, réservez dès le 5e mois.' },
     { icone: 'famille', titre: 'Avec qui ?', texte: 'Seule, avec votre partenaire, avec vos aînés… Chacun a sa place dans cette histoire.' },
-    { icone: 'soleil', titre: 'Où ?', texte: `En extérieur, dans la lumière dorée de fin de journée, ou chez vous pour une ambiance cocooning. ${conditions.deplacements}.` },
+    { icone: 'soleil', titre: 'Où ?', texte: `En extérieur, dans la lumière dorée de fin de journée, ou chez vous pour une ambiance cocooning. ${conditions.deplacements} : ${communesCitees}` },
     { icone: 'cintre', titre: 'Que porter ?', texte: 'Des matières fluides et des tons doux. Le prêt de tenues est inclus : robes et tissus pour sublimer votre silhouette.' },
     { icone: 'horloge', titre: 'Combien de temps ?', texte: `${seance.duree} de séance, sans course contre la montre, avec des pauses dès que vous en avez besoin.` },
 ];

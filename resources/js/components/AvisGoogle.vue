@@ -143,6 +143,17 @@ onBeforeUnmount(() => observateur?.disconnect());
                 <!-- Texte court ; l'icône Google et le nom complet (lecteurs d'écran) disent où mène le lien. -->
                 <Bouton :href="site.googleUrl" externe variante="contour" icone="google" aria-label="Voir tous les avis sur Google">Voir tous les avis</Bouton>
             </p>
+            <!-- Pour les clients qui reviennent sur le site : un avis de plus sur la fiche Google. -->
+            <p v-if="site.avisGoogleUrl" class="mt-6 text-center text-[0.95rem] text-cacao-700">
+                Vous avez fait une séance avec moi ?
+                <a
+                    :href="site.avisGoogleUrl"
+                    target="_blank"
+                    rel="noopener"
+                    class="text-cacao-800 underline decoration-or-400 underline-offset-4 transition-colors hover:text-brique"
+                    >Laissez-moi un avis sur Google</a
+                >
+            </p>
         </div>
     </section>
 </template>

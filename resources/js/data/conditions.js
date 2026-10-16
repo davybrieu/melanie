@@ -56,3 +56,9 @@ export const conditions = {
         { nom: 'Selongey', codePostal: '21260' },
     ],
 };
+
+// Quelques communes desservies, citées dans le texte des pages séances : la liste complète est sur l'accueil.
+export const communesCitees = `${conditions.communes
+    .slice(1, 7)
+    .map((commune) => commune.nom)
+    .join(', ')}…`;

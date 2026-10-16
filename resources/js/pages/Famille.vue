@@ -11,6 +11,7 @@ import SectionFaq from '../components/SectionFaq.vue';
 import Seo from '../components/Seo.vue';
 import TitreSection from '../components/TitreSection.vue';
 import { useSite } from '../composables/useSite';
+import { communesCitees, conditions } from '../data/conditions';
 import { faqFamille } from '../data/faq';
 import { euros, seances } from '../data/seances';
 import { serviceJsonLd } from '../data/seo';
@@ -119,6 +120,7 @@ const moments = [
                     </p>
                 </article>
             </div>
+            <p class="texte-courant mx-auto mt-10 max-w-2xl text-center">Je me déplace sur {{ conditions.zone }} : {{ communesCitees }}</p>
         </div>
     </section>
 

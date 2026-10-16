@@ -74,7 +74,7 @@ export const entrepriseJsonLd = (site) => ({
         '@type': 'Person',
         name: parcours.prenom,
         jobTitle: site.metier,
-        knowsAbout: ['Photographie de grossesse', 'Photographie de nouveau-né', 'Photographie de famille'],
+        knowsAbout: ['Photographie de grossesse', 'Photographie de nouveau-né', 'Photographie de bébé', 'Photographie de famille'],
         hasCredential: {
             '@type': 'EducationalOccupationalCredential',
             name: parcours.formation.nom,
