@@ -47,24 +47,16 @@ const engagements = [
     />
 
     <section class="relative isolate overflow-hidden pt-8 pb-20 sm:pb-28">
-        <!-- Sur mobile, w-36 : plus grande, sa partie visible dépasserait le titre et deviendrait le plus
-             grand élément affiché (LCP), mesuré à l'arrivée de l'image au lieu de l'affichage du texte. -->
-        <Fleur variante="pampa" prioritaire class="absolute top-6 -right-10 -z-10 w-36 opacity-80 sm:w-60" />
-        <Fleur variante="gypsophile" class="absolute top-28 -left-14 -z-10 w-36 opacity-70 sm:w-48" />
+        <!-- Masquées sur mobile, comme sur la page contact : la fleur y deviendrait le plus grand élément
+             affiché (LCP), mesuré à l'arrivée de l'image au lieu de l'affichage du titre. Sur grand écran,
+             la pampa l'est : elle est chargée en priorité. -->
+        <Fleur variante="pampa" prioritaire visible-des="md" class="absolute top-6 -right-10 -z-10 hidden w-60 opacity-80 md:block" />
+        <Fleur variante="gypsophile" visible-des="md" class="absolute top-28 -left-14 -z-10 hidden w-48 opacity-70 md:block" />
 
         <div class="conteneur">
             <FilAriane :liens="[{ libelle: 'Tarifs' }]" />
 
-            <div class="mt-10 text-center">
-                <img src="/images/marque/monogramme-mp.webp" width="240" height="126" alt="Mélanie Photographie" aria-hidden="true" class="mx-auto h-12 w-auto" />
-                <TitreSection class="mt-4" balise="h1" surtitre="Mes offres" coeurs titre="Tarifs des séances photo" majuscules manuscrit="Des souvenirs vrais, remplis d’émotions" />
-                <p class="surtitre mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
-                    <span>Grossesse</span><span class="text-or-600">·</span><span>Nouveau-né</span><span class="text-or-600">·</span><span>Famille</span>
-                </p>
-                <p class="mt-4 inline-flex items-center gap-2 text-taupe-600">
-                    <Icone nom="localisation" class="size-5 text-or-500" /> {{ conditions.deplacements }}
-                </p>
-            </div>
+            <TitreSection class="mt-12" balise="h1" surtitre="Mes offres" titre="Tarifs des séances photo" manuscrit="Des souvenirs vrais, remplis d’émotions" />
 
             <div class="mt-14 grid gap-6 lg:grid-cols-[minmax(0,0.42fr)_minmax(0,1fr)] lg:gap-10">
                 <div class="hidden flex-col gap-4 lg:flex">

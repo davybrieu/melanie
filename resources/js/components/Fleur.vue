@@ -19,7 +19,7 @@ const imageVide = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAA
 
 const props = defineProps({
     variante: { type: String, required: true },
-    // Fleur en haut de page qui est le plus grand élément affiché sur mobile : chargée en priorité.
+    // Fleur en haut de page qui est le plus grand élément affiché (LCP) : chargée en priorité.
     prioritaire: { type: Boolean, default: false },
     // Fleur toujours loin sous le haut de page (appel à réserver, pied de page) : chargée à l'approche.
     differee: { type: Boolean, default: false },
@@ -34,7 +34,16 @@ const fleur = computed(() => fleurs[props.variante]);
 <template>
     <picture v-if="visibleDes" class="pointer-events-none select-none">
         <source :media="`(min-width: ${largeursMinimales[visibleDes]})`" :srcset="fleur.src" :width="fleur.largeur" :height="fleur.hauteur" />
-        <img :src="imageVide" :width="fleur.largeur" :height="fleur.hauteur" :alt="fleur.alt" aria-hidden="true" decoding="async" class="block h-auto w-full" />
+        <img
+            :src="imageVide"
+            :width="fleur.largeur"
+            :height="fleur.hauteur"
+            :alt="fleur.alt"
+            aria-hidden="true"
+            :fetchpriority="prioritaire ? 'high' : 'auto'"
+            decoding="async"
+            class="block h-auto w-full"
+        />
     </picture>
     <img
         v-else
