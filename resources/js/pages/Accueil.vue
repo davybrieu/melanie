@@ -48,7 +48,7 @@ const pratique = [
     },
     {
         route: 'nouveau-ne',
-        lien: 'Séance photo naissance et bébé à domicile',
+        lien: 'Séance photo naissance à domicile',
         texte: 'Je viens chez vous dans les premiers jours de bébé, idéalement entre 5 et 15 jours, pour des photos de nouveau-né tout en douceur, à son rythme et en toute sécurité.',
     },
     {

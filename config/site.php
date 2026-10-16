@@ -10,7 +10,7 @@ return [
 
     'nom' => 'Mélanie Photographie',
 
-    'metier' => 'Photographe grossesse, nouveau-né, bébé & famille',
+    'metier' => 'Photographe grossesse, nouveau-né & famille',
 
     'naissance' => '1997-02-23',
 

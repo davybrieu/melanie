@@ -1,5 +1,4 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
 import { computed, inject } from 'vue';
 import AppelReservation from '../components/AppelReservation.vue';
 import Bouton from '../components/Bouton.vue';
@@ -29,8 +28,7 @@ const site = useSite();
 const seance = seances['nouveau-ne'];
 
 // « Naissance » et « bébé » : les mots que les parents tapent aussi souvent que « nouveau-né ».
-const titre = 'Photographe naissance, nouveau-né et bébé à Dijon';
-const description = `${titre}, formée et vaccinée contre la coqueluche : séance photo à domicile, au rythme de bébé. Séance à ${euros(seance.prix)}.`;
+const description = `Photographe naissance et nouveau-né à Dijon, formée et vaccinée contre la coqueluche : séance bébé à domicile, sa sécurité avant tout. Séance à ${euros(seance.prix)}.`;
 
 // Pas de FAQPage ici : les questions sont balisées une seule fois, sur la page FAQ.
 const jsonLd = computed(() => serviceJsonLd(site.value, route, seance));
@@ -66,31 +64,16 @@ const etapes = [
     { titre: 'Vos souvenirs', texte: `Nous choisissons ensemble vos ${photosIncluses} photos préférées, que je retouche et vous livre en haute définition ${conditions.livraison}.` },
 ];
 
-// Séance bébé selon son âge : reprend les réponses de la FAQ, validées par Mélanie (« Quel âge idéal
-// pour une séance nouveau-né ? », « Peut-on faire une séance nouveau-né si bébé a plus de 15 jours ? »).
-const ages = [
-    {
-        icone: 'calendrier',
-        titre: 'Entre 5 et 15 jours',
-        texte: 'Le moment idéal pour les photos de nouveau-né\u00a0: bébé dort profondément et garde encore ses petites positions enroulées. Réservez pendant la grossesse, nous fixerons la date après la naissance.',
-    },
-    {
-        icone: 'bebe',
-        titre: 'Après 15 jours',
-        texte: 'La séance reste tout à fait possible\u00a0! Bébé est plus éveillé\u00a0: nous privilégions des images naturelles et spontanées, blotti dans vos bras, ses grands yeux ouverts, ses premiers regards…',
-    },
-];
-
 const moments = ['Bébé paisiblement endormi', 'Blotti dans vos bras', 'Ses minuscules mains et petits pieds', 'Les premiers regards', 'La rencontre avec les aînés', 'Votre nouvelle famille, au complet'];
 </script>
 
 <template>
-    <Seo :titre="titre" :description="description" :json-ld="jsonLd" />
+    <Seo titre="Photographe naissance et nouveau-né à Dijon" :description="description" :json-ld="jsonLd" />
 
     <EnTetePage
-        :fil="[{ libelle: 'Nouveau-né et bébé' }]"
+        :fil="[{ libelle: 'Nouveau-né' }]"
         surtitre="Séance photo naissance à domicile"
-        titre="Photographe nouveau-né et bébé à Dijon"
+        titre="Photographe naissance et nouveau-né à Dijon"
         :manuscrit="seance.accroche"
         :photo="photos.hero"
         libelle-photo="Photo nouveau-né principale"
@@ -99,7 +82,7 @@ const moments = ['Bébé paisiblement endormi', 'Blotti dans vos bras', 'Ses min
             Les premiers jours ne durent pas.<br />Les photographies, oui.
         </p>
         <p class="texte-courant mx-auto mt-5 max-w-xl lg:mx-0">
-            Ses petits doigts qui s’enroulent autour des vôtres, son odeur, ses mimiques pendant son sommeil… Tout change si vite. Je viens chez vous, à Dijon ou dans ses alentours, pour une séance photo de bébé tout en douceur, dès ses premiers jours, pensée d’abord pour son confort et sa sécurité.
+            Ses petits doigts qui s’enroulent autour des vôtres, son odeur, ses mimiques pendant son sommeil… Tout change si vite. Je viens chez vous, à Dijon ou dans ses alentours, pour une séance photo de naissance tout en douceur, pensée d’abord pour le confort et la sécurité de bébé.
         </p>
         <div class="mt-9 flex flex-wrap justify-center gap-4 lg:justify-start">
             <Bouton :href="route('contact', { seance: 'nouveau-ne' })">Réserver pendant la grossesse</Bouton>
@@ -149,25 +132,6 @@ const moments = ['Bébé paisiblement endormi', 'Blotti dans vos bras', 'Ses min
         </div>
     </section>
 
-    <!-- Séance bébé : à quel âge ? -->
-    <section class="border-y border-creme-300 bg-creme-50 py-20 sm:py-28">
-        <div class="conteneur max-w-4xl">
-            <TitreSection surtitre="Photographe bébé à Dijon" :titre="'Séance photo bébé\u00a0: à quel âge\u00a0?'" />
-            <div class="mt-12 grid gap-5 md:grid-cols-2">
-                <article v-for="age in ages" :key="age.titre" class="rounded-2xl border border-creme-300 bg-creme-100 p-7 sm:p-8">
-                    <Icone :nom="age.icone" class="size-9 text-or-500" />
-                    <h3 class="mt-5 text-2xl">{{ age.titre }}</h3>
-                    <p class="texte-courant mt-3">{{ age.texte }}</p>
-                </article>
-            </div>
-            <p class="texte-courant mx-auto mt-10 max-w-2xl text-center">
-                Et quand bébé grandit, il a toute sa place dans une
-                <Link :href="route('famille')" class="text-cacao-800 underline decoration-or-400 underline-offset-4 hover:text-brique">séance photo famille</Link>, avec ses parents, ses
-                frères et sœurs.
-            </p>
-        </div>
-    </section>
-
     <!-- Ce que je photographie + grandes photos -->
     <section class="bg-creme-200/60 py-20 sm:py-28">
         <div class="conteneur grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
@@ -203,7 +167,7 @@ const moments = ['Bébé paisiblement endormi', 'Blotti dans vos bras', 'Ses min
     <!-- Galerie -->
     <section class="bg-creme-50 py-20 sm:py-28">
         <div class="conteneur">
-            <TitreSection surtitre="Galerie" titre="Quelques séances nouveau-né et bébé" manuscrit="Des premiers instants précieux" />
+            <TitreSection surtitre="Galerie" titre="Quelques séances naissance et nouveau-né" manuscrit="Des premiers instants précieux" />
             <div class="mt-12">
                 <Galerie :photos="photos.galerie" libelle="Photo nouveau-né" />
             </div>
