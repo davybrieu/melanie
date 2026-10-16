@@ -5,12 +5,8 @@ namespace App\Console\Commands;
 use App\Models\AvisGoogle;
 use App\Models\NoteGoogle;
 use App\Support\FicheGoogle;
-use Carbon\CarbonInterface;
 use Illuminate\Console\Command;
-use Illuminate\Mail\Message;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Throwable;
 
 /**
@@ -20,13 +16,10 @@ use Throwable;
  * seule) : modifiés ou supprimés sur Google, ils le sont aussi sur le site. Un nouvel avis arrive
  * masqué : les avis à afficher se choisissent dans l'espace de gestion, et ce choix est conservé.
  * Les règles de Google limitent ce stockage à 30 jours : sans actualisation réussie depuis, les
- * données sont effacées. L'adresse du site est prévenue au troisième matin d'échec de suite.
+ * données sont effacées. Un échec est consigné dans le journal de Laravel, sans e-mail.
  */
 class ActualiserAvisGoogle extends Command
 {
-    // Échec déjà signalé par e-mail : pas de nouvel e-mail avant une semaine.
-    private const CLE_ALERTE = 'avis-google.alerte-envoyee';
-
     protected $signature = 'avis:actualiser';
 
     protected $description = 'Actualise la note et les avis de la fiche Google';
@@ -42,23 +35,17 @@ class ActualiserAvisGoogle extends Command
         try {
             $fiche = $ficheGoogle->lire();
         } catch (Throwable $exception) {
-            Log::error('Avis Google : actualisation impossible.', ['erreur' => $exception->getMessage()]);
+            // Seulement dans le journal (storage/logs) : le site n'envoie aucun e-mail d'erreur. Une
+            // panne passagère de Google se règle en général d'elle-même avant le lendemain matin.
+            Log::error('Avis Google : actualisation impossible.', [
+                'erreur' => $exception->getMessage(),
+                'derniere_reussite' => NoteGoogle::find(1)?->updated_at?->toIso8601String(),
+            ]);
             $this->error("Actualisation impossible : {$exception->getMessage()}");
             $this->effacerPerimes();
 
-            // Une panne de Google se règle en général d'elle-même : l'alerte attend le troisième matin
-            // d'échec de suite (aucune actualisation réussie ni ce jour-là, ni la veille, ni
-            // l'avant-veille). Sans actualisation réussie enregistrée, elle part aussitôt.
-            $derniereReussite = NoteGoogle::find(1)?->updated_at;
-
-            if ($derniereReussite === null || $derniereReussite->lt(now('Europe/Paris')->startOfDay()->subDays(2))) {
-                $this->prevenir($exception->getMessage(), $derniereReussite);
-            }
-
             return self::FAILURE;
         }
-
-        Cache::forget(self::CLE_ALERTE);
 
         NoteGoogle::upsert([['id' => 1, 'note' => $fiche['note'], 'nombre_avis' => $fiche['nombre']]], ['id'], ['note', 'nombre_avis']);
 
@@ -95,34 +82,5 @@ class ActualiserAvisGoogle extends Command
 
         AvisGoogle::where('updated_at', '<', $limite)->delete();
         NoteGoogle::where('updated_at', '<', $limite)->delete();
-    }
-
-    /**
-     * Prévient l'adresse du site (MAIL_FROM_ADDRESS), au plus une fois par semaine tant que
-     * l'erreur dure : sans actualisation réussie pendant 30 jours, les avis disparaissent du site.
-     */
-    private function prevenir(string $erreur, ?CarbonInterface $derniereReussite): void
-    {
-        if (! Cache::add(self::CLE_ALERTE, true, now()->addWeek())) {
-            return;
-        }
-
-        $texte = implode("\n\n", array_filter([
-            ($derniereReussite
-                ? 'Les avis Google du site n’ont pas pu être mis à jour depuis le '.$derniereReussite->timezone('Europe/Paris')->locale('fr')->translatedFormat('j F Y').'. Dernière erreur :'
-                : 'La mise à jour quotidienne des avis Google du site a échoué :')."\n".trim($erreur),
-            str_contains($erreur, 'invalid_grant')
-                ? 'Google refuse le jeton d’actualisation : générez-en un nouveau et remplacez GOOGLE_BUSINESS_REFRESH_TOKEN dans Forge (voir « Avis Google » dans le README).'
-                : null,
-            'Sans mise à jour réussie pendant 30 jours, la note et les avis disparaissent du site. Ce message est renvoyé au plus une fois par semaine tant que l’erreur dure.',
-        ]));
-
-        try {
-            Mail::raw($texte, fn (Message $message) => $message
-                ->to(config('mail.from.address'), config('site.nom'))
-                ->subject('Avis Google : mise à jour impossible'));
-        } catch (Throwable $exception) {
-            Log::error('Avis Google : e-mail d’alerte impossible.', ['erreur' => $exception->getMessage()]);
-        }
     }
 }
