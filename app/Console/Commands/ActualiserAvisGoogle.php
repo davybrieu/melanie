@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\AvisGoogle;
 use App\Models\NoteGoogle;
 use App\Support\FicheGoogle;
+use Carbon\CarbonInterface;
 use Illuminate\Console\Command;
 use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Cache;
@@ -19,7 +20,7 @@ use Throwable;
  * seule) : modifiés ou supprimés sur Google, ils le sont aussi sur le site. Un nouvel avis arrive
  * masqué : les avis à afficher se choisissent dans l'espace de gestion, et ce choix est conservé.
  * Les règles de Google limitent ce stockage à 30 jours : sans actualisation réussie depuis, les
- * données sont effacées. En cas d'échec, l'adresse du site est prévenue.
+ * données sont effacées. L'adresse du site est prévenue au troisième matin d'échec de suite.
  */
 class ActualiserAvisGoogle extends Command
 {
@@ -44,7 +45,15 @@ class ActualiserAvisGoogle extends Command
             Log::error('Avis Google : actualisation impossible.', ['erreur' => $exception->getMessage()]);
             $this->error("Actualisation impossible : {$exception->getMessage()}");
             $this->effacerPerimes();
-            $this->prevenir($exception->getMessage());
+
+            // Une panne de Google se règle en général d'elle-même : l'alerte attend le troisième matin
+            // d'échec de suite (aucune actualisation réussie ni ce jour-là, ni la veille, ni
+            // l'avant-veille). Sans actualisation réussie enregistrée, elle part aussitôt.
+            $derniereReussite = NoteGoogle::find(1)?->updated_at;
+
+            if ($derniereReussite === null || $derniereReussite->lt(now('Europe/Paris')->startOfDay()->subDays(2))) {
+                $this->prevenir($exception->getMessage(), $derniereReussite);
+            }
 
             return self::FAILURE;
         }
@@ -92,14 +101,16 @@ class ActualiserAvisGoogle extends Command
      * Prévient l'adresse du site (MAIL_FROM_ADDRESS), au plus une fois par semaine tant que
      * l'erreur dure : sans actualisation réussie pendant 30 jours, les avis disparaissent du site.
      */
-    private function prevenir(string $erreur): void
+    private function prevenir(string $erreur, ?CarbonInterface $derniereReussite): void
     {
         if (! Cache::add(self::CLE_ALERTE, true, now()->addWeek())) {
             return;
         }
 
         $texte = implode("\n\n", array_filter([
-            "La mise à jour quotidienne des avis Google du site a échoué :\n".trim($erreur),
+            ($derniereReussite
+                ? 'Les avis Google du site n’ont pas pu être mis à jour depuis le '.$derniereReussite->timezone('Europe/Paris')->locale('fr')->translatedFormat('j F Y').'. Dernière erreur :'
+                : 'La mise à jour quotidienne des avis Google du site a échoué :')."\n".trim($erreur),
             str_contains($erreur, 'invalid_grant')
                 ? 'Google refuse le jeton d’actualisation : générez-en un nouveau et remplacez GOOGLE_BUSINESS_REFRESH_TOKEN dans Forge (voir « Avis Google » dans le README).'
                 : null,

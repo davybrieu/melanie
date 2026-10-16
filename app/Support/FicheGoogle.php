@@ -2,11 +2,14 @@
 
 namespace App\Support;
 
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use RuntimeException;
+use Throwable;
 
 /**
  * Fiche Google de Mélanie, lue par la Business Profile API : note globale, nombre d'avis et avis.
@@ -61,7 +64,7 @@ class FicheGoogle
     /** Jeton d'accès d'une heure, obtenu avec le jeton d'actualisation. */
     private function jeton(): string
     {
-        return Http::asForm()->timeout(20)->post('https://oauth2.googleapis.com/token', [
+        return $this->requete()->asForm()->post('https://oauth2.googleapis.com/token', [
             'grant_type' => 'refresh_token',
             'client_id' => config('services.google_business.client_id'),
             'client_secret' => config('services.google_business.client_secret'),
@@ -140,6 +143,16 @@ class FicheGoogle
 
     private function client(string $jeton): PendingRequest
     {
-        return Http::withToken($jeton)->acceptJson()->timeout(20);
+        return $this->requete()->withToken($jeton)->acceptJson();
+    }
+
+    /**
+     * Requête vers Google. Une erreur passagère (service indisponible ou surchargé, coupure
+     * réseau) est retentée trois fois, après 2, 10 et 30 secondes ; les autres échouent aussitôt.
+     */
+    private function requete(): PendingRequest
+    {
+        return Http::timeout(20)->retry([2000, 10000, 30000], when: fn (Throwable $exception) => $exception instanceof ConnectionException
+            || ($exception instanceof RequestException && in_array($exception->response->status(), [429, 500, 502, 503, 504], true)));
     }
 }

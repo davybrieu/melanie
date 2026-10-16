@@ -93,7 +93,7 @@ L'accueil affiche la note de la fiche Google et les avis choisis dans l'espace d
    - étape 2 : cliquez sur « Exchange authorization code for tokens » et copiez le « Refresh token ».
 7. **Forge** : dans Environment, renseignez `GOOGLE_PLACE_ID`, `GOOGLE_BUSINESS_CLIENT_ID`, `GOOGLE_BUSINESS_CLIENT_SECRET` et `GOOGLE_BUSINESS_REFRESH_TOKEN`, activez « Laravel Scheduler » (onglet Overview du site), redéployez, puis lancez une fois `php artisan avis:actualiser` (onglet Commands).
 
-Le jeton d'actualisation n'a pas de date d'expiration : utilisé chaque jour, il reste valable. Il faut en créer un nouveau (étape 6) seulement si Google le révoque : accès retiré depuis le compte Google, écran de consentement repassé en test, ou plus de 100 jetons créés pour le même ID client (les plus anciens sont annulés). La commande échoue alors (`invalid_grant`) et un e-mail prévient l'adresse du site, au plus une fois par semaine. Sans mise à jour réussie pendant 30 jours, la note et les avis disparaissent du site.
+Le jeton d'actualisation n'a pas de date d'expiration : utilisé chaque jour, il reste valable. Il faut en créer un nouveau (étape 6) seulement si Google le révoque : accès retiré depuis le compte Google, écran de consentement repassé en test, ou plus de 100 jetons créés pour le même ID client (les plus anciens sont annulés). La commande échoue alors (`invalid_grant`) et, au troisième matin d'échec de suite, un e-mail prévient l'adresse du site, au plus une fois par semaine. Une panne passagère de Google (erreur 503 par exemple) ne déclenche pas d'e-mail : la requête est retentée, et la mise à jour du lendemain prend le relais. Sans mise à jour réussie pendant 30 jours, la note et les avis disparaissent du site.
 
 ## Espace de gestion
 
