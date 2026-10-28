@@ -14,7 +14,7 @@ use Illuminate\Support\Str;
  * sauvegardes de la base. Les variantes WebP en sont tirées à la demande.
  *
  * Reprend les photos déposées jusqu'ici dans resources/photos (seul le portrait existait), avec
- * le texte alternatif que le site en tirait.
+ * le texte alternatif que le site en tirait. Ce dossier a été retiré ensuite : sans lui, rien à reprendre.
  */
 return new class extends Migration
 {
