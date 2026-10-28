@@ -1,7 +1,8 @@
 <script setup>
 import Icone from './Icone.vue';
 
-// Affiche une photo de resources/photos, ou un emplacement aux couleurs du site si elle manque.
+// Affiche une photo ajoutée dans l'espace de gestion (/admin/photos), ou un emplacement aux couleurs
+// du site si elle manque.
 // La hauteur vient d'une classe d'aspect (aspect-[4/5]…) passée par le parent, sauf en mode « naturelle ».
 defineProps({
     photo: { type: Object, default: null },

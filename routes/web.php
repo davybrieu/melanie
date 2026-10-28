@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AvisGoogleController;
 use App\Http\Controllers\Admin\BonCadeauController;
 use App\Http\Controllers\Admin\ConnexionController;
+use App\Http\Controllers\Admin\PhotosController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PhotoController;
@@ -41,7 +42,7 @@ Route::get('/photos/{largeur}/{dossier}/{fichier}', PhotoController::class)
     ->whereIn('dossier', Photos::DOSSIERS)
     ->name('photo');
 
-// Espace de gestion (bons cadeaux, avis Google), réservé à Mélanie (identifiants ADMIN_* du
+// Espace de gestion (bons cadeaux, avis Google, photos), réservé à Mélanie (identifiants ADMIN_* du
 // .env ; sans eux, 404). Ces routes sont exclues de Ziggy : les pages Admin/* écrivent leurs adresses.
 Route::prefix('admin')->name('admin.')->middleware(EspaceAdmin::class)->group(function () {
     Route::get('/connexion', [ConnexionController::class, 'create'])->name('connexion');
@@ -57,4 +58,10 @@ Route::prefix('admin')->name('admin.')->middleware(EspaceAdmin::class)->group(fu
 
     Route::get('/avis', [AvisGoogleController::class, 'index'])->name('avis');
     Route::patch('/avis/{avisGoogle}', [AvisGoogleController::class, 'affichage'])->name('avis.affichage');
+
+    Route::get('/photos', [PhotosController::class, 'index'])->name('photos');
+    Route::post('/photos', [PhotosController::class, 'store'])->name('photos.ajouter');
+    Route::patch('/photos/{photo}', [PhotosController::class, 'update'])->name('photos.modifier');
+    Route::patch('/photos/{photo}/position', [PhotosController::class, 'deplacer'])->name('photos.deplacer');
+    Route::delete('/photos/{photo}', [PhotosController::class, 'destroy'])->name('photos.supprimer');
 });

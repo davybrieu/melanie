@@ -1,4 +1,4 @@
-// Textes des pages portfolio (les photos viennent de resources/photos/{categorie}).
+// Textes des pages portfolio (les photos s'ajoutent dans l'espace de gestion, /admin/photos).
 // description : meta description de la page, 155 caractères au plus.
 export const categoriesPortfolio = {
     grossesse: {

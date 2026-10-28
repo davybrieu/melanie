@@ -12,6 +12,7 @@ const page = usePage();
 const rubriques = [
     { libelle: 'Bons cadeaux', href: '/admin/bons-cadeaux' },
     { libelle: 'Avis Google', href: '/admin/avis' },
+    { libelle: 'Photos', href: '/admin/photos' },
 ];
 
 const connecte = computed(() => page.component !== 'Admin/Connexion');

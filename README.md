@@ -97,7 +97,7 @@ Le jeton d'actualisation n'a pas de date d'expiration : utilisé chaque jour, il
 
 ## Espace de gestion
 
-L'espace de gestion, à l'adresse `/admin` (`https://www.melanie-photographie.fr/admin`), a deux rubriques : les bons cadeaux et les avis Google. Sur mobile, elles sont dans le menu (bouton en haut à droite).
+L'espace de gestion, à l'adresse `/admin` (`https://www.melanie-photographie.fr/admin`), a trois rubriques : les bons cadeaux, les avis Google et les photos. Sur mobile, elles sont dans le menu (bouton en haut à droite).
 
 **Mise en place** : dans Forge (Environment), renseignez `ADMIN_EMAIL` (votre adresse e-mail) et `ADMIN_MOT_DE_PASSE` (un mot de passe long, propre à ce site), puis redéployez : la migration crée la table des bons. Tant que l'une des deux valeurs est vide, `/admin` répond 404. Pour ne pas laisser le mot de passe lisible dans le `.env`, `ADMIN_MOT_DE_PASSE` accepte aussi son empreinte bcrypt, à écrire entre apostrophes (`'$2y$12$…'`) et à générer par exemple avec `php -r "echo password_hash('le mot de passe', PASSWORD_BCRYPT), PHP_EOL;"`. Changer l'adresse ou le mot de passe déconnecte les sessions ouvertes.
 
@@ -111,9 +111,17 @@ La validité proposée (6 mois) vient de `resources/js/data/conditions.js` ; le 
 
 **Avis Google** : la page liste tous les avis de votre fiche, les plus récents d'abord ; une note laissée sans commentaire porte la mention « Sans commentaire », ici comme sur l'accueil. L'interrupteur « Afficher sur le site » de chaque avis l'ajoute à la page d'accueil ou l'en retire, aussitôt. Un nouvel avis arrive masqué : la mise à jour de chaque matin l'ajoute à la liste, et il n'apparaît sur l'accueil que si vous l'affichez. Vos choix sont gardés d'un jour à l'autre.
 
+**Photos** : la page commence par les pages où il manque des photos. Viennent ensuite les trois photos du site (grande photo de l'accueil, votre portrait, photo du bon cadeau), puis les photos de chaque séance, dans l'ordre du site : la 1re est la photo principale (haut de la page de la séance, accueil, couverture du portfolio, tarifs), les 2e et 3e s'affichent en grand, les suivantes forment la galerie (9 au plus), et toutes sont dans le portfolio.
+
+- « Ajouter des photos » : choisissez une ou plusieurs photos, puis décrivez chacune. Ce texte alternatif, obligatoire, est lu par Google et par les lecteurs d'écran, et il donne son nom au fichier : décrivez ce que montre la photo (qui, quoi, où), avec un texte différent pour chaque photo.
+- Les photos sont réduites dans votre navigateur avant l'envoi (2400 px, JPEG), sans leurs métadonnées (position GPS du téléphone…) ; il leur faut au moins 1000 px sur le plus grand côté.
+- Le crayon modifie le texte alternatif, les flèches changent l'ordre, l'étoile fait d'une photo la photo principale et la corbeille la retire du site.
+
+Les photos sont gardées dans la base de données : elles survivent aux déploiements et partent avec ses sauvegardes.
+
 ## Photos
 
-Déposez les photos dans `resources/photos/` : le site les redimensionne et les convertit en WebP tout seul. Mode d'emploi : [`resources/photos/README.md`](resources/photos/README.md).
+Ajoutez les photos dans l'espace de gestion (rubrique « Photos », voir plus haut) : le site les redimensionne et les convertit en WebP tout seul.
 
 Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter une, convertissez-la d'abord en WebP (qualité 80), puis utilisez le `.webp`. Les exceptions (favicon, icônes, image de partage `og-image.jpg`) sont détaillées dans `CLAUDE.md`.
 
@@ -139,7 +147,7 @@ Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter u
 
 - [ ] Compléter les champs surlignés **[À compléter]** des pages Mentions légales et CGV (SIRET, adresse, médiateur…), et faire relire les CGV.
 - [ ] Confirmer les moyens de paiement (`resources/js/data/conditions.js`).
-- [ ] Déposer les photos (portfolio, portrait, accueil).
+- [ ] Ajouter les photos dans l'espace de gestion (rubrique « Photos »).
 - [ ] Relire et personnaliser la page « Mon univers » (`resources/js/pages/APropos.vue`).
 - [ ] Créer la boîte `contact@melanie-photographie.fr` chez OVH, avec une redirection vers la boîte personnelle, et renseigner l'envoi d'e-mails (`MAIL_*`, SMTP d'OVH).
 - [ ] Avis Google : suivre la section « Avis Google » (accès à l'API, jeton d'actualisation, Forge).
@@ -148,9 +156,9 @@ Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter u
 ## Structure
 
 - `routes/web.php` : pages du site (silo `/photographe-{séance}-dijon`, `/portfolio/{catégorie}`…)
-- `app/Http/Controllers` : pages, portfolio, contact, photos ; `Admin/` : connexion et bons cadeaux · `app/Console/Commands` : commandes `seo:generer` et `avis:actualiser`
-- `app/Support/FicheGoogle.php` : lecture de la fiche Google (Business Profile API) · `app/Models` : note et avis Google, bons cadeaux
-- `resources/js/pages/Admin/` et `resources/js/layouts/AdminLayout.vue` : espace de gestion · `resources/js/admin/bonCadeau.js` : image à imprimer des bons cadeaux
+- `app/Http/Controllers` : pages, portfolio, contact, photos ; `Admin/` : connexion, bons cadeaux, avis Google et photos · `app/Console/Commands` : commandes `seo:generer` et `avis:actualiser`
+- `app/Support/FicheGoogle.php` : lecture de la fiche Google (Business Profile API) · `app/Support/Photos.php` : photos (variantes WebP, ordre, ajout et suppression) · `app/Models` : note et avis Google, bons cadeaux, photos
+- `resources/js/pages/Admin/` et `resources/js/layouts/AdminLayout.vue` : espace de gestion · `resources/js/admin/bonCadeau.js` : image à imprimer des bons cadeaux · `resources/js/admin/photos.js` : préparation des photos avant l'envoi
 - `resources/js/pages/` : pages Inertia · `resources/js/components/` : composants (DA) · `resources/js/layouts/` : en-tête et pied de page
 - `resources/js/app.js` : point d'entrée client **et** SSR
 - `resources/views/app.blade.php` : template racine · `resources/views/mail/` : e-mail de demande de contact · `resources/views/vendor/mail/` : mise en page des e-mails (logo, sans pied de page)
