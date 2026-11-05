@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * gardé dans la table photos_originaux ; les pages reçoivent des variantes WebP (App\Support\Photos).
  *
  * Photo d'une séance (dossier grossesse, nouveau-ne ou famille) : son rôle dépend de sa position.
- * Photo du site (dossier site) : son emplacement (accueil, portrait, bon-cadeau) dit où elle va.
+ * Photo du site (dossier site) : son emplacement (portrait, bon-cadeau) dit où elle va.
  */
 class Photo extends Model
 {

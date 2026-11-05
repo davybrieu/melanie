@@ -111,7 +111,7 @@ La validité proposée (6 mois) vient de `resources/js/data/conditions.js` ; le 
 
 **Avis Google** : la page liste tous les avis de votre fiche, les plus récents d'abord ; une note laissée sans commentaire porte la mention « Sans commentaire », ici comme sur l'accueil. L'interrupteur « Afficher sur le site » de chaque avis l'ajoute à la page d'accueil ou l'en retire, aussitôt. Un nouvel avis arrive masqué : la mise à jour de chaque matin l'ajoute à la liste, et il n'apparaît sur l'accueil que si vous l'affichez. Vos choix sont gardés d'un jour à l'autre.
 
-**Photos** : la page commence par les pages où il manque des photos. Viennent ensuite les trois photos du site (grande photo de l'accueil, votre portrait, photo du bon cadeau), puis les photos de chaque séance, dans l'ordre du site : la 1re est la photo principale (haut de la page de la séance, accueil, couverture du portfolio, tarifs), les 2e et 3e s'affichent en grand, les suivantes forment la galerie (9 au plus), et toutes sont dans le portfolio.
+**Photos** : la page commence par les pages où il manque des photos. Viennent ensuite les deux photos du site (votre portrait, photo du bon cadeau), puis les photos de chaque séance, dans l'ordre du site : la 1re est la photo principale (haut de la page de la séance, accueil, couverture du portfolio, tarifs), les 2e et 3e s'affichent en grand, les suivantes forment la galerie (9 au plus), et toutes sont dans le portfolio.
 
 - « Ajouter des photos » : choisissez une ou plusieurs photos, puis décrivez chacune. Ce texte alternatif, obligatoire, est lu par Google et par les lecteurs d'écran, et il donne son nom au fichier : décrivez ce que montre la photo (qui, quoi, où), avec un texte différent pour chaque photo.
 - Les photos sont réduites dans votre navigateur avant l'envoi (2400 px, JPEG), sans leurs métadonnées (position GPS du téléphone…) ; il leur faut au moins 1000 px sur le plus grand côté.
@@ -121,7 +121,7 @@ Les photos sont gardées dans la base de données : elles survivent aux déploie
 
 ## Photos
 
-Ajoutez les photos dans l'espace de gestion (rubrique « Photos », voir plus haut) : le site les redimensionne et les convertit en WebP tout seul. Votre portrait est aussi gardé dans `database/photos/portrait.jpg` : une base neuve le reçoit d'office, comme portrait et comme photo d'accueil.
+Ajoutez les photos dans l'espace de gestion (rubrique « Photos », voir plus haut) : le site les redimensionne et les convertit en WebP tout seul. Votre portrait est aussi gardé dans `database/photos/portrait.jpg` : une base neuve le reçoit d'office.
 
 Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter une, convertissez-la d'abord en WebP (qualité 80), puis utilisez le `.webp`. Les exceptions (favicon, icônes, image de partage `og-image.jpg`) sont détaillées dans `CLAUDE.md`.
 

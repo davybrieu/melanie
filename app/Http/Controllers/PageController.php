@@ -16,7 +16,6 @@ class PageController extends Controller
     {
         return Inertia::render('Accueil', [
             'photos' => [
-                'hero' => $this->photos->nommee('accueil', 'grossesse'),
                 'univers' => [
                     'grossesse' => $this->photos->une('grossesse'),
                     'nouveau-ne' => $this->photos->une('nouveau-ne'),

@@ -24,7 +24,7 @@ use Throwable;
  * l'empreinte change à chaque nouveau fichier.
  *
  * Photos d'une séance : leur rôle dépend de leur position (la 1re est la photo principale de la
- * page séance…). Photos du dossier « site » : de leur emplacement (accueil, portrait, bon-cadeau).
+ * page séance…). Photos du dossier « site » : de leur emplacement (portrait, bon-cadeau).
  */
 class Photos
 {
@@ -34,8 +34,8 @@ class Photos
     /** Dossiers des séances : leurs photos forment une liste ordonnée. */
     public const SEANCES = ['grossesse', 'nouveau-ne', 'famille'];
 
-    /** Emplacements nommés du dossier « site ». */
-    public const EMPLACEMENTS = ['accueil', 'portrait', 'bon-cadeau'];
+    /** Emplacements nommés du dossier « site » (l'accueil n'a plus de grande photo). */
+    public const EMPLACEMENTS = ['portrait', 'bon-cadeau'];
 
     /** Largeurs générées pour les attributs srcset. */
     public const LARGEURS = [480, 800, 1200, 1600, 2000];

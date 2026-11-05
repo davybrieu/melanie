@@ -71,40 +71,30 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
         :json-ld="[siteWebJsonLd(site), entrepriseJsonLd(site)]"
     />
 
-    <!-- Hero -->
+    <!-- En-tête : centré, sans photo (choix de Mélanie) -->
     <section class="relative isolate overflow-hidden">
-        <div class="grid lg:min-h-[calc(100svh-5rem)] lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
-            <div class="relative order-2 flex items-center px-5 py-16 sm:px-12 lg:order-1 lg:py-20">
-                <Fleur variante="gypsophile" class="absolute -top-8 -left-12 -z-10 w-44 opacity-80 sm:w-60" />
-                <div class="mx-auto max-w-lg text-center lg:text-left">
-                    <p class="inline-flex items-center gap-2 rounded-full border border-or-300 bg-creme-50 px-4 py-1.5 text-sm text-cacao-700">
-                        <Icone nom="localisation" class="size-4 text-or-500" />
-                        {{ conditions.deplacements }}
-                    </p>
-                    <h1 class="mt-6 text-[2.35rem] leading-[1.1] text-balance sm:text-[3.2rem]">Photographe grossesse, <span class="whitespace-nowrap">nouveau-né</span> et famille à Dijon</h1>
-                    <p class="texte-courant mt-6 text-balance">
-                        Des photos douces et naturelles, prises à votre rythme, pour garder une trace des moments qui passent trop vite.
-                    </p>
-                    <p class="mt-7">
-                        <span class="manuscrit relative isolate inline-block px-6 pt-3 pb-1 text-[1.95rem] sm:text-[2.5rem]">
-                            <Pinceau class="text-poudre-200" />
-                            Des souvenirs vrais, remplis d’émotions
-                        </span>
-                    </p>
-                    <div class="mt-10 flex flex-wrap justify-center gap-4 lg:justify-start">
-                        <Bouton :href="route('a-propos')">Découvrir mon univers</Bouton>
-                        <Bouton :href="route('contact')" variante="contour">Parler de votre projet</Bouton>
-                    </div>
+        <Fleur variante="gypsophile" class="absolute -top-8 -left-12 -z-10 w-44 opacity-80 sm:w-60" />
+        <div class="conteneur pt-16 pb-8 text-center sm:pt-24 sm:pb-10 lg:pt-28 lg:pb-12">
+            <div class="mx-auto max-w-3xl">
+                <p class="inline-flex items-center gap-2 rounded-full border border-or-300 bg-creme-50 px-4 py-1.5 text-sm text-cacao-700">
+                    <Icone nom="localisation" class="size-4 text-or-500" />
+                    {{ conditions.deplacements }}
+                </p>
+                <h1 class="mt-6 text-[2.35rem] leading-[1.1] text-balance sm:text-[3.2rem]">Photographe grossesse, <span class="whitespace-nowrap">nouveau-né</span> et famille à Dijon</h1>
+                <p class="texte-courant mx-auto mt-6 max-w-xl text-balance">
+                    Des photos douces et naturelles, prises à votre rythme, pour garder une trace des moments qui passent trop vite.
+                </p>
+                <p class="mt-7">
+                    <span class="manuscrit relative isolate inline-block px-6 pt-3 pb-1 text-[1.95rem] sm:text-[2.5rem]">
+                        <Pinceau class="text-poudre-200" />
+                        Des souvenirs vrais, remplis d’émotions
+                    </span>
+                </p>
+                <div class="mt-10 flex flex-wrap justify-center gap-4">
+                    <Bouton :href="route('a-propos')">Découvrir mon univers</Bouton>
+                    <Bouton :href="route('contact')" variante="contour">Parler de votre projet</Bouton>
                 </div>
             </div>
-
-            <Photo
-                :photo="photos.hero"
-                prioritaire
-                sizes="(min-width: 1024px) 58vw, 100vw"
-                libelle="Grande photo d’accueil"
-                class="order-1 aspect-[4/5] sm:aspect-[3/2] lg:order-2 lg:aspect-auto lg:h-full"
-            />
         </div>
     </section>
 

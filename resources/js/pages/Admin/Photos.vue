@@ -44,13 +44,6 @@ const legende = (seance) => [
 // Photos du site : une par emplacement, avec la photo de séance qui la remplace tant qu'elle manque.
 const emplacementsSite = computed(() => [
     {
-        cle: 'accueil',
-        titre: 'Grande photo de l’accueil',
-        texte: 'En haut de la page d’accueil, à côté du titre. Paysage ou carré, sujet au centre : elle est recadrée selon l’écran.',
-        format: 'aspect-[3/2]',
-        repli: props.seances.grossesse.length ? 'En attendant, la photo principale grossesse la remplace.' : null,
-    },
-    {
         cle: 'portrait',
         titre: 'Votre portrait',
         texte: 'Sur l’accueil (« Bonjour, moi c’est Mélanie ») et sur la page Mon univers. Format portrait, visage au centre : il est affiché dans une arche.',
@@ -339,10 +332,10 @@ const dialogue = 'm-auto max-h-[92svh] w-[min(44rem,calc(100%-2rem))] overflow-y
             </p>
         </section>
 
-        <!-- Photos du site : accueil, portrait, bon cadeau -->
+        <!-- Photos du site : portrait, bon cadeau -->
         <section id="site" class="mt-14 scroll-mt-6" aria-labelledby="titre-site">
-            <h2 id="titre-site" class="text-[1.6rem] leading-tight">Accueil, portrait et bon cadeau</h2>
-            <ul class="mt-6 grid gap-5 lg:grid-cols-3">
+            <h2 id="titre-site" class="text-[1.6rem] leading-tight">Portrait et bon cadeau</h2>
+            <ul class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 <li
                     v-for="emplacement in emplacementsSite"
                     :id="`emplacement-${emplacement.cle}`"
@@ -356,7 +349,7 @@ const dialogue = 'm-auto max-h-[92svh] w-[min(44rem,calc(100%-2rem))] overflow-y
                         <img
                             :src="emplacements[emplacement.cle].src"
                             :srcset="emplacements[emplacement.cle].srcset"
-                            sizes="(min-width: 1024px) 28vw, 90vw"
+                            sizes="(min-width: 1024px) 28vw, (min-width: 640px) 45vw, 90vw"
                             :width="emplacements[emplacement.cle].largeur"
                             :height="emplacements[emplacement.cle].hauteur"
                             :alt="emplacements[emplacement.cle].alt"
