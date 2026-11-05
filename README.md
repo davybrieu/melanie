@@ -121,7 +121,7 @@ Les photos sont gardées dans la base de données : elles survivent aux déploie
 
 ## Photos
 
-Ajoutez les photos dans l'espace de gestion (rubrique « Photos », voir plus haut) : le site les redimensionne et les convertit en WebP tout seul. Votre portrait est aussi gardé dans `database/photos/portrait.jpg` : une base neuve le reçoit d'office.
+Ajoutez les photos dans l'espace de gestion (rubrique « Photos », voir plus haut) : le site les redimensionne et les convertit en WebP tout seul. Votre portrait est aussi gardé dans `database/photos/portrait.jpg` : une base neuve le reçoit d'office, comme portrait et comme photo d'accueil.
 
 Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter une, convertissez-la d'abord en WebP (qualité 80), puis utilisez le `.webp`. Les exceptions (favicon, icônes, image de partage `og-image.jpg`) sont détaillées dans `CLAUDE.md`.
 

@@ -7,7 +7,8 @@ use Illuminate\Support\Str;
 /**
  * Portrait de Mélanie (database/photos/portrait.jpg, la photo qu'elle a fournie, sans métadonnées) :
  * mis en place dans toute base qui n'a pas de portrait, une base neuve par exemple. Un portrait
- * ajouté dans l'espace de gestion (/admin/photos) n'est jamais remplacé.
+ * ajouté dans l'espace de gestion (/admin/photos) n'est jamais remplacé. Il sert aussi de photo
+ * d'accueil (migration portrait_en_photo_accueil).
  */
 return new class extends Migration
 {
