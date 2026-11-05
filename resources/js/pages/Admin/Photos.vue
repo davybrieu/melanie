@@ -28,16 +28,13 @@ const listeSeances = ['grossesse', 'nouveau-ne', 'famille'].map((cle) => ({ cle,
 // Rôle d'une photo de séance selon son rang (PageController : page séance, accueil, tarifs, portfolio).
 function role(index) {
     if (index === 0) return { libelle: 'Photo principale', classes: 'bg-cacao-800 text-creme-50' };
-    if (index <= 2) return { libelle: 'Grande photo', classes: 'bg-poudre-200 text-cacao-800' };
-    if (index <= 11) return { libelle: 'Galerie', classes: 'bg-creme-200 text-cacao-800' };
 
-    return { libelle: 'Portfolio', classes: 'border border-creme-300 text-cacao-700' };
+    return { libelle: 'Galerie', classes: 'bg-creme-200 text-cacao-800' };
 }
 
 const legende = (seance) => [
     { titre: 'Photo principale (1re)', texte: `en haut de la page ${seance.nom}, sur l’accueil, en couverture du portfolio et sur la page Tarifs. Format portrait, sujet au centre : elle est affichée dans une arche.` },
-    { titre: 'Grandes photos (2e et 3e)', texte: `en grand sur la page ${seance.nom} et dans la mosaïque de l’accueil. Format portrait.` },
-    { titre: 'Galerie (4e à 12e)', texte: `galerie de la page ${seance.nom}, tous formats.` },
+    { titre: 'Galerie (2e et suivantes)', texte: `galerie de la page ${seance.nom}, autant de photos que vous voulez, tous formats. Les deux premières passent aussi dans l’aperçu du portfolio de l’accueil.` },
     { titre: 'Toutes', texte: `portfolio ${seance.nom.toLowerCase()}, dans cet ordre.` },
 ];
 
@@ -71,10 +68,8 @@ const aCompleter = computed(() => {
 
         if (nombre === 0) {
             liste.push({ ancre, texte: `${seance.nom} : aucune photo. La page ${seance.nom}, son portfolio, l’accueil et les tarifs affichent des emplacements vides.` });
-        } else if (nombre < 3) {
-            liste.push({ ancre, texte: `${seance.nom} : ${nombre === 2 ? 'il manque une grande photo' : 'il manque les deux grandes photos'} (page ${seance.nom} et mosaïque de l’accueil).` });
-        } else if (nombre === 3) {
-            liste.push({ ancre, texte: `${seance.nom} : la galerie de la page ${seance.nom} est vide (jusqu’à 9 photos).` });
+        } else if (nombre === 1) {
+            liste.push({ ancre, texte: `${seance.nom} : la galerie de la page ${seance.nom} est vide.` });
         }
     }
 
@@ -494,11 +489,11 @@ const dialogue = 'm-auto max-h-[92svh] w-[min(44rem,calc(100%-2rem))] overflow-y
                     </div>
                 </li>
 
-                <!-- Photo principale et grandes photos manquantes : la prochaine photo ajoutée prend la première place libre -->
-                <li v-for="rang in Math.max(0, 3 - seances[seance.cle].length)" :key="`vide-${rang}`">
+                <!-- Ajout à la suite : la photo principale si elle manque, sinon la galerie (sans limite) -->
+                <li>
                     <button type="button" class="h-full min-h-40" :class="tuileVide" @click="choisir(seance.cle, null, seance.nom)">
                         <Icone nom="plus" class="size-6 text-or-500" />
-                        <span class="text-[0.72rem] tracking-[0.2em] uppercase">{{ role(seances[seance.cle].length + rang - 1).libelle }} à ajouter</span>
+                        <span class="text-[0.72rem] tracking-[0.2em] uppercase">{{ seances[seance.cle].length ? 'Ajouter à la galerie' : 'Photo principale à ajouter' }}</span>
                     </button>
                 </li>
             </ol>

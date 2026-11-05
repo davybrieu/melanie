@@ -6,7 +6,6 @@ import CarteTarif from '../components/CarteTarif.vue';
 import EnTetePage from '../components/EnTetePage.vue';
 import Galerie from '../components/Galerie.vue';
 import Icone from '../components/Icone.vue';
-import Photo from '../components/Photo.vue';
 import SectionFaq from '../components/SectionFaq.vue';
 import Seo from '../components/Seo.vue';
 import TitreSection from '../components/TitreSection.vue';
@@ -16,7 +15,7 @@ import { faqFamille } from '../data/faq';
 import { euros, seances } from '../data/seances';
 import { serviceJsonLd } from '../data/seo';
 
-const props = defineProps({
+defineProps({
     photos: { type: Object, required: true },
 });
 
@@ -29,7 +28,6 @@ const description = `Photographe famille à Dijon et alentours : une séance nat
 // Pas de FAQPage ici : les questions sont balisées une seule fois, sur la page FAQ.
 const jsonLd = computed(() => serviceJsonLd(site.value, route, seance));
 
-const grandes = computed(() => [props.photos.grandes[0] ?? null, props.photos.grandes[1] ?? null]);
 
 const moments = [
     { icone: 'famille', titre: 'La famille au complet', texte: 'Tout le monde réuni, pour la photo que l’on encadre dans le salon.' },
@@ -63,18 +61,14 @@ const moments = [
 
     <!-- L'expérience -->
     <section class="bg-creme-50 py-20 sm:py-28">
-        <div class="conteneur grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-20">
-            <div class="text-center lg:text-left">
-                <TitreSection surtitre="L’expérience" titre="Une séance où les enfants ont le droit d’être des enfants" :centre="false" />
+        <div class="conteneur">
+            <div class="mx-auto max-w-3xl text-center">
+                <TitreSection surtitre="L’expérience" titre="Une séance où les enfants ont le droit d’être des enfants" />
                 <div class="texte-courant mt-8 space-y-4">
                     <p>Oubliez les « Souris ! » et les rangs d’oignons. Pendant une séance famille, personne n’a besoin de rester sage : les enfants courent, sautent dans les flaques, font les pitres… et c’est exactement ce que j’ai envie de photographier.</p>
                     <p>Nous commençons par quelques photos tous ensemble, le temps que chacun prenne ses marques. Puis je vous propose des petits jeux et des moments complices : une course, une histoire chuchotée, un câlin géant. Je vous guide sans rien figer, pour que les émotions restent vraies.</p>
                     <p>Et vous, les parents ? Vous profitez. Pas besoin de gérer la photo : je m’occupe de tout, vous n’avez qu’à être ensemble.</p>
                 </div>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <Photo :photo="grandes[0]" libelle="Grande photo famille" sizes="(min-width: 1024px) 25vw, 50vw" class="aspect-[3/4] rounded-2xl" />
-                <Photo :photo="grandes[1]" libelle="Grande photo famille" sizes="(min-width: 1024px) 25vw, 50vw" class="mt-12 aspect-[3/4] rounded-2xl" />
             </div>
         </div>
     </section>

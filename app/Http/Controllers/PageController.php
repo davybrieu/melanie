@@ -21,6 +21,7 @@ class PageController extends Controller
                     'nouveau-ne' => $this->photos->une('nouveau-ne'),
                     'famille' => $this->photos->une('famille'),
                 ],
+                // Aperçu du portfolio : les deux premières photos de la galerie de chaque séance.
                 'mosaique' => $this->melanger(['grossesse', 'nouveau-ne', 'famille'], 2, 1),
                 'portrait' => $this->photos->nommee('portrait'),
             ],
@@ -125,15 +126,15 @@ class PageController extends Controller
     }
 
     /**
-     * Pages « photographe-{séance}-dijon » : la 1re photo du dossier sert de photo principale.
+     * Pages « photographe-{séance}-dijon » : la 1re photo du dossier sert de photo principale, toutes
+     * les suivantes forment la galerie, sans limite.
      */
     private function seance(string $page, string $dossier): Response
     {
         return Inertia::render($page, [
             'photos' => [
                 'hero' => $this->photos->une($dossier),
-                'grandes' => $this->photos->dossier($dossier, 2, 1),
-                'galerie' => $this->photos->dossier($dossier, 9, 3),
+                'galerie' => $this->photos->dossier($dossier, null, 1),
             ],
         ]);
     }

@@ -62,8 +62,7 @@ Ajouter un type de séance, c'est modifier tous ces endroits.
 
 **Photos** (`app/Support/Photos.php`, modèle `App\Models\Photo`, tables `photos` et `photos_originaux`). Mélanie les ajoute dans l'espace de gestion (voir ce paragraphe). Le rôle d'une photo de séance (`dossier` grossesse, nouveau-ne ou famille) dépend de son rang (`position`) :
 - la 1re est la photo principale : haut de la page séance, carte de l'accueil, couverture du portfolio, page tarifs ;
-- les 2e et 3e sont les grandes photos de la page séance et de la mosaïque de l'accueil ;
-- les 4e à 12e forment la galerie de la page séance ;
+- toutes les suivantes forment la galerie de la page séance, sans limite (Mélanie a supprimé les « grandes photos » en novembre 2026) ; les deux premières de la galerie passent aussi dans l'aperçu du portfolio de l'accueil (`mosaique`) ;
 - toutes sont dans le portfolio.
 
 Une photo du site (`dossier` site) a un `emplacement` : `portrait` ou `bon-cadeau` (à défaut, la 2e photo famille). L'accueil n'a pas de grande photo : à la demande de Mélanie (novembre 2026), son en-tête est centré, sans image.
