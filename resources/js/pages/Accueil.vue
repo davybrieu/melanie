@@ -71,26 +71,26 @@ const mosaique = computed(() => (props.photos.mosaique.length ? props.photos.mos
         :json-ld="[siteWebJsonLd(site), entrepriseJsonLd(site)]"
     />
 
-    <!-- En-tête : centré, sans photo (choix de Mélanie) -->
+    <!-- En-tête : centré, sans photo (choix de Mélanie) ; sur ordinateur, plus grand, il occupe le premier écran -->
     <section class="relative isolate overflow-hidden">
         <Fleur variante="gypsophile" class="absolute -top-8 -left-12 -z-10 w-44 opacity-80 sm:w-60" />
-        <div class="conteneur pt-16 pb-8 text-center sm:pt-24 sm:pb-10 lg:pt-28 lg:pb-12">
-            <div class="mx-auto max-w-3xl">
-                <p class="inline-flex items-center gap-2 rounded-full border border-or-300 bg-creme-50 px-4 py-1.5 text-sm text-cacao-700">
+        <div class="conteneur pt-16 pb-8 text-center sm:pt-24 sm:pb-10 lg:flex lg:min-h-[calc(100svh-5rem)] lg:flex-col lg:justify-center lg:py-16">
+            <div class="mx-auto max-w-3xl lg:max-w-5xl">
+                <p class="inline-flex items-center gap-2 rounded-full border border-or-300 bg-creme-50 px-4 py-1.5 text-sm text-cacao-700 lg:px-5 lg:py-2 lg:text-[0.95rem]">
                     <Icone nom="localisation" class="size-4 text-or-500" />
                     {{ conditions.deplacements }}
                 </p>
-                <h1 class="mt-6 text-[2.35rem] leading-[1.1] text-balance sm:text-[3.2rem]">Photographe grossesse, <span class="whitespace-nowrap">nouveau-né</span> et famille à Dijon</h1>
-                <p class="texte-courant mx-auto mt-6 max-w-xl text-balance">
+                <h1 class="mt-6 text-[2.35rem] leading-[1.1] text-balance sm:text-[3.2rem] lg:mt-8 lg:text-[4.25rem] lg:leading-[1.05] xl:text-[4.5rem]">Photographe grossesse, <span class="whitespace-nowrap">nouveau-né</span> et famille à Dijon</h1>
+                <p class="texte-courant mx-auto mt-6 max-w-xl text-balance lg:mt-8 lg:max-w-2xl lg:text-[1.25rem]">
                     Des photos douces et naturelles, prises à votre rythme, pour garder une trace des moments qui passent trop vite.
                 </p>
-                <p class="mt-7">
-                    <span class="manuscrit relative isolate inline-block px-6 pt-3 pb-1 text-[1.95rem] sm:text-[2.5rem]">
+                <p class="mt-7 lg:mt-9">
+                    <span class="manuscrit relative isolate inline-block px-6 pt-3 pb-1 text-[1.95rem] sm:text-[2.5rem] lg:text-[3.1rem]">
                         <Pinceau class="text-poudre-200" />
                         Des souvenirs vrais, remplis d’émotions
                     </span>
                 </p>
-                <div class="mt-10 flex flex-wrap justify-center gap-4">
+                <div class="mt-10 flex flex-wrap justify-center gap-4 lg:mt-12">
                     <Bouton :href="route('a-propos')">Découvrir mon univers</Bouton>
                     <Bouton :href="route('contact')" variante="contour">Parler de votre projet</Bouton>
                 </div>
