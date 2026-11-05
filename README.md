@@ -35,7 +35,7 @@ php artisan inertia:start-ssr # serveur SSR Node sur 127.0.0.1:13728, à garder 
 php artisan avis:actualiser   # note et avis de la fiche Google (planifié chaque matin)
 ```
 
-Dans le `.env` de production : `APP_URL=https://www.melanie-photographie.fr` (URL canoniques et sitemap), `APP_ENV=production`, `APP_DEBUG=false`, la base de données du serveur (`DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`) et la configuration SMTP (`MAIL_*`) pour recevoir les demandes de contact. Ne gardez pas les valeurs de `.env.example` : avec `DB_CONNECTION=sqlite`, la base est recréée vide à chaque déploiement (photos, avis et bons cadeaux perdus), et avec `MAIL_MAILER=log`, les demandes de contact ne sont pas envoyées.
+Dans le `.env` de production : `APP_URL=https://www.melanie-photographie.fr` (URL canoniques et sitemap), `APP_ENV=production`, `APP_DEBUG=false`, la base de données du serveur (`DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`) et l'envoi des e-mails par Resend (`MAIL_MAILER=resend`, `RESEND_API_KEY`) pour recevoir les demandes de contact : le serveur Laravel VPS bloque les ports SMTP (25, 465, 587). Ne gardez pas les valeurs de `.env.example` : avec `DB_CONNECTION=sqlite`, la base est recréée vide à chaque déploiement (photos, avis et bons cadeaux perdus), et avec `MAIL_MAILER=log`, les demandes de contact ne sont pas envoyées.
 
 En production, `melanie-photographie.fr` redirige (301) vers `www.melanie-photographie.fr`. Les deux domaines doivent pointer vers le serveur (DNS) et être couverts par le certificat SSL. Côté Nginx, `www.melanie-photographie.fr` doit servir le site : aucune redirection de www vers le domaine sans www (réglage par défaut de certains panneaux d'hébergement), sinon les deux redirections tournent en boucle. Les fichiers statiques (images, `sitemap.xml`…) sont servis directement par le serveur web, sans passer par Laravel : pour les rediriger aussi, ajoutez la même règle dans la configuration du serveur.
 
@@ -149,7 +149,7 @@ Les autres images du site (logos, décors) sont aussi en WebP. Pour en ajouter u
 - [ ] Confirmer les moyens de paiement (`resources/js/data/conditions.js`).
 - [ ] Ajouter les photos dans l'espace de gestion (rubrique « Photos »).
 - [ ] Relire et personnaliser la page « Mon univers » (`resources/js/pages/APropos.vue`).
-- [ ] Créer la boîte `contact@melanie-photographie.fr` chez OVH, avec une redirection vers la boîte personnelle, et renseigner l'envoi d'e-mails (`MAIL_*`, SMTP d'OVH).
+- [ ] Créer la boîte `contact@melanie-photographie.fr` chez OVH, avec une redirection vers la boîte personnelle, et configurer l'envoi par Resend : compte sur resend.com, domaine `melanie-photographie.fr` ajouté (région Irlande, eu-west-1) et vérifié par les enregistrements DNS que Resend indique (à créer chez Cloudflare, sans le proxy orange), clé API (accès « Sending » à ce domaine), puis dans Forge `MAIL_MAILER=resend` et `RESEND_API_KEY`.
 - [ ] Avis Google : suivre la section « Avis Google » (accès à l'API, jeton d'actualisation, Forge).
 - [ ] Espace de gestion : renseigner `ADMIN_EMAIL` et `ADMIN_MOT_DE_PASSE` dans Forge (section « Espace de gestion »).
 

@@ -17,7 +17,7 @@ const route = inject('route');
     <PageLegale
         titre="Politique de confidentialité"
         description="Comment Mélanie Photographie, à Dijon, collecte, utilise et protège vos données personnelles, et comment exercer vos droits."
-        mise-a-jour="octobre 2026"
+        mise-a-jour="novembre 2026"
     >
         <p>
             Vos photos et vos informations sont précieuses : je les traite avec le même soin que vos souvenirs. Cette page explique quelles données je collecte, pourquoi, et
@@ -75,6 +75,12 @@ const route = inject('route');
         <p>
             Moi seule. Mes prestataires techniques (hébergement et protection du site, messagerie, protection du formulaire, mesure d’audience) n’y accèdent que pour assurer leur service. Vos données ne sont
             jamais vendues ni cédées.
+        </p>
+        <p>
+            Les demandes envoyées par le formulaire de contact me parviennent par e-mail. Leur envoi est assuré par Resend, un service de Resend, Inc., qui conserve une copie de
+            chaque e-mail pendant 30 jours, puis l’efface. Resend, Inc. est une société américaine : le transfert de données vers les États-Unis est encadré par sa participation au
+            Data Privacy Framework UE–États-Unis et par les clauses contractuelles types de la Commission européenne. Pour en savoir plus, consultez la
+            <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener">politique de confidentialité de Resend</a>.
         </p>
 
         <h2>Combien de temps sont-elles conservées ?</h2>

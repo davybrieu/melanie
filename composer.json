@@ -9,6 +9,7 @@
         "php": "^8.3",
         "inertiajs/inertia-laravel": "^3.4",
         "laravel/framework": "^13.17",
+        "resend/resend-php": "^1.18",
         "tightenco/ziggy": "^2.6"
     },
     "require-dev": {
