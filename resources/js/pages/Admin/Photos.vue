@@ -56,26 +56,6 @@ const emplacementsSite = computed(() => [
     },
 ]);
 
-// Pages où il manque des photos (elles y affichent des emplacements vides).
-const aCompleter = computed(() => {
-    const liste = emplacementsSite.value
-        .filter((emplacement) => !props.emplacements[emplacement.cle] && !emplacement.repli)
-        .map((emplacement) => ({ ancre: `emplacement-${emplacement.cle}`, texte: `${emplacement.titre} : aucune photo.` }));
-
-    for (const seance of listeSeances) {
-        const nombre = props.seances[seance.cle].length;
-        const ancre = `seance-${seance.cle}`;
-
-        if (nombre === 0) {
-            liste.push({ ancre, texte: `${seance.nom} : aucune photo. La page ${seance.nom}, son portfolio, l’accueil et les tarifs affichent des emplacements vides.` });
-        } else if (nombre === 1) {
-            liste.push({ ancre, texte: `${seance.nom} : la galerie de la page ${seance.nom} est vide.` });
-        }
-    }
-
-    return liste;
-});
-
 // Textes alternatifs identiques : chaque photo doit avoir le sien.
 const normaliser = (texte) =>
     texte
@@ -306,26 +286,10 @@ const dialogue = 'm-auto max-h-[92svh] w-[min(44rem,calc(100%-2rem))] overflow-y
             crée lui-même les versions optimisées pour chaque écran (WebP, plusieurs tailles), sans les données de localisation de votre téléphone.
         </p>
 
-        <!-- Pages où il manque des photos -->
-        <section
-            class="mt-8 rounded-2xl border p-5 sm:p-6"
-            :class="aCompleter.length || enDouble.size ? 'border-or-400 bg-creme-50' : 'border-creme-300 bg-creme-50'"
-            aria-labelledby="titre-a-completer"
-        >
-            <h2 id="titre-a-completer" class="flex items-center gap-3 text-xl leading-snug">
-                <Icone :nom="aCompleter.length ? 'image' : 'check'" class="size-6 shrink-0 text-or-500" />
-                {{ aCompleter.length ? 'Pages où il manque des photos' : 'Toutes les pages ont leurs photos' }}
-            </h2>
-            <ul v-if="aCompleter.length" class="mt-4 space-y-2 text-[0.95rem]">
-                <li v-for="manque in aCompleter" :key="manque.ancre + manque.texte" class="flex gap-2">
-                    <span class="text-or-500" aria-hidden="true">•</span>
-                    <a :href="`#${manque.ancre}`" :class="lien">{{ manque.texte }}</a>
-                </li>
-            </ul>
-            <p v-if="enDouble.size" class="mt-4 text-[0.95rem] text-cacao-700">
-                Certaines photos ont le même texte alternatif qu’une autre (signalées en rouge) : décrivez chacune à sa façon.
-            </p>
-        </section>
+        <!-- Textes alternatifs identiques : chaque photo doit avoir le sien -->
+        <p v-if="enDouble.size" class="mt-8 rounded-2xl border border-or-400 bg-creme-50 p-5 text-[0.95rem] text-cacao-700 sm:p-6">
+            Certaines photos ont le même texte alternatif qu’une autre (signalées en rouge) : décrivez chacune à sa façon.
+        </p>
 
         <!-- Photos du site : portrait, bon cadeau -->
         <section id="site" class="mt-14 scroll-mt-6" aria-labelledby="titre-site">
