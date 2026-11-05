@@ -10,6 +10,9 @@ use Inertia\Response;
 
 class PageController extends Controller
 {
+    /** Photos de la galerie d'une page séance, après la photo principale ; les autres sont dans le portfolio. */
+    public const PHOTOS_GALERIE = 8;
+
     public function __construct(private Photos $photos) {}
 
     public function accueil(): Response
@@ -126,15 +129,19 @@ class PageController extends Controller
     }
 
     /**
-     * Pages « photographe-{séance}-dijon » : la 1re photo du dossier sert de photo principale, toutes
-     * les suivantes forment la galerie, sans limite.
+     * Pages « photographe-{séance}-dijon » : la 1re photo du dossier sert de photo principale, les
+     * 8 suivantes forment la galerie ; les autres ne sont que dans le portfolio de la séance, vers
+     * lequel un bouton invite (« Et encore N photos… »).
      */
     private function seance(string $page, string $dossier): Response
     {
+        $photos = $this->photos->dossier($dossier);
+
         return Inertia::render($page, [
             'photos' => [
-                'hero' => $this->photos->une($dossier),
-                'galerie' => $this->photos->dossier($dossier, null, 1),
+                'hero' => $photos[0] ?? null,
+                'galerie' => array_slice($photos, 1, self::PHOTOS_GALERIE),
+                'autres' => max(0, count($photos) - 1 - self::PHOTOS_GALERIE),
             ],
         ]);
     }

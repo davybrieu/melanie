@@ -8,6 +8,7 @@ import Etapes from '../components/Etapes.vue';
 import Fleur from '../components/Fleur.vue';
 import Galerie from '../components/Galerie.vue';
 import Icone from '../components/Icone.vue';
+import PlusDePhotos from '../components/PlusDePhotos.vue';
 import SectionFaq from '../components/SectionFaq.vue';
 import Seo from '../components/Seo.vue';
 import TitreSection from '../components/TitreSection.vue';
@@ -165,9 +166,7 @@ const moments = ['Bébé paisiblement endormi', 'Blotti dans vos bras', 'Ses min
             <div class="mt-12">
                 <Galerie :photos="photos.galerie" libelle="Photo nouveau-né" />
             </div>
-            <p class="mt-10 text-center">
-                <Bouton :href="route('portfolio.categorie', { categorie: 'nouveau-ne' })" variante="contour">Voir le portfolio nouveau-né</Bouton>
-            </p>
+            <PlusDePhotos categorie="nouveau-ne" nom="nouveau-né" :autres="photos.autres" />
         </div>
     </section>
 

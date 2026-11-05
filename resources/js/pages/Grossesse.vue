@@ -7,6 +7,7 @@ import EnTetePage from '../components/EnTetePage.vue';
 import Etapes from '../components/Etapes.vue';
 import Galerie from '../components/Galerie.vue';
 import Icone from '../components/Icone.vue';
+import PlusDePhotos from '../components/PlusDePhotos.vue';
 import SectionFaq from '../components/SectionFaq.vue';
 import Seo from '../components/Seo.vue';
 import TitreSection from '../components/TitreSection.vue';
@@ -126,9 +127,7 @@ const infos = [
             <div class="mt-12">
                 <Galerie :photos="photos.galerie" libelle="Photo grossesse" />
             </div>
-            <p class="mt-10 text-center">
-                <Bouton :href="route('portfolio.categorie', { categorie: 'grossesse' })" variante="contour">Voir le portfolio grossesse</Bouton>
-            </p>
+            <PlusDePhotos categorie="grossesse" nom="grossesse" :autres="photos.autres" />
         </div>
     </section>
 

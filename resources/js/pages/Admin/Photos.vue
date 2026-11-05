@@ -26,15 +26,20 @@ const page = usePage();
 const listeSeances = ['grossesse', 'nouveau-ne', 'famille'].map((cle) => ({ cle, nom: donneesSeances[cle].nom, route: donneesSeances[cle].route }));
 
 // Rôle d'une photo de séance selon son rang (PageController : page séance, accueil, tarifs, portfolio).
+// Galerie d'une page séance : les 8 photos qui suivent la principale (PageController::PHOTOS_GALERIE).
+const PHOTOS_GALERIE = 8;
+
 function role(index) {
     if (index === 0) return { libelle: 'Photo principale', classes: 'bg-cacao-800 text-creme-50' };
+    if (index <= PHOTOS_GALERIE) return { libelle: 'Galerie', classes: 'bg-creme-200 text-cacao-800' };
 
-    return { libelle: 'Galerie', classes: 'bg-creme-200 text-cacao-800' };
+    return { libelle: 'Portfolio', classes: 'border border-creme-300 text-cacao-700' };
 }
 
 const legende = (seance) => [
     { titre: 'Photo principale (1re)', texte: `en haut de la page ${seance.nom}, sur l’accueil, en couverture du portfolio et sur la page Tarifs. Format portrait, sujet au centre : elle est affichée dans une arche.` },
-    { titre: 'Galerie (2e et suivantes)', texte: `galerie de la page ${seance.nom}, autant de photos que vous voulez, tous formats. Les deux premières passent aussi dans l’aperçu du portfolio de l’accueil.` },
+    { titre: `Galerie (2e à ${PHOTOS_GALERIE + 1}e)`, texte: `galerie de la page ${seance.nom}, tous formats. Les deux premières passent aussi dans l’aperçu du portfolio de l’accueil.` },
+    { titre: `Portfolio (${PHOTOS_GALERIE + 2}e et suivantes)`, texte: `autant que vous voulez, seulement dans le portfolio ${seance.nom.toLowerCase()} : un bouton sous la galerie invite à les découvrir.` },
     { titre: 'Toutes', texte: `portfolio ${seance.nom.toLowerCase()}, dans cet ordre.` },
 ];
 
@@ -453,11 +458,11 @@ const dialogue = 'm-auto max-h-[92svh] w-[min(44rem,calc(100%-2rem))] overflow-y
                     </div>
                 </li>
 
-                <!-- Ajout à la suite : la photo principale si elle manque, sinon la galerie (sans limite) -->
+                <!-- Ajout à la suite : la photo principale si elle manque, puis la galerie, puis le portfolio (sans limite) -->
                 <li>
                     <button type="button" class="h-full min-h-40" :class="tuileVide" @click="choisir(seance.cle, null, seance.nom)">
                         <Icone nom="plus" class="size-6 text-or-500" />
-                        <span class="text-[0.72rem] tracking-[0.2em] uppercase">{{ seances[seance.cle].length ? 'Ajouter à la galerie' : 'Photo principale à ajouter' }}</span>
+                        <span class="text-[0.72rem] tracking-[0.2em] uppercase">{{ !seances[seance.cle].length ? 'Photo principale à ajouter' : seances[seance.cle].length <= PHOTOS_GALERIE ? 'Ajouter à la galerie' : 'Ajouter au portfolio' }}</span>
                     </button>
                 </li>
             </ol>
