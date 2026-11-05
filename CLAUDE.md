@@ -62,8 +62,7 @@ Ajouter un type de séance, c'est modifier tous ces endroits.
 
 **Photos** (`app/Support/Photos.php`, modèle `App\Models\Photo`, tables `photos` et `photos_originaux`). Mélanie les ajoute dans l'espace de gestion (voir ce paragraphe). Le rôle d'une photo de séance (`dossier` grossesse, nouveau-ne ou famille) dépend de son rang (`position`) :
 - la 1re est la photo principale : haut de la page séance, carte de l'accueil, couverture du portfolio, page tarifs ;
-- les 2e et 3e sont les grandes photos de la page séance et de la mosaïque de l'accueil ;
-- les 4e à 12e forment la galerie de la page séance ;
+- toutes les suivantes forment la galerie de la page séance, sans limite (Mélanie a supprimé les « grandes photos » en novembre 2026) ; les deux premières de la galerie passent aussi dans l'aperçu du portfolio de l'accueil (`mosaique`) ;
 - toutes sont dans le portfolio.
 
 Une photo du site (`dossier` site) a un `emplacement` : `portrait` ou `bon-cadeau` (à défaut, la 2e photo famille). L'accueil n'a pas de grande photo : à la demande de Mélanie (novembre 2026), son en-tête est centré, sans image.
@@ -100,7 +99,7 @@ Elle se lance à chaque déploiement ; ces deux fichiers ne sont pas versionnés
 **Espace de gestion** (`/admin`). Trois rubriques, bons cadeaux, avis Google et photos, liées dans l'en-tête de `AdminLayout.vue` ; sous `md`, elles passent dans un menu burger, déroulé sous l'en-tête, qui se ferme au changement de page, sur Échap et au clic à côté.
 - Accès : une seule personne, avec `ADMIN_EMAIL` et `ADMIN_MOT_DE_PASSE` (`config/admin.php`, `App\Support\Admin` ; mot de passe en clair ou empreinte bcrypt). Sans eux, toutes les adresses `/admin…` répondent 404 (middleware `EspaceAdmin`). La session garde un jeton tiré des identifiants : les changer déconnecte tout le monde. Connexion limitée à 5 essais par minute. Une action envoyée après l'expiration de la session ramène à la connexion, avec le flash `sessionExpiree`. Pages jamais indexées (`noindex` dans `AdminLayout.vue` et en-tête `X-Robots-Tag`), absentes du sitemap ; leurs routes étant exclues de Ziggy, les pages `Admin/*` écrivent leurs adresses en dur.
 - Avis Google (`/admin/avis`, `Admin\AvisGoogleController`) : les avis gardés, les plus récents d'abord, avec un interrupteur « Afficher sur le site » par avis (`role="switch"`). L'interrupteur change d'état sans attendre la réponse du serveur (option `optimistic` d'Inertia, annulée si l'enregistrement échoue).
-- Photos (`/admin/photos`, `Admin\PhotosController`, `PhotoRequest`, `resources/js/admin/photos.js`) : d'abord les pages où il manque des photos, puis les deux photos du site, puis les photos de chaque séance dans l'ordre, avec leur rôle.
+- Photos (`/admin/photos`, `Admin\PhotosController`, `PhotoRequest`, `resources/js/admin/photos.js`) : les deux photos du site, puis les photos de chaque séance dans l'ordre, avec leur rôle (Mélanie a fait retirer la liste des pages où il manque des photos ; seul reste, au besoin, l'avertissement sur les textes alternatifs en double).
   - Texte alternatif obligatoire (10 à 125 caractères) : proposé d'après le nom du fichier s'il est parlant (pas « IMG_1234 »), modifiable, et signalé s'il est identique à celui d'une autre photo.
   - Le navigateur réduit chaque photo avant l'envoi : 2400 px au plus, en JPEG, sous la limite d'envoi de PHP (`UploadedFile::getMaxFilesize()`, souvent 2 Mo). La photo est redessinée : aucune métadonnée (position GPS, appareil) n'est envoyée. Une photo par requête ; le serveur refuse une photo de moins de 1000 px sur le grand côté (`Photos::COTE_MINIMUM`) et applique l'orientation EXIF d'une photo envoyée sans réduction.
   - Ordre : flèches et « En faire la photo principale ». Une photo du site ajoutée remplace la précédente.

@@ -8,7 +8,6 @@ import Etapes from '../components/Etapes.vue';
 import Fleur from '../components/Fleur.vue';
 import Galerie from '../components/Galerie.vue';
 import Icone from '../components/Icone.vue';
-import Photo from '../components/Photo.vue';
 import SectionFaq from '../components/SectionFaq.vue';
 import Seo from '../components/Seo.vue';
 import TitreSection from '../components/TitreSection.vue';
@@ -19,7 +18,7 @@ import { parcours } from '../data/parcours';
 import { euros, photosIncluses, seances } from '../data/seances';
 import { serviceJsonLd } from '../data/seo';
 
-const props = defineProps({
+defineProps({
     photos: { type: Object, required: true },
 });
 
@@ -33,7 +32,6 @@ const description = `Photographe naissance et nouveau-né à Dijon, formée et v
 // Pas de FAQPage ici : les questions sont balisées une seule fois, sur la page FAQ.
 const jsonLd = computed(() => serviceJsonLd(site.value, route, seance));
 
-const grandes = computed(() => [props.photos.grandes[0] ?? null, props.photos.grandes[1] ?? null]);
 
 // Ce qui permet à Mélanie de prendre soin de bébé : faits confirmés par elle (data/parcours.js).
 const atouts = [
@@ -132,15 +130,11 @@ const moments = ['Bébé paisiblement endormi', 'Blotti dans vos bras', 'Ses min
         </div>
     </section>
 
-    <!-- Ce que je photographie + grandes photos -->
+    <!-- Ce que je photographie -->
     <section class="bg-creme-200/60 py-20 sm:py-28">
-        <div class="conteneur grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
-            <div class="grid grid-cols-2 gap-4">
-                <Photo :photo="grandes[0]" libelle="Grande photo nouveau-né" sizes="(min-width: 1024px) 25vw, 50vw" class="aspect-[3/4] rounded-t-full" />
-                <Photo :photo="grandes[1]" libelle="Grande photo nouveau-né" sizes="(min-width: 1024px) 25vw, 50vw" class="mt-12 aspect-[3/4] rounded-b-full" />
-            </div>
-            <div class="text-center lg:text-left">
-                <TitreSection surtitre="Vos souvenirs" titre="Ce que nous allons garder pour toujours" :centre="false" class="text-center lg:text-left" />
+        <div class="conteneur">
+            <div class="mx-auto max-w-2xl">
+                <TitreSection surtitre="Vos souvenirs" titre="Ce que nous allons garder pour toujours" />
                 <ul class="mt-8 space-y-3 text-left">
                     <li v-for="moment in moments" :key="moment" class="flex items-center gap-4 border-b border-creme-300 pb-3 text-[1.02rem] text-cacao-700">
                         <Icone nom="coeur" class="size-4 shrink-0 fill-poudre-300 text-poudre-400" />

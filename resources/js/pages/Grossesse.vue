@@ -7,7 +7,6 @@ import EnTetePage from '../components/EnTetePage.vue';
 import Etapes from '../components/Etapes.vue';
 import Galerie from '../components/Galerie.vue';
 import Icone from '../components/Icone.vue';
-import Photo from '../components/Photo.vue';
 import SectionFaq from '../components/SectionFaq.vue';
 import Seo from '../components/Seo.vue';
 import TitreSection from '../components/TitreSection.vue';
@@ -17,7 +16,7 @@ import { faqGrossesse } from '../data/faq';
 import { euros, photosIncluses, seances } from '../data/seances';
 import { serviceJsonLd } from '../data/seo';
 
-const props = defineProps({
+defineProps({
     photos: { type: Object, required: true },
 });
 
@@ -30,7 +29,6 @@ const description = `Photographe grossesse à Dijon et alentours : une séance p
 // Pas de FAQPage ici : les questions sont balisées une seule fois, sur la page FAQ.
 const jsonLd = computed(() => serviceJsonLd(site.value, route, seance));
 
-const grandes = computed(() => [props.photos.grandes[0] ?? null, props.photos.grandes[1] ?? null]);
 
 const etapes = [
     { titre: 'On fait connaissance', texte: 'Par message ou au téléphone, nous parlons de vos envies, du lieu, des tenues et de la date idéale.' },
@@ -67,7 +65,7 @@ const infos = [
         </div>
     </EnTetePage>
 
-    <!-- Approche + grandes photos -->
+    <!-- Approche -->
     <section class="bg-creme-50 py-20 sm:py-28">
         <div class="conteneur">
             <div class="mx-auto max-w-3xl text-center">
@@ -76,10 +74,6 @@ const infos = [
                     Une séance photo grossesse, ce n’est pas une série de poses figées. C’est un moment pour vous : prendre le temps, vous sentir belle, célébrer ce corps qui porte la vie. Je vous guide avec douceur et je laisse la place aux gestes tendres, aux regards, aux rires, dans une lumière qui sublime votre ventre rond.
                 </p>
                 <p class="texte-courant mt-4">Mon souhait : que vous repartiez avec des images qui vous ressemblent, et le souvenir d’un moment agréable.</p>
-            </div>
-            <div class="mt-14 grid gap-4 sm:grid-cols-2 sm:gap-6">
-                <Photo :photo="grandes[0]" libelle="Grande photo grossesse" sizes="(min-width: 640px) 50vw, 100vw" class="aspect-[4/5] rounded-2xl" />
-                <Photo :photo="grandes[1]" libelle="Grande photo grossesse" sizes="(min-width: 640px) 50vw, 100vw" class="aspect-[4/5] rounded-2xl sm:mt-16" />
             </div>
         </div>
     </section>
