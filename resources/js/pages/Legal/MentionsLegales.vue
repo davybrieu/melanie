@@ -62,8 +62,7 @@ const site = useSite();
 
         <h2>Données personnelles et cookies</h2>
         <p>
-            Le traitement de vos données personnelles est détaillé dans la <Link :href="route('confidentialite')">politique de confidentialité</Link>. Ce site n’utilise
-            que des cookies techniques, indispensables à son fonctionnement : aucun cookie publicitaire ni de mesure d’audience n’est déposé.
+            Le traitement de vos données personnelles est détaillé dans la <Link :href="route('confidentialite')">politique de confidentialité</Link>. Le site utilise uniquement des cookies techniques indispensables à son fonctionnement. La mesure d’audience réalisée par Cloudflare Web Analytics ne dépose aucun cookie ; aucun cookie publicitaire n’est utilisé.
         </p>
 
         <h2>Crédits</h2>
