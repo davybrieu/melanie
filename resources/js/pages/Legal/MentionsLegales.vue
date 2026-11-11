@@ -29,7 +29,7 @@ const site = useSite();
             <li>Adresse : 4 rue Maney et Jacques Pérignon, {{ site.code_postal }} {{ site.commune }}</li>
             <li>SIRET : 131 652 927 00016</li>
             <li>
-                TVA : <span class="a-completer">[À confirmer : TVA non applicable, article 293 B du CGI]</span>
+                TVA : TVA non applicable, article 293 B du Code général des impôts (CGI).
             </li>
             <li>E-mail : <a :href="`mailto:${email}`">{{ email }}</a></li>
             <li>
