@@ -21,13 +21,13 @@ const site = useSite();
     >
         <h2>Éditeur du site</h2>
         <p>
-            Le site <strong>melanie-photographie.fr</strong> est édité par <span class="a-completer">[À compléter : prénom et nom]</span>, entrepreneuse individuelle exerçant sous le nom commercial
+            Le site <strong>melanie-photographie.fr</strong> est édité par <span class="a-completer">Mélanie Brieu</span>, entrepreneuse individuelle exerçant sous le nom commercial
             « {{ site.nom }} ».
         </p>
         <ul>
-            <li>Statut : <span class="a-completer">[À compléter : statut, ex. micro-entreprise]</span></li>
-            <li>Adresse : <span class="a-completer">[À compléter : adresse professionnelle]</span>, {{ site.code_postal }} {{ site.commune }}</li>
-            <li>SIRET : <span class="a-completer">[À compléter : numéro SIRET]</span></li>
+            <li>Statut : <span class="a-completer">entrepreneur individuel</span></li>
+            <li>Adresse : <span class="a-completer">4 rue Maney et Jacques Pérignon</span>, {{ site.code_postal }} {{ site.commune }}</li>
+            <li>SIRET : <span class="a-completer">131 652 927 00016</span></li>
             <li>
                 TVA : <span class="a-completer">[À confirmer : TVA non applicable, article 293 B du CGI]</span>
             </li>
@@ -38,7 +38,7 @@ const site = useSite();
                 <span v-else class="a-completer">[À compléter : numéro de téléphone]</span>
             </li>
         </ul>
-        <p>Directrice de la publication : <span class="a-completer">[À compléter : prénom et nom]</span>.</p>
+        <p>Directrice de la publication : <span class="a-completer">Mélanie Brieu</span>.</p>
 
         <h2>Hébergement</h2>
         <p>Le site est hébergé par <strong>Cloudflare, Inc.</strong></p>

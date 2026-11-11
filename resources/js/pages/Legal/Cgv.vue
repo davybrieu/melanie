@@ -19,7 +19,7 @@ const site = useSite();
         <h2>1. Objet</h2>
         <p>
             Les présentes conditions générales de vente (CGV) s’appliquent aux prestations de photographie proposées par {{ site.nom }},
-            <span class="a-completer">[À compléter : prénom et nom, statut, SIRET, adresse]</span>, ci-après « la photographe », à tout client particulier. Toute réservation vaut
+            <span class="a-completer">Mélanie Brieu, entrepreneur individuel, SIRET 131 652 927 00016, 4 rue Maney et Jacques Pérignon, 21300 Chenôve</span>, ci-après « la photographe », à tout client particulier. Toute réservation vaut
             acceptation des présentes CGV.
         </p>
 
