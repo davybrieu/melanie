@@ -60,9 +60,10 @@ const site = useSite();
 
         <h2>6. Droit de rétractation</h2>
         <p>
-            Lorsque la réservation est conclue à distance, le client dispose d’un délai de 14 jours pour exercer son droit de rétractation (article L221-18 du Code de la
-            consommation), sauf si la séance a été réalisée avant la fin de ce délai à sa demande expresse.
-            <span class="a-completer">[À faire valider par un professionnel du droit]</span>
+            Les prestations proposées par Mélanie Photographie comprennent systématiquement la réalisation d’une séance photographique et la création de photographies
+            retouchées et personnalisées à partir de cette séance. Ces photographies sont réalisées selon les spécifications du client et présentent un caractère
+            nettement personnalisé. En conséquence, conformément à l’article L221-28, 3° du Code de la consommation, le droit de rétractation ne peut pas être exercé
+            pour les prestations et photographies personnalisées faisant l’objet des présentes CGV, y compris lorsque la réservation est conclue à distance.
         </p>
 
         <h2>7. Déroulement de la séance</h2>
