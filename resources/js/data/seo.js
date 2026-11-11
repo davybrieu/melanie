@@ -51,6 +51,7 @@ export const entrepriseJsonLd = (site) => ({
     // Ni rue ni coordonnées GPS : l'adresse professionnelle reste à fournir par Mélanie.
     address: {
         '@type': 'PostalAddress',
+        streetAddress: site.adresse,
         addressLocality: site.commune,
         postalCode: site.code_postal,
         addressRegion: site.region,

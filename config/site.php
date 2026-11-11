@@ -43,6 +43,8 @@ return [
 
     'commune' => 'Chenôve',
 
+    'adresse' => '4 rue Maney et Jacques Pérignon',
+
     'code_postal' => '21300',
 
     'departement' => "Côte-d'Or",
