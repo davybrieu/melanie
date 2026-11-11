@@ -106,12 +106,6 @@ const site = useSite();
         <h2>13. Données personnelles</h2>
         <p>Voir la <Link :href="route('confidentialite')">politique de confidentialité</Link>.</p>
 
-        <h2>14. Médiation de la consommation</h2>
-        <p>
-            En cas de litige, le client peut recourir gratuitement à un médiateur de la consommation (article L612-1 du Code de la consommation) :
-            <span class="a-completer">[À compléter : nom et coordonnées du médiateur]</span>.
-        </p>
-
         <h2>15. Droit applicable</h2>
         <p>Les présentes CGV sont soumises au droit français.</p>
     </PageLegale>
