@@ -34,7 +34,7 @@ const site = useSite();
         <p>
             Chaque séance comprend la prise de vue, la retouche et la livraison de {{ photosIncluses }} photos en haute définition ; les séances grossesse et nouveau-né
             comprennent aussi le prêt de tenues. Les prix sont
-            indiqués en euros, TVA non applicable, article 293 B du Code général des impôts (CGI).. Les déplacements sont inclus sur
+            indiqués en euros, TVA non applicable, article 293 B du Code général des impôts (CGI). Les déplacements sont inclus sur
             {{ c.zone }} ; au-delà, un supplément peut être proposé avant la réservation.
         </p>
 
