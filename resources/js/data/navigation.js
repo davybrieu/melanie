@@ -6,4 +6,5 @@ export const navigation = [
     { libelle: 'Mon univers', route: 'a-propos' },
     { libelle: 'Tarifs', route: 'tarifs' },
     { libelle: 'Bon cadeau', route: 'bon-cadeau' },
+    { libelle: 'Avis', route: 'avis' },
 ];

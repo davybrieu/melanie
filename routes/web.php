@@ -1,16 +1,16 @@
 <?php
 
-use App\Http\Controllers\Admin\AvisGoogleController;
-use App\Http\Controllers\Admin\BonCadeauController;
-use App\Http\Controllers\Admin\ConnexionController;
-use App\Http\Controllers\Admin\PhotosController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\PhotoController;
-use App\Http\Controllers\PortfolioController;
-use App\Http\Middleware\EspaceAdmin;
-use App\Support\Photos;
-use Illuminate\Support\Facades\Route;
+use App\\Http\\Controllers\\Admin\\AvisGoogleController;
+use App\\Http\\Controllers\\Admin\\BonCadeauController;
+use App\\Http\\Controllers\\Admin\\ConnexionController;
+use App\\Http\\Controllers\\Admin\\PhotosController;
+use App\\Http\\Controllers\\ContactController;
+use App\\Http\\Controllers\\PageController;
+use App\\Http\\Controllers\\PhotoController;
+use App\\Http\\Controllers\\PortfolioController;
+use App\\Http\\Middleware\\EspaceAdmin;
+use App\\Support\\Photos;
+use Illuminate\\Support\\Facades\\Route;
 
 Route::get('/', [PageController::class, 'accueil'])->name('accueil');
 
@@ -28,6 +28,13 @@ Route::get('/a-propos', [PageController::class, 'aPropos'])->name('a-propos');
 Route::get('/tarifs', [PageController::class, 'tarifs'])->name('tarifs');
 Route::get('/bon-cadeau', [PageController::class, 'bonCadeau'])->name('bon-cadeau');
 Route::get('/faq', [PageController::class, 'faq'])->name('faq');
+
+// Redirection vers le formulaire officiel de rédaction d'un avis Google.
+Route::get('/avis', fn () => redirect()->away(
+    'https://search.google.com/local/writereview?'.http_build_query([
+        'placeid' => config('site.google_place_id'),
+    ])
+))->name('avis');
 
 Route::get('/contact', [ContactController::class, 'create'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:5,1')->name('contact.envoyer');
@@ -62,6 +69,5 @@ Route::prefix('admin')->name('admin.')->middleware(EspaceAdmin::class)->group(fu
     Route::get('/photos', [PhotosController::class, 'index'])->name('photos');
     Route::post('/photos', [PhotosController::class, 'store'])->name('photos.ajouter');
     Route::patch('/photos/{photo}', [PhotosController::class, 'update'])->name('photos.modifier');
-    Route::patch('/photos/{photo}/position', [PhotosController::class, 'deplacer'])->name('photos.deplacer');
     Route::delete('/photos/{photo}', [PhotosController::class, 'destroy'])->name('photos.supprimer');
 });

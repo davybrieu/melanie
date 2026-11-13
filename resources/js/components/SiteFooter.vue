@@ -27,6 +27,7 @@ const colonnes = [
             { libelle: 'Portfolio', route: 'portfolio' },
             { libelle: 'Mon univers', route: 'a-propos' },
             { libelle: 'Questions fréquentes', route: 'faq' },
+            { libelle: 'Laisser un avis Google', route: 'avis' },
             { libelle: 'Contact', route: 'contact' },
         ],
     },

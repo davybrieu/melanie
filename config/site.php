@@ -31,7 +31,7 @@ return [
 
     // Fiche Google (Google Business Profile), désignée par son identifiant de lieu
     // (Place ID). Comme le téléphone, GOOGLE_PLACE_ID le remplace depuis le .env.
-    'google_place_id' => env('GOOGLE_PLACE_ID') ?: 'ChIJT5cm6jVu_0IRPk-l6R7IuVQ',
+    'google_place_id' => env('GOOGLE_PLACE_ID') ?: 'ChIJfZcmOjVu/0IVPk-l7hnIu1Q',
 
     /*
     |--------------------------------------------------------------------------
