@@ -68,6 +68,7 @@ Route::prefix('admin')->name('admin.')->middleware(EspaceAdmin::class)->group(fu
 
     Route::get('/photos', [PhotosController::class, 'index'])->name('photos');
     Route::post('/photos', [PhotosController::class, 'store'])->name('photos.ajouter');
+    Route::patch('/photos/{photo}/position', [PhotosController::class, 'deplacer'])->name('photos.deplacer');
     Route::patch('/photos/{photo}', [PhotosController::class, 'update'])->name('photos.modifier');
     Route::delete('/photos/{photo}', [PhotosController::class, 'destroy'])->name('photos.supprimer');
 });
