@@ -1,16 +1,16 @@
 <?php
 
-use App\\Http\\Controllers\\Admin\\AvisGoogleController;
-use App\\Http\\Controllers\\Admin\\BonCadeauController;
-use App\\Http\\Controllers\\Admin\\ConnexionController;
-use App\\Http\\Controllers\\Admin\\PhotosController;
-use App\\Http\\Controllers\\ContactController;
-use App\\Http\\Controllers\\PageController;
-use App\\Http\\Controllers\\PhotoController;
-use App\\Http\\Controllers\\PortfolioController;
-use App\\Http\\Middleware\\EspaceAdmin;
-use App\\Support\\Photos;
-use Illuminate\\Support\\Facades\\Route;
+use App\Http\Controllers\Admin\AvisGoogleController;
+use App\Http\Controllers\Admin\BonCadeauController;
+use App\Http\Controllers\Admin\ConnexionController;
+use App\Http\Controllers\Admin\PhotosController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\PortfolioController;
+use App\Http\Middleware\EspaceAdmin;
+use App\Support\Photos;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'accueil'])->name('accueil');
 
